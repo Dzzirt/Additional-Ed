@@ -27,9 +27,9 @@ void ReplaceStringInPlace(string& subject, const string& search, const string& r
 int main(int argc, char* argv[])
 {
 	setlocale(LC_ALL, "rus");
-	if (argc < 5)
+	if (argc != 5)
 	{
-		cout << "Not enought parameters to execute program!" << endl;
+		cout << "Need to input only 4 parameters" << endl;
 	}
 	else
 	{

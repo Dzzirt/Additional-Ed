@@ -37,7 +37,6 @@ del big.txt
 @echo.
 @..\Debug\Var4.exe none.txt out.txt 1 2
 @echo.
-@echo.
-@echo none parameters
+@echo parameters != 4
 @echo.
 @..\Debug\Var4.exe
