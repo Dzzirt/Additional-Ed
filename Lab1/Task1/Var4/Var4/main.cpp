@@ -10,7 +10,7 @@
 using namespace std;
 using namespace boost::filesystem;
 
-const uintmax_t MAX_SIZE = 2147483648;
+const uintmax_t MAX_SIZE = 2147483648UL;
 
 // replace.exe <input file> <output file> <search string> <replace string>
 
@@ -24,52 +24,46 @@ void ReplaceStringInPlace(string& subject, const string& search, const string& r
 	}
 }
 
+void ReplaceStringInFile(string inputFileName, string outputFileName, string search, string replace)
+{
+	ifstream in;
+	ofstream out;
+	in.open(inputFileName);
+	if (!in.is_open()) {
+		cout << "Input file does not exist!" << endl;
+	}
+	else if (file_size(inputFileName) == 0) {
+		cout << "Input file is empty!" << endl;
+	}
+	else if (file_size(inputFileName) > MAX_SIZE) {
+		cout << "Size of input file more than 2GB" << endl;
+	}
+	else if (file_size(outputFileName) > MAX_SIZE) {
+		cout << "Size of output file more than 2GB" << endl;
+	}
+	else {
+		out.open(outputFileName);
+		while (!in.eof()) {
+			string current;
+			getline(in, current);
+			ReplaceStringInPlace(current, search, replace);
+			out.write(current.c_str(), current.length());
+			cout << "Done: " + current << endl;
+		}
+		out.close();
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	setlocale(LC_ALL, "rus");
 	if (argc != 5)
 	{
-		cout << "Need to input only 4 parameters" << endl;
+		cout << "Usage:\nreplace.exe <input - file> <output - file> <search - string> <replace - string>\n" << endl;
 	}
 	else
 	{
-		string ifile = argv[1];
-		string ofile = argv[2];
-		string search = argv[3];
-		ifstream in;
-		ofstream out;
-		in.open(ifile);
-		if (!in.is_open())
-		{
-			cout << "Input file does not exist!" << endl;
-		}
-		else if (file_size(ifile) == 0)
-		{
-			cout << "Input file is empty!" << endl;
-		}
-		else if (file_size(ifile) > MAX_SIZE)
-		{
-			cout << "Size of input file more than 2GB" << endl;
-		}
-		else if (file_size(ofile) > MAX_SIZE)
-		{
-			cout << "Size of output file more than 2GB" << endl;
-		}
-		else
-		{
-			out.open(ofile);
-			string replace = argv[4];
-			while (!in.eof())
-			{
-				string current;
-				getline(in, current);
-				ReplaceStringInPlace(current, search, replace);
-				out.write(current.c_str(), current.length());
-				cout << "Done: " + current << endl;
-			}
-			in.close();
-			out.close();
-		}
+		ReplaceStringInFile(argv[1], argv[2], argv[3], argv[4]);
 	}
 
 	return 0;
