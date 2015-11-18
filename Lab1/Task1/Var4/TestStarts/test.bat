@@ -1,43 +1,24 @@
 cls
 @cd %~dp0
-@echo replace.exe 12312312345.txt out.txt 1231234 cool
-@echo.
-@..\Debug\replace.exe 12312312345.txt out.txt 1231234 cool
-@echo.
-@echo.
-@echo replace.exe mama.txt out.txt ma mama
-@echo.
-@..\Debug\replace.exe mama.txt out.txt ma mama
-@echo.
-@echo.
-@echo replace.exe text.txt out.txt быстро 123
-@echo.
-@..\Debug\replace.exe text.txt out.txt быстро 123
-@echo.
-@echo.
-@fsutil file createnew big.txt 3147483648
-@echo.
-@echo replace.exe big.txt out.txt 1 2
-@echo.
-@..\Debug\replace.exe big.txt out.txt 1 2
-@echo.
-@echo.
-@echo replace.exe 12312312345.txt big.txt 1 2
-@echo.
-@..\Debug\replace.exe 12312312345.txt big.txt 1 2
-del big.txt
-@echo.
-@echo.
-@echo replace.exe empty.txt out.txt 1 2
-@echo.
-@..\Debug\replace.exe empty.txt out.txt 1 2
-@echo.
-@echo.
-@echo replace.exe none.txt out.txt 1 2
-@echo.
-@..\Debug\replace.exe none.txt out.txt 1 2
-@echo.
-@echo param count != 4
-@echo.
-@..\Debug\replace.exe
+
+REM run without params
+..\Debug\replace.exe
+@IF NOT ERRORLEVEL 0 GOTO err
+
+REM input file is not exist
+..\Debug\replace.exe asdh output.txt 123 456
+@IF NOT ERRORLEVEL 0 GOTO err
+fc /B output.txt !0.txt
+
+REM mama -> 123
+..\Debug\replace.exe input.txt output.txt mama 123
+@IF NOT ERRORLEVEL 0 GOTO err
+fc /B output.txt true_mama.txt
+@IF NOT ERRORLEVEL 0 GOTO err
+
+@ECHO OK
+@EXIT /b
+
+:err
+@ECHO Failed
 
