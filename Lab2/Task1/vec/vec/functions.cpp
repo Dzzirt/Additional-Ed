@@ -15,9 +15,9 @@ vector<string> GetVectorOfStrings() {
 	return vecOfStrings;
 }
 
-bool isDigitValues(vector<string> input)
+bool isDigitValues(const vector<string>& input)
 {
-	for (vector<string>::iterator it = input.begin(); it != input.end(); ++it) {
+	for (vector<string>::const_iterator it = input.begin(); it != input.end(); ++it) {
 		string val = *it;
 		if (!is_digits(val)) {
 			return false;
@@ -45,9 +45,9 @@ void MultiplyValueByTheMin(vector<float> & input)
 	}
 }
 
-void PrintVector(vector<float> float_vec)
+void PrintVector(const vector<float>& float_vec)
 {
-	for (vector<float>::iterator it = float_vec.begin(); it != float_vec.end(); ++it) {
+	for (vector<float>::const_iterator it = float_vec.begin(); it != float_vec.end(); ++it) {
 		cout << *it;
 		if (it != float_vec.end() - 1) {
 			cout << " ";

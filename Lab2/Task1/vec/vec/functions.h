@@ -11,8 +11,8 @@ std::vector<std::string> GetVectorOfStrings();
 
 void MultiplyValueByTheMin(std::vector<float> & input);
 
-bool isDigitValues(std::vector<std::string> input);
+bool isDigitValues(const std::vector<std::string>& input);
 
 std::vector<float> StringVecToFloatVec(const std::vector<std::string> & input);
 
-void PrintVector(std::vector<float> float_vec);
+void PrintVector(const std::vector<float>& float_vec);
