@@ -7,7 +7,7 @@
 
 using namespace std;
 
-bool isByte(string str)
+bool IsByte(const string& str)
 {
 	string::const_iterator iter = str.begin();
 	while (iter != str.end() && isdigit(*iter))
@@ -21,7 +21,7 @@ bool isByte(string str)
 	return false;
 }
 
-unsigned long flip(string str)
+unsigned long Flip(string str)
 {
 	bitset<8> dig = atoi(str.c_str());
 	for (size_t i = 0; i < 4; i++)
@@ -41,9 +41,9 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		if (isByte(argv[1]))
+		if (IsByte(argv[1]))
 		{
-			cout << flip(argv[1]) << endl;
+			cout << Flip(argv[1]) << endl;
 		}
 		else
 		{

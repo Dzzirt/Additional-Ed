@@ -14,17 +14,56 @@ const uintmax_t MAX_SIZE = 2147483648UL;
 
 // replace.exe <input file> <output file> <search string> <replace string>
 
+string::size_type KMP(const string& S, int begin, const string& pattern) {
+	vector<int> pf(pattern.length());
+
+	pf[0] = 0;
+	for (int k = 0, i = 1; i<pattern.length(); ++i) {
+		while (k>0 && pattern[i] != pattern[k])
+			k = pf[k - 1];
+
+		if (pattern[i] == pattern[k])
+			k++;
+
+		pf[i] = k;
+	}
+
+	for (int k = 0, i = begin; i<S.length(); ++i) {
+		while ((k>0) && (pattern[k] != S[i]))
+			k = pf[k - 1];
+
+		if (pattern[k] == S[i])
+			k++;
+
+		if (k == pattern.length())
+		{
+
+			return (i - pattern.length() + 1);//либо продолжаем поиск следующих вхождений
+		}
+
+			
+	}
+
+	return (string::npos);
+}
+
 void ReplaceStringInPlace(string& subject, const string& search, const string& replace)
 {
 	size_t pos = 0;
-	while ((pos = subject.find(search, pos)) != string::npos)
+	while ((pos = KMP(subject, pos, search)) != string::npos)
 	{
-		subject.replace(pos, search.length(), replace);
-		pos += replace.length();
+		if (pos > 500000) {
+			cout << "kek";
+		}
+		string before = subject.substr(0, pos);
+		string after = subject.substr(pos + search.length(), subject.length() - (pos - search.length()));
+		subject = before + replace + after;
 	}
 }
 
-void ReplaceStringInFile(string inputFileName, string outputFileName, string search, string replace)
+
+
+void ReplaceStringInFile(const string& inputFileName, const string& outputFileName, const string& search, const string& replace)
 {
 	ifstream in;
 	ofstream out;
