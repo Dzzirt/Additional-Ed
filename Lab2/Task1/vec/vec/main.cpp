@@ -12,7 +12,7 @@ using namespace std;
 int main()
 {
 	vector<string> input = GetVectorOfStrings();
-	if (!isDigitValues(input)) {
+	if (!IsDigitValues(input)) {
 		cout << "Input contains non digit values" << endl;
 		return -1;
 	}

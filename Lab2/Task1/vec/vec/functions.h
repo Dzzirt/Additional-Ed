@@ -6,13 +6,13 @@
 #include <vector>
 
 
-bool is_digits(const std::string &str);
+bool IsDigits(const std::string &str);
 
 std::vector<std::string> GetVectorOfStrings();
 
 void MultiplyValueByTheMin(std::vector<float> & input);
 
-bool isDigitValues(const std::vector<std::string>& input);
+bool IsDigitValues(const std::vector<std::string>& input);
 
 std::vector<float> StringVecToFloatVec(const std::vector<std::string> & input);
 

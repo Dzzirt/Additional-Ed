@@ -1,9 +1,9 @@
-
+#include "stdafx.h"
 #include "functions.h"
 using namespace boost;
 using namespace std;
 
-bool is_digits(const string &str) {
+bool IsDigits(const string &str) {
 	bool with_or_without_dot = (count(str.begin(), str.end(), '.') == 1 || count(str.begin(), str.end(), '.') == 0);
 	return str.find_first_not_of("0123456789.") == string::npos && with_or_without_dot;
 }
@@ -20,11 +20,12 @@ void SortVector(vector<float> & float_vec)
 {
 	sort(float_vec.begin(), float_vec.end());
 }
-bool isDigitValues(const vector<string>& input)
+
+bool IsDigitValues(const vector<string>& input)
 {
 	for (vector<string>::const_iterator it = input.begin(); it != input.end(); ++it) {
 		string val = *it;
-		if (!is_digits(val)) {
+		if (!IsDigits(val)) {
 			return false;
 		}
 	}
