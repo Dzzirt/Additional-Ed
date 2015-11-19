@@ -18,6 +18,7 @@ int main()
 	}
 	vector<float> float_vec = StringVecToFloatVec(input);
 	MultiplyValueByTheMin(float_vec);
+	SortVector(float_vec);
 	PrintVector(float_vec);
 	return 0;
 }

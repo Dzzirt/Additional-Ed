@@ -1,10 +1,11 @@
-#include "functions.h"
 
+#include "functions.h"
 using namespace boost;
 using namespace std;
 
 bool is_digits(const string &str) {
-	return str.find_first_not_of("0123456789.") == string::npos && count(str.begin(), str.end(), '.') == 1;
+	bool with_or_without_dot = (count(str.begin(), str.end(), '.') == 1 || count(str.begin(), str.end(), '.') == 0);
+	return str.find_first_not_of("0123456789.") == string::npos && with_or_without_dot;
 }
 
 vector<string> GetVectorOfStrings() {
@@ -15,6 +16,10 @@ vector<string> GetVectorOfStrings() {
 	return vecOfStrings;
 }
 
+void SortVector(vector<float> & float_vec)
+{
+	sort(float_vec.begin(), float_vec.end());
+}
 bool isDigitValues(const vector<string>& input)
 {
 	for (vector<string>::const_iterator it = input.begin(); it != input.end(); ++it) {
