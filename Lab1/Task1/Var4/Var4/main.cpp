@@ -23,6 +23,7 @@ void ReplaceStringInPlace(string& subject, const string& search, const string& r
 		string before_the_word = subject.substr(0, pos);
 		string after_the_word = subject.substr(pos + search.length(), subject.length() - (pos - search.length()));
 		subject = before_the_word + replace + after_the_word;
+		pos = pos + search.length();
 	}
 }
 
