@@ -85,6 +85,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddEllipseCommand.h" />
+    <ClInclude Include="AddTriangleCommand.h" />
     <ClInclude Include="AppConsts.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationController.h" />
@@ -92,6 +94,8 @@
     <ClInclude Include="assets.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="ButtonsConsts.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="AddRectangleCommand.h" />
     <ClInclude Include="EllipseShape.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="ShapeController.h" />
@@ -100,16 +104,24 @@
     <ClInclude Include="ShapeView.h" />
     <ClInclude Include="TextButton.h" />
     <ClInclude Include="Toolbar.h" />
+    <ClInclude Include="WorkSpace.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddEllipseCommand.cpp" />
+    <ClCompile Include="AddRectangleCommand.cpp" />
+    <ClCompile Include="AddTriangleCommand.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="ApplicationController.cpp" />
     <ClCompile Include="ApplicationView.cpp" />
     <ClCompile Include="assets.cpp" />
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="Frame.cpp" />
     <ClCompile Include="ImageButton.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShapeModel.cpp" />
     <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="Toolbar.cpp" />
+    <ClCompile Include="Workspace.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

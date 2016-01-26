@@ -1,4 +1,4 @@
-#include "ApplicationView.h"
+#include "ApplicationController.h"
 
 class Application
 {
@@ -9,4 +9,5 @@ public:
 protected:
 private:
 	ApplicationView view;
+	ApplicationController controller;
 };

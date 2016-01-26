@@ -17,6 +17,17 @@ void Toolbar::AddButton(const std::shared_ptr<CButton> & button)
 	buttons.push_back(button);
 }
 
+CButton & Toolbar::GetButton(std::string name)
+{
+  for (auto & button : buttons)
+  {
+		if (button->GetName() == name)
+		{
+			return *button;
+		}
+  }
+}
+
 void Toolbar::Draw(sf::RenderWindow & window)
 {
 	window.draw(bar);

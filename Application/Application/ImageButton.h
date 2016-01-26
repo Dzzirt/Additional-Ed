@@ -10,7 +10,6 @@ public:
 	virtual void Draw(sf::RenderWindow &window) override;
 	void SetTexture(const std::string & path);
 protected:
-	std::string imgName;
 	sf::Texture * texture;
 	sf::Sprite sprite;
 };

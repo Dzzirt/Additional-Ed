@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <functional>
-
+#include "string"
 namespace {
 	
 	const sf::Color BACK_COLOR_NORMAL = sf::Color(238, 238, 242);
@@ -20,14 +20,14 @@ class CButton
 {
 public:
 	CButton();
-	CButton(sf::Vector2f const& pos, sf::Vector2f const& size);
+	CButton(sf::Vector2f const& pos, sf::Vector2f const& size, std::string const& name);
 	virtual ~CButton();
 	CButton(const CButton &)= delete;
 	void SetPosition(sf::Vector2f const& point);
 	void SetSize(sf::Vector2f const& size);
 	bool OnEvent(sf::Event const& event);
 	virtual void Draw(sf::RenderWindow &window);
-
+	virtual std::string GetName();
 	std::function<void()> handler;
 protected:
 	enum class State
@@ -39,7 +39,7 @@ protected:
 
 	bool DoesHit(sf::Vector2f const& point) const;
 	virtual void SetState(State newState);
-
+	std::string m_name;
 	sf::RectangleShape shape;
 	State state;
 

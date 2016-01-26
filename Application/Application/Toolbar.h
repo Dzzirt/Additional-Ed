@@ -12,6 +12,7 @@ public:
 	~Toolbar();
 
 	void AddButton(const std::shared_ptr<CButton> & button);
+	CButton & GetButton(std::string name);
 	void Draw(sf::RenderWindow & window);
 	void SetSize(sf::Vector2f const& size);
 	void SetPosition(sf::Vector2f const& point);

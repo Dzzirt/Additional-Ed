@@ -3,7 +3,7 @@
 #include "ButtonsConsts.h"
 
 CTextButton::CTextButton(const SAssets & assets, const std::string & title) 
-	: CButton(DEFAULT_BUTTON_POS, DEFAULT_BUTTON_SIZE)
+	: CButton(DEFAULT_BUTTON_POS, DEFAULT_BUTTON_SIZE, title)
 {
 	text.setFont(assets.fontMain);
 	text.setCharacterSize(DEFAULT_TEXT_SIZE);

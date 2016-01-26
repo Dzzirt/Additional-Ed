@@ -25,7 +25,12 @@ void CButton::Draw(RenderWindow& window)
 }
 
 
-CButton::CButton(sf::Vector2f const& pos, Vector2f const& size)
+std::string CButton::GetName()
+{
+	return m_name;
+}
+
+CButton::CButton(sf::Vector2f const& pos, Vector2f const& size, std::string const& name) : m_name(name)
 {
 	shape.setOutlineThickness(BORDER_WIDTH);
 	SetSize(size);

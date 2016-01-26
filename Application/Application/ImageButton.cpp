@@ -3,7 +3,7 @@
 #include "cassert"
 #include "iostream"
 CImageButton::CImageButton(const std::string & texturePath, const std::string & name)
-	: CButton(DEFAULT_BUTTON_POS, DEFAULT_BUTTON_SIZE), imgName(name)
+	: CButton(DEFAULT_BUTTON_POS, DEFAULT_BUTTON_SIZE, name)
 {
 	texture = new sf::Texture();
 	texture->loadFromFile(texturePath);
