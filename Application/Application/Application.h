@@ -14,5 +14,4 @@ private:
 	std::shared_ptr<ApplicationView> m_view;
 	std::shared_ptr<ApplicationController> m_controller;
 
-
 };

@@ -1,28 +1,27 @@
 #pragma once
-#include "SFML/System/Vector2.hpp"
+#include "SFML/Graphics/Rect.hpp"
 #include "AppConsts.h"
 #include "boost/signals2.hpp"
+#include "BoundsObservable.h"
 
 
-
-using namespace boost::signals2;
-
-class ShapeLogic 
+class ShapeLogic : public IBoundsObservable
 {
 public:
 	ShapeLogic(sf::Vector2f const& pos, sf::Vector2f const& size, ShapeType type);
 	~ShapeLogic();
 	void SetSize(sf::Vector2f const& size);
 	void SetPosition(sf::Vector2f const& pos);
+	void SetSelected(bool flag);
 	ShapeType GetType();
-	sf::Vector2f GetPosition();
-	sf::Vector2f GetSize();
-	signal<void(sf::Vector2f, sf::Vector2f)> m_onChange;
+	sf::FloatRect GetBounds();
+	void Notify();
+	void RegisterObserver(IBoundsObserver & o);
+	void DeleteObserver(IBoundsObserver & o);
 private:
-	sf::Vector2f m_pos;
-	sf::Vector2f m_size;
+	sf::FloatRect m_bounds;
 	ShapeType m_type;
 	bool m_isSelect;
-
+	boost::signals2::signal<void(sf::FloatRect)> m_onChange;
 };
 

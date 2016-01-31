@@ -13,9 +13,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files\Shape">
-      <UniqueIdentifier>{72941741-9d5f-4983-9a61-72c3fab91529}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Observer">
       <UniqueIdentifier>{ac7dde35-6c85-4b0d-8d24-a907dabdd209}</UniqueIdentifier>
     </Filter>
@@ -51,12 +48,6 @@
     <ClInclude Include="ApplicationController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EllipseShape.h">
-      <Filter>Header Files\Shape</Filter>
-    </ClInclude>
-    <ClInclude Include="Frame.h">
-      <Filter>Header Files\Shape</Filter>
-    </ClInclude>
     <ClInclude Include="WorkSpace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,10 +63,34 @@
     <ClInclude Include="ApplicationModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShapeVisual.h">
-      <Filter>Header Files\Shape</Filter>
-    </ClInclude>
     <ClInclude Include="assets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundsObserver.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundsObservable.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonClickObservable.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonClickObserver.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeClickObservable.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeClickObserver.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="EllipseShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeVisual.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

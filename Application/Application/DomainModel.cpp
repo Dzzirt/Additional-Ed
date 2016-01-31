@@ -28,7 +28,7 @@ Canvas& DomainModel::GetCanvas()
 	return m_canvas;
 }
 
-std::shared_ptr<ShapeLogic>& DomainModel::GetShape(int pos)
+std::shared_ptr<ShapeLogic>& DomainModel::GetShape(size_t pos)
 {
 	return m_shapesLogic.at(pos);
 }

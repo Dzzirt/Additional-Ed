@@ -177,9 +177,15 @@
     <ClInclude Include="button.h" />
     <ClInclude Include="ButtonsConsts.h" />
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="ButtonClickObservable.h" />
     <ClInclude Include="DomainModel.h" />
     <ClInclude Include="EllipseShape.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="BoundsObservable.h" />
+    <ClInclude Include="BoundsObserver.h" />
+    <ClInclude Include="ButtonClickObserver.h" />
+    <ClInclude Include="ShapeClickObservable.h" />
+    <ClInclude Include="ShapeClickObserver.h" />
     <ClInclude Include="ShapeLogic.h" />
     <ClInclude Include="ShapeVisual.h" />
     <ClInclude Include="ImageButton.h" />

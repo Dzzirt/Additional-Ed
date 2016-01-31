@@ -16,6 +16,7 @@ public:
 	void ProcessVisualEvents(const sf::Event & event);
 	Toolbar & GetToolbar();
 	Workspace & GetWorkspace();
+	Frame & GetFrame();
 
 private:
 	Toolbar m_toolbar;

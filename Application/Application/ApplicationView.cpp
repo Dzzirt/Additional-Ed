@@ -17,6 +17,7 @@ void ApplicationView::Draw(sf::RenderWindow & window)
 	window.clear(sf::Color(238 ,238, 242));
 	m_toolbar.Draw(window);
 	m_workspace.Draw(window);
+	m_frame.Draw(window);
 	window.display();
 }
 
@@ -24,6 +25,7 @@ void ApplicationView::Draw(sf::RenderWindow & window)
 void ApplicationView::ProcessVisualEvents(const sf::Event & event)
 {
 	m_toolbar.ProcessVisualEvents(event);
+	m_workspace.ProcessEvents(event);
 }
 
 Toolbar & ApplicationView::GetToolbar()
@@ -34,6 +36,11 @@ Toolbar & ApplicationView::GetToolbar()
 Workspace & ApplicationView::GetWorkspace()
 {
 	return m_workspace;
+}
+
+Frame & ApplicationView::GetFrame()
+{
+	return m_frame;
 }
 
 ApplicationView::~ApplicationView()

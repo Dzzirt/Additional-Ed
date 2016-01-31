@@ -1,12 +1,12 @@
 #include "ApplicationController.h"
-
+#include "iostream"
 ApplicationController::ApplicationController(std::shared_ptr<ApplicationModel> model, std::shared_ptr<ApplicationView> view)
 	: m_model(model), m_view(view)
 {
 	auto & buttons = m_view->GetToolbar().GetButtons();
-	for_each(buttons.begin(), buttons.end(), [&](std::shared_ptr<CButton> & button)
+	for_each(buttons.begin(), buttons.end(), [&](std::shared_ptr<CButton> & button) 
 	{
-		button->onClick.connect(boost::bind(&ApplicationController::OnButtonClick, &*this, _1));
+		button->RegisterObserver(*this);
 	});
 }
 
@@ -20,29 +20,31 @@ void ApplicationController::ProcessEvents(sf::Event & event)
 
 }
 
-void ApplicationController::OnButtonClick(const std::string & buttonName)
+void ApplicationController::UpdateOnButtonClick(const std::string & buttonName)
 {
  if (buttonName == "Rectangle")
  {
 	 auto logicShape = m_model->CreateShape(Rectangle);
 	 auto visualShape = std::make_shared<ShapeVisual>(std::make_shared<sf::RectangleShape>());
-	 logicShape->m_onChange.connect(boost::bind(&ShapeVisual::Update, &*visualShape, _1, _2));
-	 m_view->GetWorkspace().AddShape(visualShape);
-	 logicShape->m_onChange(logicShape->GetPosition(), logicShape->GetSize());
+	 visualShape->RegisterObserver(*this);
+	 logicShape->RegisterObserver(*visualShape);
+	 m_view->GetWorkspace().AddShape(visualShape, m_view->GetWorkspace().GetShapesCount());
  }
  else if (buttonName == "Ellipse")
  {
 	 auto logicShape = m_model->CreateShape(Ellipse);
 	 auto visualShape = std::make_shared<ShapeVisual>(std::make_shared<EllipseShape>());
-	 logicShape->m_onChange.connect(boost::bind(&ShapeVisual::Update, &*visualShape, _1, _2));
-	 m_view->GetWorkspace().AddShape(visualShape);
+	 visualShape->RegisterObserver(*this);
+	 logicShape->RegisterObserver(*visualShape);
+	 m_view->GetWorkspace().AddShape(visualShape, m_view->GetWorkspace().GetShapesCount());
  }
  else if (buttonName == "Triangle")
  {
 	 auto logicShape = m_model->CreateShape(Triangle);
 	 auto visualShape = std::make_shared<ShapeVisual>(std::make_shared<sf::CircleShape>());
-	 logicShape->m_onChange.connect(boost::bind(&ShapeVisual::Update, &*visualShape, _1, _2));
-	 m_view->GetWorkspace().AddShape(visualShape);
+	 visualShape->RegisterObserver(*this);
+	 logicShape->RegisterObserver(*visualShape);
+	 m_view->GetWorkspace().AddShape(visualShape, m_view->GetWorkspace().GetShapesCount());
  }
  else if (buttonName == "Undo")
  {
@@ -52,6 +54,30 @@ void ApplicationController::OnButtonClick(const std::string & buttonName)
  {
 
  }
+}
+
+void ApplicationController::UpdateOnShapeClick(size_t shapeIndex)
+{
+
+	std::cout << m_model->GetShape(shapeIndex)->GetBounds().left << " " << m_model->GetShape(shapeIndex)->GetBounds().top << std::endl;
+	if (m_model->GetSelected())
+	{
+		m_model->GetSelected()->DeleteObserver(m_view->GetFrame());
+	}
+	
+	m_model->SetSelected(m_model->GetShape(shapeIndex));
+	m_model->GetSelected()->RegisterObserver(m_view->GetFrame());
+
+}
+
+boost::signals2::connection& ApplicationController::GetButtonClickConnection()
+{
+	return m_buttonClickConnection;
+}
+
+boost::signals2::connection& ApplicationController::GetShapeClickConnection()
+{
+	return m_shapeClickConnection;
 }
 
 ApplicationController::~ApplicationController()

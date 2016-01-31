@@ -17,9 +17,9 @@ Workspace::~Workspace()
 {
 }
 
-void Workspace::AddShape(std::shared_ptr<ShapeVisual> & shape)
+void Workspace::AddShape(std::shared_ptr<ShapeVisual> & shape, size_t index)
 {
-	shape->SetPosition(sf::Vector2f(m_canvasVisual.getPosition().x + rand() % 300, m_canvasVisual.getPosition().y + rand() % 300));
+	shape->SetIndex(index);
 	m_shapesVisual.push_back(shape);
 }
 
@@ -48,6 +48,11 @@ void Workspace::Draw(sf::RenderWindow & window)
 	}
 }
 
+size_t Workspace::GetShapesCount()
+{
+	return m_shapesVisual.size();
+}
+
 std::vector<std::shared_ptr<ShapeVisual>>& Workspace::GetShapesVisual()
 {
 	return m_shapesVisual;
@@ -56,4 +61,17 @@ std::vector<std::shared_ptr<ShapeVisual>>& Workspace::GetShapesVisual()
 sf::RectangleShape& Workspace::GetCanvasVisual()
 {
 	return m_canvasVisual;
+}
+
+void Workspace::ProcessEvents(sf::Event event)
+{
+	for_each(m_shapesVisual.begin(), m_shapesVisual.end(), [&](std::shared_ptr<ShapeVisual> & shapeVisual) 
+	{
+		shapeVisual->ProcessEvents(event);
+	});
+}
+
+int Workspace::FindPos(std::shared_ptr<ShapeVisual> shapeVisual)
+{
+	return 1;
 }

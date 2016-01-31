@@ -4,6 +4,7 @@
 #include <functional>
 #include "string"
 #include "boost/signals2.hpp"
+#include "ButtonClickObservable.h"
 
 using namespace boost::signals2;
 namespace {
@@ -19,7 +20,7 @@ namespace {
 
 struct SAssets;
 
-class CButton
+class CButton : public IButtonClickObservable
 {
 public:
 	CButton();
@@ -31,8 +32,10 @@ public:
 	bool OnEvent(sf::Event const& event);
 	virtual void Draw(sf::RenderWindow &window);
 	virtual std::string GetName();
+	void RegisterObserver(IButtonClickObserver & o)override;
+	void DeleteObserver(IButtonClickObserver & o)override;
+	void Notify()override;
 	std::function<void()> handler;
-	signal<void(std::string)> onClick;
 protected:
 	enum class State
 	{
@@ -40,11 +43,10 @@ protected:
 		Hovered,
 		Pressed
 	};
-
-	bool DoesHit(sf::Vector2f const& point) const;
-	virtual void SetState(State newState);
+	signal<void(std::string)> onClick;
 	std::string m_name;
 	sf::RectangleShape shape;
 	State state;
-
+	bool DoesHit(sf::Vector2f const& point) const;
+	virtual void SetState(State newState);
 };

@@ -1,7 +1,6 @@
 #pragma once
 #include "button.h"
 
-
 class CImageButton : public CButton
 {
 public:
