@@ -2,7 +2,7 @@
 
 ApplicationView::ApplicationView() 
 {
-	m_workspace = Workspace(sf::Vector2f((WindowWidth - 640) / 2.f, 100), sf::Vector2f(640, 480));
+	m_workspace = std::make_shared<Workspace>(sf::Vector2f((WindowWidth - 640) / 2.f, 100), sf::Vector2f(640, 480));
 	m_toolbar = Toolbar(sf::Vector2f(0, 15), sf::Vector2f(float(WindowWidth), 40.f));
 	m_toolbar.AddButton(std::make_shared<CImageButton>("Assets/Rectangle.png", "Rectangle"));
 	m_toolbar.AddButton(std::make_shared<CImageButton>("Assets/Triangle.png", "Triangle"));
@@ -16,7 +16,7 @@ void ApplicationView::Draw(sf::RenderWindow & window)
 {
 	window.clear(sf::Color(238 ,238, 242));
 	m_toolbar.Draw(window);
-	m_workspace.Draw(window);
+	m_workspace->Draw(window);
 	m_frame.Draw(window);
 	window.display();
 }
@@ -25,7 +25,7 @@ void ApplicationView::Draw(sf::RenderWindow & window)
 void ApplicationView::ProcessVisualEvents(const sf::Event & event)
 {
 	m_toolbar.ProcessVisualEvents(event);
-	m_workspace.ProcessEvents(event);
+	m_workspace->ProcessEvents(event);
 }
 
 Toolbar & ApplicationView::GetToolbar()
@@ -35,7 +35,7 @@ Toolbar & ApplicationView::GetToolbar()
 
 Workspace & ApplicationView::GetWorkspace()
 {
-	return m_workspace;
+	return *m_workspace;
 }
 
 Frame & ApplicationView::GetFrame()

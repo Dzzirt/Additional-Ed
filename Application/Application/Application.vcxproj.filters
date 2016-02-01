@@ -93,6 +93,12 @@
     <ClInclude Include="ShapeVisual.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CanvasClickObserver.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="CanvasClickObservable.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -6,39 +6,39 @@
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationController.h</string>
     </ArrayOfString>
     <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationView.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationView.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeClickObservable.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeVisual.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeVisual.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\button.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Workspace.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\WorkSpace.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Application.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Application.h</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationModel.cpp</string>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationModel.h</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationView.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationView.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\DomainModel.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\DomainModel.h</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Frame.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Frame.h</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeLogic.cpp</string>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeLogic.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\WorkSpace.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Workspace.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeVisual.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\BoundsObserver.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\BoundsObservable.h</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

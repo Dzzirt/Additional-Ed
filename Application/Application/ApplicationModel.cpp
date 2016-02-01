@@ -18,7 +18,6 @@ ApplicationModel::~ApplicationModel()
 
 std::shared_ptr<ShapeLogic> ApplicationModel::CreateShape(ShapeType type)
 {
-	//shape->SetPosition(sf::Vector2f(m_canvasVisual.getPosition().x + rand() % 300, m_canvasVisual.getPosition().y + rand() % 300));
 	sf::Vector2f defaultPos = sf::Vector2f(m_domainModel->GetCanvas().GetPos() 
 		+ sf::Vector2f(rand() % 300, rand() % 300));
 	auto & shape = std::make_shared<ShapeLogic>(defaultPos, DefaultShapeSize, type);

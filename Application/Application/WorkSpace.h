@@ -1,7 +1,8 @@
 #pragma once
 #include "ShapeVisual.h"
+#include "CanvasClickObservable.h"
 
-class Workspace
+class Workspace : public ICanvasClickObservable
 {
 public:
 	Workspace();
@@ -16,8 +17,12 @@ public:
 	std::vector<std::shared_ptr<ShapeVisual>>& GetShapesVisual();
 	sf::RectangleShape& GetCanvasVisual();
 	void ProcessEvents(sf::Event event);
+
+	void RegisterObserver(ICanvasClickObserver & o)override;
+	void DeleteObserver(ICanvasClickObserver & o)override;
+	void Notify()override;
 private:
 	std::vector<std::shared_ptr<ShapeVisual>> m_shapesVisual;
 	sf::RectangleShape m_canvasVisual;
-	int FindPos(std::shared_ptr<ShapeVisual> shapeVisual);
+	boost::signals2::signal<void()> m_onClick;
 };

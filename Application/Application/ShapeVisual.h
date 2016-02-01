@@ -12,7 +12,7 @@ class ShapeVisual : public IBoundsObserver, public IShapeClickObservable
 {
 public:
 	ShapeVisual();
-	ShapeVisual(std::shared_ptr<sf::CircleShape> & shape);
+	ShapeVisual(std::shared_ptr<sf::ConvexShape> & shape);
 	ShapeVisual(std::shared_ptr<sf::RectangleShape> & shape);
 	ShapeVisual(std::shared_ptr<EllipseShape> & shape);
 	~ShapeVisual();

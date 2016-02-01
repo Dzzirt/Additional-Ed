@@ -178,6 +178,8 @@
     <ClInclude Include="ButtonsConsts.h" />
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="ButtonClickObservable.h" />
+    <ClInclude Include="CanvasClickObservable.h" />
+    <ClInclude Include="CanvasClickObserver.h" />
     <ClInclude Include="DomainModel.h" />
     <ClInclude Include="EllipseShape.h" />
     <ClInclude Include="Frame.h" />

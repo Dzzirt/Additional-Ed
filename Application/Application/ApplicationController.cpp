@@ -3,6 +3,7 @@
 ApplicationController::ApplicationController(std::shared_ptr<ApplicationModel> model, std::shared_ptr<ApplicationView> view)
 	: m_model(model), m_view(view)
 {
+	m_view->GetWorkspace().RegisterObserver(*this);
 	auto & buttons = m_view->GetToolbar().GetButtons();
 	for_each(buttons.begin(), buttons.end(), [&](std::shared_ptr<CButton> & button) 
 	{
@@ -41,7 +42,7 @@ void ApplicationController::UpdateOnButtonClick(const std::string & buttonName)
  else if (buttonName == "Triangle")
  {
 	 auto logicShape = m_model->CreateShape(Triangle);
-	 auto visualShape = std::make_shared<ShapeVisual>(std::make_shared<sf::CircleShape>());
+	 auto visualShape = std::make_shared<ShapeVisual>(std::make_shared<sf::ConvexShape>());
 	 visualShape->RegisterObserver(*this);
 	 logicShape->RegisterObserver(*visualShape);
 	 m_view->GetWorkspace().AddShape(visualShape, m_view->GetWorkspace().GetShapesCount());
@@ -58,16 +59,19 @@ void ApplicationController::UpdateOnButtonClick(const std::string & buttonName)
 
 void ApplicationController::UpdateOnShapeClick(size_t shapeIndex)
 {
-
-	std::cout << m_model->GetShape(shapeIndex)->GetBounds().left << " " << m_model->GetShape(shapeIndex)->GetBounds().top << std::endl;
 	if (m_model->GetSelected())
 	{
 		m_model->GetSelected()->DeleteObserver(m_view->GetFrame());
 	}
-	
 	m_model->SetSelected(m_model->GetShape(shapeIndex));
 	m_model->GetSelected()->RegisterObserver(m_view->GetFrame());
 
+}
+
+void ApplicationController::UpdateOnCanvasClick()
+{
+	m_model->GetSelected().reset();
+	m_view->GetFrame().SetVisible(false);
 }
 
 boost::signals2::connection& ApplicationController::GetButtonClickConnection()
@@ -78,6 +82,11 @@ boost::signals2::connection& ApplicationController::GetButtonClickConnection()
 boost::signals2::connection& ApplicationController::GetShapeClickConnection()
 {
 	return m_shapeClickConnection;
+}
+
+boost::signals2::connection& ApplicationController::GetCanvasClickConnection()
+{
+	return m_canvasClickConnection;
 }
 
 ApplicationController::~ApplicationController()

@@ -20,7 +20,7 @@ public:
 
 private:
 	Toolbar m_toolbar;
-	Workspace m_workspace;
+	std::shared_ptr<Workspace> m_workspace;
 	Frame m_frame;
 
 };

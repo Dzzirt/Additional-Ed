@@ -65,13 +65,28 @@ sf::RectangleShape& Workspace::GetCanvasVisual()
 
 void Workspace::ProcessEvents(sf::Event event)
 {
+	sf::Vector2f mousePos = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_canvasVisual.getGlobalBounds().contains(mousePos))
+	{
+		Notify();
+	}
 	for_each(m_shapesVisual.begin(), m_shapesVisual.end(), [&](std::shared_ptr<ShapeVisual> & shapeVisual) 
 	{
 		shapeVisual->ProcessEvents(event);
 	});
 }
 
-int Workspace::FindPos(std::shared_ptr<ShapeVisual> shapeVisual)
+void Workspace::RegisterObserver(ICanvasClickObserver & o)
 {
-	return 1;
+	o.GetCanvasClickConnection() = m_onClick.connect(boost::bind(&ICanvasClickObserver::UpdateOnCanvasClick, &o));
+}
+
+void Workspace::DeleteObserver(ICanvasClickObserver & o)
+{
+	o.GetCanvasClickConnection().disconnect();
+}
+
+void Workspace::Notify()
+{
+	m_onClick();
 }

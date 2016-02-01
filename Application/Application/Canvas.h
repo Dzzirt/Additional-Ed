@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/System/Vector2.hpp"
 
-class Canvas
+class Canvas 
 {
 public:
 	Canvas(sf::Vector2f pos, sf::Vector2f size);
