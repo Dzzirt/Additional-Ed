@@ -1,10 +1,10 @@
 #include "ShapeVisual.h"
-
 ShapeVisual::ShapeVisual()
 {
 }
 
 ShapeVisual::ShapeVisual(std::shared_ptr<sf::ConvexShape> & shape)
+	: m_isVisible(true)
 {
 	shape->setPointCount(3);
  	shape->setPoint(0, sf::Vector2f(0.5f, 0.f));
@@ -17,6 +17,7 @@ ShapeVisual::ShapeVisual(std::shared_ptr<sf::ConvexShape> & shape)
 }
 
 ShapeVisual::ShapeVisual(std::shared_ptr<sf::RectangleShape> & shape)
+	: m_isVisible(true)
 {
 	shape->setFillColor(sf::Color::Blue);
 	shape->setOutlineThickness(1);
@@ -26,6 +27,7 @@ ShapeVisual::ShapeVisual(std::shared_ptr<sf::RectangleShape> & shape)
 }
 
 ShapeVisual::ShapeVisual(std::shared_ptr<EllipseShape> & shape)
+	: m_isVisible(true)
 {
 	shape->setFillColor(sf::Color::Magenta);
 	shape->setOutlineThickness(1);
@@ -36,11 +38,16 @@ ShapeVisual::ShapeVisual(std::shared_ptr<EllipseShape> & shape)
 
 void ShapeVisual::Draw(sf::RenderWindow & window)
 {
-	window.draw(*m_shape);
+	if (m_isVisible)
+	{
+		window.draw(*m_shape);
+	}
+	
 }
 
-void ShapeVisual::UpdateBounds(const sf::FloatRect & bounds)
+void ShapeVisual::UpdateBounds(const sf::FloatRect & bounds, const sf::Vector2f & origin)
 {
+	SetOrigin(origin);
 	SetPosition(sf::Vector2f(bounds.left, bounds.top));
 	SetSize(sf::Vector2f(bounds.width, bounds.height));
 }
@@ -52,26 +59,26 @@ boost::signals2::connection& ShapeVisual::GetBoundsConnection()
 
 void ShapeVisual::ProcessEvents(sf::Event event)
 {
-	sf::Vector2f mousePos = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
+	sf::Vector2f mousePos = sf::Vector2f(float(event.mouseButton.x), float(event.mouseButton.y));
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_shape->getGlobalBounds().contains(mousePos))
 	{
-		Notify();
+		HandleOnClick();
 	}
 }
 
-void ShapeVisual::RegisterObserver(IShapeClickObserver & o)
+boost::signals2::connection ShapeVisual::DoOnClick(const ButtonClickSignal::slot_type & handler)
 {
-	o.GetShapeClickConnection() = m_onClick.connect(boost::bind(&IShapeClickObserver::UpdateOnShapeClick, &o, _1));
+	return m_onClick.connect(handler);
 }
 
-void ShapeVisual::DeleteObserver(IShapeClickObserver & o)
-{
-	o.GetShapeClickConnection().disconnect();
-}
-
-void ShapeVisual::Notify()
+void ShapeVisual::HandleOnClick()
 {
 	m_onClick(m_index);
+}
+
+void ShapeVisual::SetOrigin(const sf::Vector2f & origin)
+{
+	m_shape->setOrigin(origin);
 }
 
 ShapeVisual::~ShapeVisual()
@@ -92,5 +99,20 @@ void ShapeVisual::SetSize(const sf::Vector2f & size)
 void ShapeVisual::SetIndex(size_t index)
 {
 	m_index = index;
+}
+
+void ShapeVisual::SetVisible(bool flag)
+{
+	m_isVisible = flag;
+}
+
+size_t ShapeVisual::GetIndex()
+{
+	return m_index;
+}
+
+bool ShapeVisual::GetVisible()
+{
+	return m_isVisible;
 }
 

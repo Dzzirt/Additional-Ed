@@ -111,19 +111,14 @@ void CButton::SetState(CButton::State newState)
 	}
 }
 
-void CButton::RegisterObserver(IButtonClickObserver & o)
-{
-	o.GetButtonClickConnection() = onClick.connect(boost::bind(&IButtonClickObserver::UpdateOnButtonClick, &o, _1));
-}
-
-void CButton::DeleteObserver(IButtonClickObserver & o)
-{
-	o.GetButtonClickConnection().disconnect();
-}
-
-void CButton::Notify()
+void CButton::HandleOnClick()
 {
 	onClick(m_name);
+}
+
+boost::signals2::connection CButton::DoOnClick(const ButtonClickSignal::slot_type & handler)
+{
+	return onClick.connect(handler);
 }
 
 CButton::~CButton()

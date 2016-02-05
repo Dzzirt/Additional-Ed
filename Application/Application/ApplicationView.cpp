@@ -26,6 +26,7 @@ void ApplicationView::ProcessVisualEvents(const sf::Event & event)
 {
 	m_toolbar.ProcessVisualEvents(event);
 	m_workspace->ProcessEvents(event);
+	m_frame.ProcessEvents(event);
 }
 
 Toolbar & ApplicationView::GetToolbar()

@@ -10,17 +10,8 @@
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationView.h</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeClickObservable.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeVisual.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeVisual.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\button.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Workspace.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\button.h</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\WorkSpace.h</string>
@@ -39,6 +30,52 @@
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeLogic.cpp</string>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeLogic.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Canvas.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Canvas.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Toolbar.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Header.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeVisual.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeVisual.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ImageButton.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ImageButton.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\main.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Workspace.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\AppConsts.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>c:\Programing\Libs\boost_1_59_0\boost\bind\bind.hpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>c:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\memory</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Command.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>c:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xmemory0</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\AddShapeCommand.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\AddShapeCommand.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\assets.cpp</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

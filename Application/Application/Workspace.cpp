@@ -31,12 +31,9 @@ void Workspace::RemoveSelectedShape()
 	}
 }
 
-void Workspace::RemoveLastShape()
+void Workspace::RemoveShape(size_t index)
 {
-	if (m_shapesVisual.size() > 0)
-	{
-		m_shapesVisual.erase(m_shapesVisual.begin() + (m_shapesVisual.size() - 1));
-	}
+	m_shapesVisual.erase(m_shapesVisual.begin() + index);
 }
 
 void Workspace::Draw(sf::RenderWindow & window)
@@ -65,10 +62,10 @@ sf::RectangleShape& Workspace::GetCanvasVisual()
 
 void Workspace::ProcessEvents(sf::Event event)
 {
-	sf::Vector2f mousePos = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
+	sf::Vector2f mousePos = sf::Vector2f(float(event.mouseButton.x), float(event.mouseButton.y));
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_canvasVisual.getGlobalBounds().contains(mousePos))
 	{
-		Notify();
+		HandleClick();
 	}
 	for_each(m_shapesVisual.begin(), m_shapesVisual.end(), [&](std::shared_ptr<ShapeVisual> & shapeVisual) 
 	{
@@ -76,17 +73,12 @@ void Workspace::ProcessEvents(sf::Event event)
 	});
 }
 
-void Workspace::RegisterObserver(ICanvasClickObserver & o)
+boost::signals2::connection Workspace::DoOnClick(const WorkSpaceClickSignal::slot_type & handler)
 {
-	o.GetCanvasClickConnection() = m_onClick.connect(boost::bind(&ICanvasClickObserver::UpdateOnCanvasClick, &o));
+	return m_onClick.connect(handler);
 }
 
-void Workspace::DeleteObserver(ICanvasClickObserver & o)
-{
-	o.GetCanvasClickConnection().disconnect();
-}
-
-void Workspace::Notify()
+void Workspace::HandleClick()
 {
 	m_onClick();
 }

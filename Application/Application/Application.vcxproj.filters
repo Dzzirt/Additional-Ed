@@ -13,8 +13,11 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files\Observer">
-      <UniqueIdentifier>{ac7dde35-6c85-4b0d-8d24-a907dabdd209}</UniqueIdentifier>
+    <Filter Include="Header Files\Command">
+      <UniqueIdentifier>{df95e36b-41a6-4ccc-b8bb-af756ea31985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Source Files\Command">
+      <UniqueIdentifier>{4a6cf3af-70b9-498c-ba7a-daf1d5177780}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,24 +69,6 @@
     <ClInclude Include="assets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BoundsObserver.h">
-      <Filter>Header Files\Observer</Filter>
-    </ClInclude>
-    <ClInclude Include="BoundsObservable.h">
-      <Filter>Header Files\Observer</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonClickObservable.h">
-      <Filter>Header Files\Observer</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonClickObserver.h">
-      <Filter>Header Files\Observer</Filter>
-    </ClInclude>
-    <ClInclude Include="ShapeClickObservable.h">
-      <Filter>Header Files\Observer</Filter>
-    </ClInclude>
-    <ClInclude Include="ShapeClickObserver.h">
-      <Filter>Header Files\Observer</Filter>
-    </ClInclude>
     <ClInclude Include="EllipseShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -93,11 +78,20 @@
     <ClInclude Include="ShapeVisual.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CanvasClickObserver.h">
-      <Filter>Header Files\Observer</Filter>
+    <ClInclude Include="Header.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CanvasClickObservable.h">
-      <Filter>Header Files\Observer</Filter>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="SetShapePositionCommand.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeCreator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowShapeCommand.h">
+      <Filter>Header Files\Command</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +142,12 @@
     </ClCompile>
     <ClCompile Include="ShapeVisual.cpp">
       <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SetShapePositionCommand.cpp">
+      <Filter>Resource Files\Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowShapeCommand.cpp">
+      <Filter>Resource Files\Source Files\Command</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

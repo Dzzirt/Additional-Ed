@@ -6,7 +6,6 @@
 #include "boost/signals2.hpp"
 #include "ButtonClickObservable.h"
 
-using namespace boost::signals2;
 namespace {
 	
 	const sf::Color BACK_COLOR_NORMAL = sf::Color(238, 238, 242);
@@ -20,9 +19,10 @@ namespace {
 
 struct SAssets;
 
-class CButton : public IButtonClickObservable
+class CButton
 {
 public:
+	typedef boost::signals2::signal<void(std::string)> ButtonClickSignal;
 	CButton();
 	CButton(sf::Vector2f const& pos, sf::Vector2f const& size, std::string const& name);
 	virtual ~CButton();
@@ -32,9 +32,8 @@ public:
 	bool OnEvent(sf::Event const& event);
 	virtual void Draw(sf::RenderWindow &window);
 	virtual std::string GetName();
-	void RegisterObserver(IButtonClickObserver & o)override;
-	void DeleteObserver(IButtonClickObserver & o)override;
-	void Notify()override;
+	void HandleOnClick();
+	boost::signals2::connection DoOnClick(const ButtonClickSignal::slot_type & handler);
 	std::function<void()> handler;
 protected:
 	enum class State
@@ -43,7 +42,7 @@ protected:
 		Hovered,
 		Pressed
 	};
-	signal<void(std::string)> onClick;
+	ButtonClickSignal onClick;
 	std::string m_name;
 	sf::RectangleShape shape;
 	State state;

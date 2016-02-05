@@ -1,8 +1,8 @@
 #include "ShapeLogic.h"
+#include "iostream"
 
-
-ShapeLogic::ShapeLogic(sf::Vector2f const& pos, sf::Vector2f const& size, ShapeType type)
-	: m_bounds(pos, size), m_type(type), m_isSelect(false)
+ShapeLogic::ShapeLogic(sf::FloatRect const& bounds, ShapeType type, size_t index)
+	: m_bounds(bounds), m_type(type), m_isSelect(false), m_origin(sf::Vector2f(0.f, 0.f)), m_index(index)
 {
 }
 
@@ -21,12 +21,17 @@ void ShapeLogic::SetPosition(sf::Vector2f const& pos)
 {
 	m_bounds.left = pos.x;
 	m_bounds.top = pos.y;
-	Notify();
+	HandleChange();
 }
 
 void ShapeLogic::SetSelected(bool flag)
 {
 	m_isSelect = flag;
+}
+
+void ShapeLogic::SetIndex(size_t index)
+{
+	m_index = index;
 }
 
 ShapeType ShapeLogic::GetType()
@@ -40,19 +45,37 @@ sf::FloatRect ShapeLogic::GetBounds()
 	return m_bounds;
 }
 
-void ShapeLogic::Notify()
+sf::Vector2f ShapeLogic::GetPosition()
 {
-	m_onChange(m_bounds);
+	return sf::Vector2f(m_bounds.left, m_bounds.top);
 }
 
-void ShapeLogic::RegisterObserver(IBoundsObserver & o)
+sf::Vector2f ShapeLogic::GetSize()
 {
-	o.GetBoundsConnection() = m_onChange.connect(boost::bind(&IBoundsObserver::UpdateBounds, &o, _1));
-	Notify();
+	return sf::Vector2f(m_bounds.width, m_bounds.height);
 }
 
-void ShapeLogic::DeleteObserver(IBoundsObserver & o)
+size_t ShapeLogic::GetIndex()
 {
-	o.GetBoundsConnection().disconnect();
+	return m_index;
+}
+
+void ShapeLogic::HandleChange()
+{
+	std::cout << m_onChange.num_slots();
+	m_onChange(m_bounds, m_origin);
+}
+
+boost::signals2::connection ShapeLogic::DoOnChange(const BoundsChangeSignal::slot_type & handler)
+{
+	boost::signals2::connection con = m_onChange.connect(handler);
+	HandleChange();
+	return con;
+}
+
+void ShapeLogic::SetOrigin(const sf::Vector2f & pos)
+{
+	m_origin = pos;
+	HandleChange();
 }
 

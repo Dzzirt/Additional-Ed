@@ -19,8 +19,9 @@ ApplicationModel::~ApplicationModel()
 std::shared_ptr<ShapeLogic> ApplicationModel::CreateShape(ShapeType type)
 {
 	sf::Vector2f defaultPos = sf::Vector2f(m_domainModel->GetCanvas().GetPos() 
-		+ sf::Vector2f(rand() % 300, rand() % 300));
-	auto & shape = std::make_shared<ShapeLogic>(defaultPos, DefaultShapeSize, type);
+		+ m_domainModel->GetCanvas().GetSize() / 2.f - DefaultShapeSize / 2.f);
+	sf::FloatRect & bounds = sf::FloatRect(defaultPos, DefaultShapeSize);
+	auto & shape = std::make_shared<ShapeLogic>(bounds, type, m_domainModel->GetShapes().size());
 	m_domainModel->AddShapeLogic(shape);
 	return shape;
 }
@@ -28,6 +29,11 @@ std::shared_ptr<ShapeLogic> ApplicationModel::CreateShape(ShapeType type)
 void ApplicationModel::RemoveShape(int pos)
 {
 	m_domainModel->RemoveShapeLogic(pos);
+}
+
+ShapeLogicVec & ApplicationModel::GetShapes()
+{
+	return m_domainModel->GetShapes();
 }
 
 void ApplicationModel::SetSize(int pos, sf::Vector2f const& size)
@@ -58,5 +64,41 @@ std::shared_ptr<ShapeLogic>& ApplicationModel::GetShape(size_t pos)
 std::shared_ptr<ShapeLogic> & ApplicationModel::GetSelected()
 {
 	return m_selectedShape;
+}
+
+std::shared_ptr<ShapeLogic> & ApplicationModel::GetTempShape()
+{
+	return m_tempShape;
+}
+
+void ApplicationModel::AddCommand(std::shared_ptr<ICommand> & command)
+{
+	m_undoStack.push(command);
+	while (!m_redoStack.empty())
+	{
+		m_redoStack.pop();
+	}
+}
+
+void ApplicationModel::Undo()
+{
+	if (!m_undoStack.empty())
+	{
+		auto & cmd = m_undoStack.top();
+		cmd->undo();
+		m_redoStack.push(cmd);
+		m_undoStack.pop();
+	}
+}
+
+void ApplicationModel::Redo()
+{
+	if (!m_redoStack.empty())
+	{
+		auto & cmd = m_redoStack.top();
+		cmd->execute();
+		m_undoStack.push(cmd);
+		m_redoStack.pop();
+	}
 }
 
