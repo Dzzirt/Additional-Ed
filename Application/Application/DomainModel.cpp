@@ -1,6 +1,6 @@
 #include "DomainModel.h"
 #include "AppConsts.h"
-
+#include <stdexcept>
 DomainModel::DomainModel()
 {
 	float border = (WindowWidth - CanvasSize.x) / 2.f;
@@ -13,9 +13,9 @@ DomainModel::~DomainModel()
 {
 }
 
-void DomainModel::AddShapeLogic(std::shared_ptr<ShapeLogic> & shapeLogic)
+void DomainModel::AddShapeLogic(std::shared_ptr<ShapeLogic> & shapeLogic, size_t index)
 {
-	m_shapesLogic.push_back(shapeLogic);
+	m_shapesLogic.insert(m_shapesLogic.begin() + index, shapeLogic);
 }
 
 void DomainModel::RemoveShapeLogic(int pos)
@@ -36,4 +36,13 @@ std::shared_ptr<ShapeLogic>& DomainModel::GetShape(size_t pos)
 std::vector<std::shared_ptr<ShapeLogic>>& DomainModel::GetShapes()
 {
 	return m_shapesLogic;
+}
+
+size_t DomainModel::GetShapeIndex(ShapeLogic & shapeLogic)
+{
+	auto it = std::find_if(m_shapesLogic.begin(), m_shapesLogic.end(), [&](std::shared_ptr<ShapeLogic> & m_shapeLogic) {
+		return &*m_shapeLogic == &shapeLogic;
+	});
+	assert(it != m_shapesLogic.end());
+	return it - m_shapesLogic.begin();
 }

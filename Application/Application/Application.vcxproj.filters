@@ -90,7 +90,13 @@
     <ClInclude Include="ShapeCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShowShapeCommand.h">
+    <ClInclude Include="IShapeOwner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AddShapeCommand.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteShapeCommand.h">
       <Filter>Header Files\Command</Filter>
     </ClInclude>
   </ItemGroup>
@@ -146,7 +152,10 @@
     <ClCompile Include="SetShapePositionCommand.cpp">
       <Filter>Resource Files\Source Files\Command</Filter>
     </ClCompile>
-    <ClCompile Include="ShowShapeCommand.cpp">
+    <ClCompile Include="AddShapeCommand.cpp">
+      <Filter>Resource Files\Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteShapeCommand.cpp">
       <Filter>Resource Files\Source Files\Command</Filter>
     </ClCompile>
   </ItemGroup>

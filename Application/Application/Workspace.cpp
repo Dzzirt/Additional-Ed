@@ -1,4 +1,5 @@
 #include "WorkSpace.h"
+#include <boost/range/adaptor/reversed.hpp>
 
 Workspace::Workspace(const sf::Vector2f & pos, sf::Vector2f & size)
 {
@@ -19,8 +20,7 @@ Workspace::~Workspace()
 
 void Workspace::AddShape(std::shared_ptr<ShapeVisual> & shape, size_t index)
 {
-	shape->SetIndex(index);
-	m_shapesVisual.push_back(shape);
+	m_shapesVisual.insert(m_shapesVisual.begin() + index, shape);
 }
 
 void Workspace::RemoveSelectedShape()
@@ -50,6 +50,17 @@ size_t Workspace::GetShapesCount()
 	return m_shapesVisual.size();
 }
 
+
+size_t Workspace::GetShapeIndex(const ShapeVisual & shapeVisual)
+{
+	auto it = std::find_if(m_shapesVisual.begin(), m_shapesVisual.end(), [&](std::shared_ptr<ShapeVisual> & m_shapesVisual)
+	{
+		return &*m_shapesVisual == &shapeVisual;
+	});
+	assert(it != m_shapesVisual.end());
+	return it - m_shapesVisual.begin();
+}
+
 std::vector<std::shared_ptr<ShapeVisual>>& Workspace::GetShapesVisual()
 {
 	return m_shapesVisual;
@@ -67,10 +78,13 @@ void Workspace::ProcessEvents(sf::Event event)
 	{
 		HandleClick();
 	}
-	for_each(m_shapesVisual.begin(), m_shapesVisual.end(), [&](std::shared_ptr<ShapeVisual> & shapeVisual) 
+	for (auto shapeVisual : boost::adaptors::reverse(m_shapesVisual))
 	{
-		shapeVisual->ProcessEvents(event);
-	});
+		if (shapeVisual->ProcessEvents(event))
+		{
+			break;
+		}
+	}
 }
 
 boost::signals2::connection Workspace::DoOnClick(const WorkSpaceClickSignal::slot_type & handler)

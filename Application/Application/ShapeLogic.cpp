@@ -1,8 +1,8 @@
 #include "ShapeLogic.h"
 #include "iostream"
 
-ShapeLogic::ShapeLogic(sf::FloatRect const& bounds, ShapeType type, size_t index)
-	: m_bounds(bounds), m_type(type), m_isSelect(false), m_origin(sf::Vector2f(0.f, 0.f)), m_index(index)
+ShapeLogic::ShapeLogic(sf::FloatRect const& bounds, ShapeType type)
+	: m_bounds(bounds), m_type(type), m_isSelect(false), m_origin(sf::Vector2f(0.f, 0.f))
 {
 }
 
@@ -29,11 +29,6 @@ void ShapeLogic::SetSelected(bool flag)
 	m_isSelect = flag;
 }
 
-void ShapeLogic::SetIndex(size_t index)
-{
-	m_index = index;
-}
-
 ShapeType ShapeLogic::GetType()
 {
 	return m_type;
@@ -53,11 +48,6 @@ sf::Vector2f ShapeLogic::GetPosition()
 sf::Vector2f ShapeLogic::GetSize()
 {
 	return sf::Vector2f(m_bounds.width, m_bounds.height);
-}
-
-size_t ShapeLogic::GetIndex()
-{
-	return m_index;
 }
 
 void ShapeLogic::HandleChange()

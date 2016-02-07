@@ -16,14 +16,19 @@ ApplicationModel::~ApplicationModel()
 {
 }
 
-std::shared_ptr<ShapeLogic> ApplicationModel::CreateShape(ShapeType type)
+std::shared_ptr<ShapeLogic>& ApplicationModel::CreateShape(ShapeType type)
 {
-	sf::Vector2f defaultPos = sf::Vector2f(m_domainModel->GetCanvas().GetPos() 
-		+ m_domainModel->GetCanvas().GetSize() / 2.f - DefaultShapeSize / 2.f);
+	float border = (WindowWidth - CanvasSize.x) / 2.f;
+	sf::Vector2f canvasPos(border, WindowHeight - CanvasSize.y - border);
+	sf::Vector2f defaultPos = sf::Vector2f(canvasPos + CanvasSize / 2.f - DefaultShapeSize / 2.f);
 	sf::FloatRect & bounds = sf::FloatRect(defaultPos, DefaultShapeSize);
-	auto & shape = std::make_shared<ShapeLogic>(bounds, type, m_domainModel->GetShapes().size());
-	m_domainModel->AddShapeLogic(shape);
+	auto & shape = std::make_shared<ShapeLogic>(bounds, type);
 	return shape;
+}
+
+void ApplicationModel::AddShape(std::shared_ptr<ShapeLogic> & shapeLogic, size_t index)
+{
+	m_domainModel->AddShapeLogic(shapeLogic, index);
 }
 
 void ApplicationModel::RemoveShape(int pos)
@@ -59,6 +64,12 @@ void ApplicationModel::SetSelected(std::shared_ptr<ShapeLogic> & shapeLogic)
 std::shared_ptr<ShapeLogic>& ApplicationModel::GetShape(size_t pos)
 {
 	return m_domainModel->GetShape(pos);
+}
+
+size_t ApplicationModel::GetShape(ShapeLogic & shapeLogic)
+{
+
+	return m_domainModel->GetShapeIndex(shapeLogic);
 }
 
 std::shared_ptr<ShapeLogic> & ApplicationModel::GetSelected()

@@ -1,10 +1,11 @@
 #pragma once
+#include "ShapeLogic.h"
+#include "ShapeVisual.h"
 
 class IShapeCreator
 {
 public:
-	virtual size_t AddTriangle() = 0;
-	virtual size_t AddRectangle() = 0;
-	virtual size_t AddEllipse() = 0;
-	virtual void HideShape(size_t index) = 0;
+	virtual void AddShape(std::shared_ptr<ShapeLogic> & logic, std::shared_ptr<ShapeVisual>& visual, size_t index) = 0;
+	virtual void AddShape(std::shared_ptr<ShapeLogic> & logic, std::shared_ptr<ShapeVisual>& visual) = 0;
+	virtual size_t DeleteShape(ShapeLogic & shapeLogic) = 0;
 };

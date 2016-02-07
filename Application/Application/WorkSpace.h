@@ -19,6 +19,7 @@ public:
 	sf::RectangleShape& GetCanvasVisual();
 	void ProcessEvents(sf::Event event);
 	boost::signals2::connection DoOnClick(const WorkSpaceClickSignal::slot_type & handler);
+	size_t GetShapeIndex(const ShapeVisual & shapeVisual);
 	void HandleClick();
 private:
 	std::vector<std::shared_ptr<ShapeVisual>> m_shapesVisual;

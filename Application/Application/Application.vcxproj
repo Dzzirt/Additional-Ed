@@ -168,7 +168,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ShowShapeCommand.h" />
+    <ClInclude Include="DeleteShapeCommand.h" />
+    <ClInclude Include="IShapeOwner.h" />
+    <ClInclude Include="AddShapeCommand.h" />
     <ClInclude Include="AppConsts.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationController.h" />
@@ -193,7 +195,7 @@
     <ClInclude Include="WorkSpace.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ShowShapeCommand.cpp" />
+    <ClCompile Include="AddShapeCommand.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="ApplicationController.cpp" />
     <ClCompile Include="ApplicationModel.cpp" />
@@ -201,6 +203,7 @@
     <ClCompile Include="assets.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="DeleteShapeCommand.cpp" />
     <ClCompile Include="SetShapePositionCommand.cpp" />
     <ClCompile Include="DomainModel.cpp" />
     <ClCompile Include="Frame.cpp" />

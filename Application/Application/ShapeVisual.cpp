@@ -1,4 +1,5 @@
 #include "ShapeVisual.h"
+#include "iostream"
 ShapeVisual::ShapeVisual()
 {
 }
@@ -57,13 +58,15 @@ boost::signals2::connection& ShapeVisual::GetBoundsConnection()
 	return m_boundsConnection;
 }
 
-void ShapeVisual::ProcessEvents(sf::Event event)
+bool ShapeVisual::ProcessEvents(sf::Event event)
 {
 	sf::Vector2f mousePos = sf::Vector2f(float(event.mouseButton.x), float(event.mouseButton.y));
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_shape->getGlobalBounds().contains(mousePos))
 	{
 		HandleOnClick();
+		return true;
 	}
+	return false;
 }
 
 boost::signals2::connection ShapeVisual::DoOnClick(const ButtonClickSignal::slot_type & handler)
@@ -73,13 +76,14 @@ boost::signals2::connection ShapeVisual::DoOnClick(const ButtonClickSignal::slot
 
 void ShapeVisual::HandleOnClick()
 {
-	m_onClick(m_index);
+	m_onClick(*this);
 }
 
 void ShapeVisual::SetOrigin(const sf::Vector2f & origin)
 {
 	m_shape->setOrigin(origin);
 }
+
 
 ShapeVisual::~ShapeVisual()
 {
@@ -96,19 +100,9 @@ void ShapeVisual::SetSize(const sf::Vector2f & size)
 	m_shape->setOutlineThickness(1 / m_shape->getScale().x);
 }
 
-void ShapeVisual::SetIndex(size_t index)
-{
-	m_index = index;
-}
-
 void ShapeVisual::SetVisible(bool flag)
 {
 	m_isVisible = flag;
-}
-
-size_t ShapeVisual::GetIndex()
-{
-	return m_index;
 }
 
 bool ShapeVisual::GetVisible()

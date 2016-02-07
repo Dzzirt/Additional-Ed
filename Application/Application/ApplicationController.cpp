@@ -30,27 +30,19 @@ void ApplicationController::UpdateOnButtonClick(const std::string & buttonName)
 {
  if (buttonName == "Rectangle")
  {
-	 DeleteInvisivbleShapes();
-	 auto index = AddRectangle();
-	 std::shared_ptr<ICommand> cmd = std::make_shared<ShowShapeCommand>(*m_view, index);
+	 std::shared_ptr<ICommand> cmd = std::make_shared<AddShapeCommand>(*this, Rectangle);
 	 cmd->execute();
 	 m_model->AddCommand(cmd);
-
  }
  else if (buttonName == "Ellipse")
  {
-	 DeleteInvisivbleShapes();
-	 auto index = AddEllipse();
-	 std::shared_ptr<ICommand> cmd = std::make_shared<ShowShapeCommand>(*m_view, index);
+	 std::shared_ptr<ICommand> cmd = std::make_shared<AddShapeCommand>(*this, Ellipse);
 	 cmd->execute();
 	 m_model->AddCommand(cmd);
-
  }
  else if (buttonName == "Triangle")
  {
-	 DeleteInvisivbleShapes();
-	 auto index = AddTriangle();
-	 std::shared_ptr<ICommand> cmd = std::make_shared<ShowShapeCommand>(*m_view, index);
+	 std::shared_ptr<ICommand> cmd = std::make_shared<AddShapeCommand>(*this, Triangle);
 	 cmd->execute();
 	 m_model->AddCommand(cmd);
  }
@@ -67,65 +59,40 @@ void ApplicationController::UpdateOnButtonClick(const std::string & buttonName)
  
 }
 
-size_t ApplicationController::AddTriangle()
+void ApplicationController::AddShape(std::shared_ptr<ShapeLogic> & logic, std::shared_ptr<ShapeVisual>& visual, size_t index)
 {
-	auto logicShape = m_model->CreateShape(Triangle);
-	auto visualShape = std::make_shared<ShapeVisual>(std::make_shared<sf::ConvexShape>());
-	m_shapeClickConnections.push_back(visualShape->DoOnClick(boost::bind(&ApplicationController::UpdateOnShapeClick, &*this, _1)));
-	visualShape->GetBoundsConnection() = logicShape->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*visualShape, _1, _2));
-	m_view->GetWorkspace().AddShape(visualShape, m_view->GetWorkspace().GetShapesCount());
-	return logicShape->GetIndex();
+	auto clickConnectionIter = m_shapeClickConnections.begin() + index;
+	auto clickConnection = visual->DoOnClick(boost::bind(&ApplicationController::UpdateOnShapeClick, &*this, _1));
+	m_shapeClickConnections.insert(clickConnectionIter, clickConnection);
+	m_view->GetWorkspace().AddShape(visual, index);
+	m_model->AddShape(logic, index);
+	visual->GetBoundsConnection() = logic->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*visual, _1, _2));
 }
 
-size_t ApplicationController::AddRectangle()
+void ApplicationController::AddShape(std::shared_ptr<ShapeLogic> & logic, std::shared_ptr<ShapeVisual>& visual)
 {
-	auto logicShape = m_model->CreateShape(Rectangle);
-	auto visualShape = std::make_shared<ShapeVisual>(std::make_shared<sf::RectangleShape>());
-	m_shapeClickConnections.push_back(visualShape->DoOnClick(boost::bind(&ApplicationController::UpdateOnShapeClick, &*this, _1)));
-	visualShape->GetBoundsConnection() = logicShape->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*visualShape, _1, _2));
-	m_view->GetWorkspace().AddShape(visualShape, m_view->GetWorkspace().GetShapesCount());
-	return logicShape->GetIndex();
+	auto index = m_model->GetShapes().size();
+	m_shapeClickConnections.push_back(visual->DoOnClick(boost::bind(&ApplicationController::UpdateOnShapeClick, &*this, _1)));
+	visual->GetBoundsConnection() = logic->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*visual, _1, _2));
+	m_view->GetWorkspace().AddShape(visual, index);
+	m_model->AddShape(logic, index);
 }
 
-size_t ApplicationController::AddEllipse()
+size_t ApplicationController::DeleteShape(ShapeLogic & shapeLogic)
 {
-	auto logicShape = m_model->CreateShape(Ellipse);
-	auto visualShape = std::make_shared<ShapeVisual>(std::make_shared<EllipseShape>());
-	m_shapeClickConnections.push_back(visualShape->DoOnClick(boost::bind(&ApplicationController::UpdateOnShapeClick, &*this, _1)));
-	visualShape->GetBoundsConnection() = logicShape->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*visualShape, _1, _2));
-	m_view->GetWorkspace().AddShape(visualShape, m_view->GetWorkspace().GetShapesCount());
-	return logicShape->GetIndex();
-}
-
-void ApplicationController::DeleteInvisivbleShapes()
-{
+	auto index = m_model->GetShape(shapeLogic);
 	auto & visualShapes = m_view->GetWorkspace().GetShapesVisual();
 	auto & logicShapes = m_model->GetShapes();
-
-	for (size_t i = 0; i < logicShapes.size(); i++)
-	{
-		if (!visualShapes.at(i)->GetVisible())
-		{
-
-		}
-	}
+	visualShapes.erase(visualShapes.begin() + index);
+	logicShapes.erase(logicShapes.begin() + index);
+	m_shapeClickConnections.erase(m_shapeClickConnections.begin() + index);
+	return index;
 }
 
-void ApplicationController::HideShape(size_t index)
+void ApplicationController::UpdateOnShapeClick(const ShapeVisual & shapeVisual)
 {
-	m_view->GetWorkspace().GetShapesVisual().at(index)->SetVisible(false);
-	m_view->GetFrame().SetVisible(false);
-}
-
-void ApplicationController::UpdateOnShapeClick(size_t shapeIndex)
-{
-	if (m_model->GetSelected())
-	{
-		m_view->GetFrame().GetBoundsConnection().disconnect();
-	}
-	m_model->SetSelected(m_model->GetShape(shapeIndex));
+	m_model->SetSelected(m_model->GetShape(m_view->GetWorkspace().GetShapeIndex(shapeVisual)));
 	m_view->GetFrame().GetBoundsConnection() = m_model->GetSelected()->DoOnChange(boost::bind(&Frame::UpdateBounds, &m_view->GetFrame(), _1));
-
 }
 
 void ApplicationController::UpdateOnCanvasClick()
@@ -141,8 +108,10 @@ void ApplicationController::UpdateOnDrag(const sf::Vector2f & step)
 	{
 		if (!tempShape)
 		{
-			tempShape = std::make_shared<ShapeLogic>(selected->GetBounds(), selected->GetType(), selected->GetIndex());
-			auto & selectedVisual = m_view->GetWorkspace().GetShapesVisual().at(selected->GetIndex());
+			size_t selectedIndex = m_model->GetShape(*selected);
+			assert(selectedIndex != std::string::npos);
+			tempShape = std::make_shared<ShapeLogic>(selected->GetBounds(), selected->GetType());
+			auto & selectedVisual = m_view->GetWorkspace().GetShapesVisual().at(selectedIndex);
 			tempShape->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*selectedVisual, _1, _2));
 			tempShape->DoOnChange(boost::bind(&Frame::UpdateBounds, &m_view->GetFrame(), _1));
 		}

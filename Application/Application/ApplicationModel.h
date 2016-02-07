@@ -13,15 +13,17 @@ public:
 	ApplicationModel(std::shared_ptr<DomainModel> domainModel);
 	~ApplicationModel();
 
-	std::shared_ptr<ShapeLogic> CreateShape(ShapeType type);
+	std::shared_ptr<ShapeLogic>& CreateShape(ShapeType type);
 	void RemoveShape(int pos);
 	ShapeLogicVec & GetShapes();
 
+	void AddShape(std::shared_ptr<ShapeLogic> & shapeLogic, size_t index);
 	void SetSize(int pos, sf::Vector2f const& size);
 	void SetPosition(int pos, sf::Vector2f const& position);
 	void SetSelected(std::shared_ptr<ShapeLogic> & shapeLogic);
 
 	std::shared_ptr<ShapeLogic>& GetShape(size_t pos);
+	size_t GetShape(ShapeLogic & shapeLogic);
 	std::shared_ptr<ShapeLogic> & GetSelected();
 	std::shared_ptr<ShapeLogic> & GetTempShape();
 	void AddCommand(std::shared_ptr<ICommand> & command);

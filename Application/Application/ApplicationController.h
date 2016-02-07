@@ -2,7 +2,8 @@
 #include "ApplicationModel.h"
 #include "ApplicationView.h"
 #include "SetShapePositionCommand.h"
-#include "ShowShapeCommand.h"
+#include "AddShapeCommand.h"
+#include "DeleteShapeCommand.h"
 #include "ShapeCreator.h"
 
 class ApplicationController : public IShapeCreator
@@ -14,17 +15,16 @@ public:
 	void ProcessEvents(sf::Event & event);
 	void UpdateOnButtonClick(const std::string & buttonName);
 
-	size_t AddTriangle()override;
-	size_t AddRectangle()override;
-	size_t AddEllipse()override;
+	void AddShape(std::shared_ptr<ShapeLogic> & logic, std::shared_ptr<ShapeVisual>& visual, size_t index)override;
+	void AddShape(std::shared_ptr<ShapeLogic> & logic, std::shared_ptr<ShapeVisual>& visual)override;
+	size_t DeleteShape(ShapeLogic & shapeLogic)override;
 
-	void HideShape(size_t index)override;
-	void UpdateOnShapeClick(size_t shapeIndex);
+	void UpdateOnShapeClick(const ShapeVisual & shapeVisual);
 	void UpdateOnCanvasClick();
 	void UpdateOnDrag(const sf::Vector2f & step);
 	void UpdateOnDragRelease();
 private:
-	void DeleteInvisivbleShapes();
+
 	void StabiliseIndexes();
 	std::shared_ptr<ApplicationModel> m_model;
 	std::shared_ptr<ApplicationView> m_view;
