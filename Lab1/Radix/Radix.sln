@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Radix", "Radix\Radix.vcxproj", "{6C5AD525-2FDE-43E0-8E4D-508D82C74785}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RadixTests", "RadixTests\RadixTests.vcxproj", "{62018E8B-6384-4C80-8F9B-2DBF78E0AE22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C5AD525-2FDE-43E0-8E4D-508D82C74785}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6C5AD525-2FDE-43E0-8E4D-508D82C74785}.Debug|Win32.Build.0 = Debug|Win32
+		{6C5AD525-2FDE-43E0-8E4D-508D82C74785}.Release|Win32.ActiveCfg = Release|Win32
+		{6C5AD525-2FDE-43E0-8E4D-508D82C74785}.Release|Win32.Build.0 = Release|Win32
+		{62018E8B-6384-4C80-8F9B-2DBF78E0AE22}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62018E8B-6384-4C80-8F9B-2DBF78E0AE22}.Debug|Win32.Build.0 = Debug|Win32
+		{62018E8B-6384-4C80-8F9B-2DBF78E0AE22}.Release|Win32.ActiveCfg = Release|Win32
+		{62018E8B-6384-4C80-8F9B-2DBF78E0AE22}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,9 +1,9 @@
 #include "Application.h"
 #include "AppConsts.h"
 #include "iostream"
+
 Application::Application() 
-	: m_domainModel(std::make_shared<DomainModel>()),
-		m_appModel(std::make_shared<ApplicationModel>(m_domainModel)),
+	:	m_appModel(std::make_shared<ApplicationModel>(std::make_shared<DomainModel>())),
 		m_view(std::make_shared<ApplicationView>()),
 		m_controller(std::make_shared<ApplicationController>(m_appModel, m_view))
 {

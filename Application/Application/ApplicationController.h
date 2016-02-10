@@ -23,6 +23,7 @@ public:
 	void UpdateOnCanvasClick();
 	void UpdateOnDrag(const sf::Vector2f & step);
 	void UpdateOnDragRelease();
+	void UpdateOnResize(const sf::Vector2f & step, const sf::Vector2f & origin);
 private:
 
 	void StabiliseIndexes();
@@ -30,6 +31,7 @@ private:
 	std::shared_ptr<ApplicationView> m_view;
 	boost::signals2::scoped_connection m_dragConnection;
 	boost::signals2::scoped_connection m_releaseConnection;
+	boost::signals2::scoped_connection m_resizeConnection;
 	std::vector<boost::signals2::scoped_connection> m_buttonClickConnections;
 	std::vector<boost::signals2::scoped_connection> m_shapeClickConnections;
 	boost::signals2::connection m_canvasClickConnection;

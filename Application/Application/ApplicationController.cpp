@@ -8,6 +8,7 @@ ApplicationController::ApplicationController(std::shared_ptr<ApplicationModel> m
 	Frame & frame = m_view->GetFrame();
 	m_dragConnection = frame.DoOnDrag(boost::bind(&ApplicationController::UpdateOnDrag, &*this, _1));
 	m_releaseConnection = frame.DoOnRelease(boost::bind(&ApplicationController::UpdateOnDragRelease, &*this));
+	m_resizeConnection = frame.DoOnResize(boost::bind(&ApplicationController::UpdateOnResize, &*this));
 	m_canvasClickConnection = workspace.DoOnClick(boost::bind(&ApplicationController::UpdateOnCanvasClick, &*this));
 	auto & buttons = m_view->GetToolbar().GetButtons();
 	for_each(buttons.begin(), buttons.end(), [&](std::shared_ptr<CButton> & button) 
@@ -97,6 +98,7 @@ void ApplicationController::UpdateOnShapeClick(const ShapeVisual & shapeVisual)
 
 void ApplicationController::UpdateOnCanvasClick()
 {
+	m_model->GetSelected().reset();
 	m_view->GetFrame().SetVisible(false);
 }
 
@@ -135,6 +137,11 @@ void ApplicationController::UpdateOnDragRelease()
 		}
 
 	}
+}
+
+void ApplicationController::UpdateOnResize(const sf::Vector2f & step, const sf::Vector2f & origin)
+{
+	
 }
 
 ApplicationController::~ApplicationController()

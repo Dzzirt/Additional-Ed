@@ -83,6 +83,10 @@ void Frame::HandleOnRelease()
 	m_onRelease();
 }
 
+void Frame::HandleOnResize(sf::Vector2f & mousePos, Vector2f & origin)
+{
+	m_onResize(mousePos, origin);
+}
 boost::signals2::connection Frame::DoOnDrag(const DragSignal::slot_type & handler)
 {
 	return m_onDrag.connect(handler);
@@ -93,9 +97,47 @@ boost::signals2::connection Frame::DoOnRelease(const ReleaseSignal::slot_type & 
 	return m_onRelease.connect(handler);
 }
 
+boost::signals2::connection Frame::DoOnResize(const ResizeSignal::slot_type & handler)
+{
+	return m_onResize.connect(handler);
+}
+
 void Frame::ProcessEvents(sf::Event event)
 {
 	sf::Vector2f mousePos = sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
+	for (size_t i = 0; i < m_points.size(); i++)
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_points[i]->getGlobalBounds().contains(mousePos))
+		{
+			if (m_firstClick)
+			{
+				m_prevMousePos = mousePos;
+				m_firstClick = false;
+			}
+			if (i == Corners::BottomLeft)
+			{
+				auto origin = sf::Vector2f(m_rect.getSize().x, 0.f);
+				HandleOnResize(mousePos - m_prevMousePos, origin);
+			}
+			else if (i == Corners::BottomRight)
+			{
+				auto origin = sf::Vector2f(0.f, 0.f);
+				HandleOnResize(mousePos - m_prevMousePos, origin);
+			}
+			else if (i == Corners::UpperLeft)
+			{
+				auto origin = sf::Vector2f(m_rect.getSize());
+				HandleOnResize(mousePos - m_prevMousePos, origin);
+			}
+			else if (i == Corners::UpperRight)
+			{
+				auto origin = sf::Vector2f(0.f, m_rect.getSize().y);
+				HandleOnResize(mousePos - m_prevMousePos, origin);
+			}
+			m_prevMousePos = mousePos;
+		}
+	}
+
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_rect.getGlobalBounds().contains(mousePos))
 	{
 		if (m_firstClick)
@@ -116,12 +158,6 @@ void Frame::ProcessEvents(sf::Event event)
 	}
 }
 
-void Frame::DisconnectBounds()
-{
-	m_boundsConnection.disconnect();
-	SetVisible(false);
-}
-
 void Frame::SetPointsOnCorners(sf::FloatRect & rect)
 {
 	m_points[UpperLeft]->setPosition(rect.left, rect.top);
@@ -129,6 +165,8 @@ void Frame::SetPointsOnCorners(sf::FloatRect & rect)
 	m_points[BottomRight]->setPosition(rect.left + rect.width, rect.top + rect.height);
 	m_points[BottomLeft]->setPosition(rect.left, rect.top + rect.height);
 }
+
+
 
 Frame::~Frame()
 {

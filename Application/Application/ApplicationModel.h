@@ -30,7 +30,7 @@ public:
 	void Undo();
 	void Redo();
 private:
-	DomainModel * m_domainModel;
+	std::shared_ptr<DomainModel> m_domainModel;
 	std::shared_ptr<ShapeLogic> m_selectedShape;
 	std::shared_ptr<ShapeLogic> m_tempShape;
 	std::stack<std::shared_ptr<ICommand>> m_undoStack;

@@ -2,7 +2,7 @@
 
 
 ApplicationModel::ApplicationModel(std::shared_ptr<DomainModel> domainModel)
-	: m_domainModel(&*domainModel)
+	: m_domainModel(domainModel)
 {
 }
 
