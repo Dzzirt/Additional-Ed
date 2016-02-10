@@ -10,7 +10,17 @@ int main(int argc, char* argv[])
 		cout << "Usage: radix.exe <source notation> <destination notation> <value>" << endl;
 		return 1;
 	}
-	cout << Transfer(34, 33, "2147483647") << endl;
+	try
+	{
+		int sourceNotation = stoi(argv[1]);
+		int destNotation = stoi(argv[2]);
+		string value = argv[3];
+		cout << Transfer(sourceNotation, destNotation, value) << endl;
+	}
+	catch (invalid_argument e)
+	{
+		cout << "Notation must be in range [2, 36)" << endl;
+	}
 	return 0;
 }
 

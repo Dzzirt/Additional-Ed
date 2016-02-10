@@ -9,7 +9,7 @@ std::string Transfer(int sourceNotation, int destNotaion, const std::string & va
 {
 	if (value == "0")
 	{
-		return 0;
+		return "0";
 	}
 	try
 	{
@@ -19,7 +19,7 @@ std::string Transfer(int sourceNotation, int destNotaion, const std::string & va
 	}
 	catch(invalid_argument err)
 	{
-		return "";
+		return "Invalid value. Value must be a number";
 	}
 
 }
@@ -34,7 +34,7 @@ void ValidationOfValue(const std::string &value, int sourceNotation)
 			{
 				if (!(sign >= '0' && sign <= '9'))
 				{
-					throw invalid_argument("Invalid value. Example: 1F ");
+					throw invalid_argument("Invalid value. Value can only include chars [0, 9], [A, Z)");
 				}
 			}
 			if (sign >= 'A')

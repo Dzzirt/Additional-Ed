@@ -3,7 +3,7 @@
 
 using namespace std;
 
-size_t compare(const std::string & firstFileName, const std::string & secondFileName)
+size_t Compare(const std::string & firstFileName, const std::string & secondFileName)
 {
 	ifstream first(firstFileName);
 	ifstream second(secondFileName);
@@ -20,7 +20,7 @@ size_t compare(const std::string & firstFileName, const std::string & secondFile
 			return currentPos;
 		}
 	}
-	if ((first.eof() && !second.eof()) || (!first.eof() && second.eof()))
+	if (first.eof() != second.eof())
 	{
 		return currentPos;
 	}

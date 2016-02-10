@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	}
 	string first(argv[1]);
 	string second(argv[2]);
-	auto pos = compare(first, second);
+	auto pos = Compare(first, second);
 	if (pos != string::npos)
 	{
 		cout << "Files are different.Line number is " << pos << endl;
@@ -23,4 +23,3 @@ int main(int argc, char* argv[])
 	}
 	return 0;
 }
-
