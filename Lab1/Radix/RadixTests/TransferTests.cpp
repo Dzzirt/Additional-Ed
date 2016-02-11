@@ -17,11 +17,12 @@ BOOST_AUTO_TEST_CASE(FromDecimal)
 }
 BOOST_AUTO_TEST_CASE(TransferTest)
 {
-	BOOST_CHECK_EQUAL(Transfer(3, 16, "-20"), "-6");
 	BOOST_CHECK_EQUAL(Transfer(16, 25, "909"), "3HD");
 	BOOST_CHECK_EQUAL(Transfer(30, 26, "-JJJ"), "-1049");
-	BOOST_CHECK_EQUAL(Transfer(34, 33, "2147483647"), "2LPDRIU19D");
-	BOOST_CHECK_EQUAL(Transfer(34, 16, "-2147483648"), "-7044D1BEC200");
-	BOOST_CHECK_EQUAL(Transfer(2, 3, "-0"), "0");
+	BOOST_CHECK_EQUAL(Transfer(34, 33, "2147483647"), "Overflow of Int");
+	BOOST_CHECK_EQUAL(Transfer(34, 16, "-2147483648"), "Underflow of Int");
+	BOOST_CHECK_EQUAL(Transfer(25, 35, "0"), "0");
+	BOOST_CHECK_THROW(ValidationOfValue("2-0", 3), std::invalid_argument);
+	BOOST_CHECK_THROW(ValidationOfValue("sdfds", 3), std::invalid_argument);
 }
 BOOST_AUTO_TEST_SUITE_END()

@@ -14,10 +14,12 @@ int main(int argc, char* argv[])
 	{
 		int sourceNotation = stoi(argv[1]);
 		int destNotation = stoi(argv[2]);
+		ValidationOfNotation(sourceNotation);
+		ValidationOfNotation(destNotation);
 		string value = argv[3];
 		cout << Transfer(sourceNotation, destNotation, value) << endl;
 	}
-	catch (invalid_argument e)
+	catch (invalid_argument const& err)
 	{
 		cout << "Notation must be in range [2, 36)" << endl;
 	}
