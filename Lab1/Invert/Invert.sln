@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Invert", "Invert\Invert.vcxproj", "{FBC339D9-8525-42E4-90F0-72942A322EE8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InvertTest", "InvertTest\InvertTest.vcxproj", "{6391E625-79E2-4FBF-B3DE-A7137F92DD7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBC339D9-8525-42E4-90F0-72942A322EE8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FBC339D9-8525-42E4-90F0-72942A322EE8}.Debug|Win32.Build.0 = Debug|Win32
+		{FBC339D9-8525-42E4-90F0-72942A322EE8}.Release|Win32.ActiveCfg = Release|Win32
+		{FBC339D9-8525-42E4-90F0-72942A322EE8}.Release|Win32.Build.0 = Release|Win32
+		{6391E625-79E2-4FBF-B3DE-A7137F92DD7F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6391E625-79E2-4FBF-B3DE-A7137F92DD7F}.Debug|Win32.Build.0 = Debug|Win32
+		{6391E625-79E2-4FBF-B3DE-A7137F92DD7F}.Release|Win32.ActiveCfg = Release|Win32
+		{6391E625-79E2-4FBF-B3DE-A7137F92DD7F}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

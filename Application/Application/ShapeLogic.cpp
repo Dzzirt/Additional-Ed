@@ -52,7 +52,6 @@ sf::Vector2f ShapeLogic::GetSize()
 
 void ShapeLogic::HandleChange()
 {
-	std::cout << m_onChange.num_slots();
 	m_onChange(m_bounds, m_origin);
 }
 

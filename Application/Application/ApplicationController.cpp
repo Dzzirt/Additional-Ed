@@ -1,14 +1,17 @@
 #include "ApplicationController.h"
 #include "iostream"
 
+//Вынести команды в апп модель
+//Избавиться от передачи указ. по ссылке
+//для каждого угла свой алгоритм
 ApplicationController::ApplicationController(std::shared_ptr<ApplicationModel> model, std::shared_ptr<ApplicationView> view)
 	: m_model(model), m_view(view)
 {
 	Workspace & workspace = m_view->GetWorkspace();
 	Frame & frame = m_view->GetFrame();
-	m_dragConnection = frame.DoOnDrag(boost::bind(&ApplicationController::UpdateOnDrag, &*this, _1));
-	m_releaseConnection = frame.DoOnRelease(boost::bind(&ApplicationController::UpdateOnDragRelease, &*this));
-	m_resizeConnection = frame.DoOnResize(boost::bind(&ApplicationController::UpdateOnResize, &*this));
+	//m_dragConnection = frame.DoOnDrag(boost::bind(&ApplicationController::UpdateOnDrag, &*this, _1));
+	//m_releaseConnection = frame.DoOnRelease(boost::bind(&ApplicationController::UpdateOnDragRelease, &*this));
+	m_resizeConnection = frame.DoOnResize(boost::bind(&ApplicationController::UpdateOnResize, &*this, _1, _2, _3));
 	m_canvasClickConnection = workspace.DoOnClick(boost::bind(&ApplicationController::UpdateOnCanvasClick, &*this));
 	auto & buttons = m_view->GetToolbar().GetButtons();
 	for_each(buttons.begin(), buttons.end(), [&](std::shared_ptr<CButton> & button) 
@@ -31,19 +34,19 @@ void ApplicationController::UpdateOnButtonClick(const std::string & buttonName)
 {
  if (buttonName == "Rectangle")
  {
-	 std::shared_ptr<ICommand> cmd = std::make_shared<AddShapeCommand>(*this, Rectangle);
+	 auto cmd = std::make_shared<AddShapeCommand>(*this, Rectangle);
 	 cmd->execute();
 	 m_model->AddCommand(cmd);
  }
  else if (buttonName == "Ellipse")
  {
-	 std::shared_ptr<ICommand> cmd = std::make_shared<AddShapeCommand>(*this, Ellipse);
+	 auto cmd = std::make_shared<AddShapeCommand>(*this, Ellipse);
 	 cmd->execute();
 	 m_model->AddCommand(cmd);
  }
  else if (buttonName == "Triangle")
  {
-	 std::shared_ptr<ICommand> cmd = std::make_shared<AddShapeCommand>(*this, Triangle);
+	 auto cmd = std::make_shared<AddShapeCommand>(*this, Triangle);
 	 cmd->execute();
 	 m_model->AddCommand(cmd);
  }
@@ -67,14 +70,14 @@ void ApplicationController::AddShape(std::shared_ptr<ShapeLogic> & logic, std::s
 	m_shapeClickConnections.insert(clickConnectionIter, clickConnection);
 	m_view->GetWorkspace().AddShape(visual, index);
 	m_model->AddShape(logic, index);
-	visual->GetBoundsConnection() = logic->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*visual, _1, _2));
+	visual->GetBoundsConnection() = logic->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*visual, _1));
 }
 
 void ApplicationController::AddShape(std::shared_ptr<ShapeLogic> & logic, std::shared_ptr<ShapeVisual>& visual)
 {
 	auto index = m_model->GetShapes().size();
 	m_shapeClickConnections.push_back(visual->DoOnClick(boost::bind(&ApplicationController::UpdateOnShapeClick, &*this, _1)));
-	visual->GetBoundsConnection() = logic->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*visual, _1, _2));
+	visual->GetBoundsConnection() = logic->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*visual, _1));
 	m_view->GetWorkspace().AddShape(visual, index);
 	m_model->AddShape(logic, index);
 }
@@ -98,8 +101,8 @@ void ApplicationController::UpdateOnShapeClick(const ShapeVisual & shapeVisual)
 
 void ApplicationController::UpdateOnCanvasClick()
 {
-	m_model->GetSelected().reset();
-	m_view->GetFrame().SetVisible(false);
+//	m_model->GetSelected().reset();
+//	m_view->GetFrame().SetVisible(false);
 }
 
 void ApplicationController::UpdateOnDrag(const sf::Vector2f & step)
@@ -114,7 +117,7 @@ void ApplicationController::UpdateOnDrag(const sf::Vector2f & step)
 			assert(selectedIndex != std::string::npos);
 			tempShape = std::make_shared<ShapeLogic>(selected->GetBounds(), selected->GetType());
 			auto & selectedVisual = m_view->GetWorkspace().GetShapesVisual().at(selectedIndex);
-			tempShape->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*selectedVisual, _1, _2));
+			tempShape->DoOnChange(boost::bind(&ShapeVisual::UpdateBounds, &*selectedVisual, _1));
 			tempShape->DoOnChange(boost::bind(&Frame::UpdateBounds, &m_view->GetFrame(), _1));
 		}
 		tempShape->SetPosition(tempShape->GetPosition() + step);
@@ -139,9 +142,29 @@ void ApplicationController::UpdateOnDragRelease()
 	}
 }
 
-void ApplicationController::UpdateOnResize(const sf::Vector2f & step, const sf::Vector2f & origin)
+void ApplicationController::UpdateOnResize(const sf::Vector2f & step, const sf::Vector2f & origin, Corners corner)
 {
-	
+	auto selectedIndex = m_model->GetShape(*m_model->GetSelected());
+	auto & visualShapes = m_view->GetWorkspace().GetShapesVisual();
+	visualShapes.at(selectedIndex)->SetOrigin(origin);
+	if (corner == BottomLeft)
+	{
+		auto fixedStep = step;
+		fixedStep.y *= -1;
+		m_model->GetSelected()->SetPosition(m_model->GetSelected()->GetPosition() + step);
+		m_model->GetSelected()->SetSize(m_model->GetSelected()->GetSize() - fixedStep);
+		m_model->GetSelected()->HandleChange();
+	}
+	else if (corner = BottomRight)
+	{
+	}
+	else if (corner = UpperLeft)
+	{
+	}
+	else if (corner = UpperRight)
+	{
+	}
+
 }
 
 ApplicationController::~ApplicationController()

@@ -18,9 +18,9 @@ public:
 	~Frame();
 	typedef boost::signals2::signal<void(sf::Vector2f)> DragSignal;
 	typedef boost::signals2::signal<void()> ReleaseSignal;
-	typedef boost::signals2::signal<void(sf::Vector2f, sf::Vector2f)> ResizeSignal;
+	typedef boost::signals2::signal<void(sf::Vector2f, sf::Vector2f, Corners)> ResizeSignal;
 	void SetPosition(const sf::Vector2f & pos);
-	void SetSize(sf::Vector2f & size);
+	void SetSize(sf::Vector2f const& size);
 
 	std::shared_ptr<sf::RectangleShape>& GetPoint(Corners & corner);
 	void SetVisible(bool flag);
@@ -35,9 +35,9 @@ public:
 	boost::signals2::connection DoOnRelease(const ReleaseSignal::slot_type & handler);
 	boost::signals2::connection DoOnResize(const ResizeSignal::slot_type & handler);
 
-	void HandleOnDrag(sf::Vector2f pos);
+	void HandleOnDrag(sf::Vector2f const& pos);
 	void HandleOnRelease();
-//	void HandleOnResize(sf::Vector2f & mousePos, Vector2f & origin);
+	void HandleOnResize(sf::Vector2f const& mousePos, sf::Vector2f const& origin, Corners corner);
 
 	void ProcessEvents(sf::Event event);
 private:

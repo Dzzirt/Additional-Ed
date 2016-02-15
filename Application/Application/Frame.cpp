@@ -1,6 +1,8 @@
 #include "Frame.h"
 #include "iostream"
 
+using namespace std;
+
 Frame::Frame() : m_firstClick(true), m_isVisible(false)
 {
 	m_rect.setFillColor(sf::Color::Transparent);
@@ -21,7 +23,7 @@ void Frame::SetPosition(const sf::Vector2f & pos)
 	m_rect.setPosition(pos);
 }
 
-void Frame::SetSize(sf::Vector2f & size)
+void Frame::SetSize(sf::Vector2f const& size)
 {
 	m_rect.setSize(size);
 }
@@ -73,7 +75,7 @@ boost::signals2::connection& Frame::GetBoundsConnection()
 	return m_boundsConnection;
 }
 
-void Frame::HandleOnDrag(sf::Vector2f pos)
+void Frame::HandleOnDrag(sf::Vector2f const& pos)
 {
 	m_onDrag(pos);
 }
@@ -83,9 +85,9 @@ void Frame::HandleOnRelease()
 	m_onRelease();
 }
 
-void Frame::HandleOnResize(sf::Vector2f & mousePos, Vector2f & origin)
+void Frame::HandleOnResize(sf::Vector2f const& mousePos, sf::Vector2f const& origin, Corners corner)
 {
-	m_onResize(mousePos, origin);
+	m_onResize(mousePos, origin, corner);
 }
 boost::signals2::connection Frame::DoOnDrag(const DragSignal::slot_type & handler)
 {
@@ -116,23 +118,23 @@ void Frame::ProcessEvents(sf::Event event)
 			}
 			if (i == Corners::BottomLeft)
 			{
-				auto origin = sf::Vector2f(m_rect.getSize().x, 0.f);
-				HandleOnResize(mousePos - m_prevMousePos, origin);
+				auto origin = sf::Vector2f(0.f, m_rect.getSize().y);
+				HandleOnResize(mousePos - m_prevMousePos, origin, BottomLeft);
 			}
 			else if (i == Corners::BottomRight)
 			{
-				auto origin = sf::Vector2f(0.f, 0.f);
-				HandleOnResize(mousePos - m_prevMousePos, origin);
+				auto origin = sf::Vector2f(m_rect.getSize());
+				HandleOnResize(mousePos - m_prevMousePos, origin, BottomRight);
 			}
 			else if (i == Corners::UpperLeft)
 			{
-				auto origin = sf::Vector2f(m_rect.getSize());
-				HandleOnResize(mousePos - m_prevMousePos, origin);
+				auto origin = sf::Vector2f(0.f, 0.f);
+				HandleOnResize(mousePos - m_prevMousePos, origin, UpperLeft);
 			}
 			else if (i == Corners::UpperRight)
 			{
-				auto origin = sf::Vector2f(0.f, m_rect.getSize().y);
-				HandleOnResize(mousePos - m_prevMousePos, origin);
+				auto origin = sf::Vector2f(m_rect.getSize().x, 0.f);
+				HandleOnResize(mousePos - m_prevMousePos, origin, UpperRight);
 			}
 			m_prevMousePos = mousePos;
 		}

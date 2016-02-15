@@ -13,7 +13,7 @@ public:
 	ApplicationModel(std::shared_ptr<DomainModel> domainModel);
 	~ApplicationModel();
 
-	std::shared_ptr<ShapeLogic>& CreateShape(ShapeType type);
+	std::shared_ptr<ShapeLogic> CreateShape(ShapeType type);
 	void RemoveShape(int pos);
 	ShapeLogicVec & GetShapes();
 
@@ -26,7 +26,7 @@ public:
 	size_t GetShape(ShapeLogic & shapeLogic);
 	std::shared_ptr<ShapeLogic> & GetSelected();
 	std::shared_ptr<ShapeLogic> & GetTempShape();
-	void AddCommand(std::shared_ptr<ICommand> & command);
+	void AddCommand(std::shared_ptr<ICommand> command);
 	void Undo();
 	void Redo();
 private:

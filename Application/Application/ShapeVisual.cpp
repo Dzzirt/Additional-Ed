@@ -46,9 +46,8 @@ void ShapeVisual::Draw(sf::RenderWindow & window)
 	
 }
 
-void ShapeVisual::UpdateBounds(const sf::FloatRect & bounds, const sf::Vector2f & origin)
+void ShapeVisual::UpdateBounds(const sf::FloatRect & bounds)
 {
-	SetOrigin(origin);
 	SetPosition(sf::Vector2f(bounds.left, bounds.top));
 	SetSize(sf::Vector2f(bounds.width, bounds.height));
 }

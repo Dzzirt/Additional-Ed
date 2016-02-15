@@ -3,13 +3,11 @@
   <ArrayOfArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\AddShapeCommand.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\AddShapeCommand.h</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\DeleteShapeCommand.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\SetShapePositionCommand.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\SetShapePositionCommand.h</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\DeleteShapeCommand.h</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Application.cpp</string>
@@ -25,9 +23,11 @@
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationView.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationView.h</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\assets.cpp</string>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\assets.h</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Canvas.cpp</string>
@@ -61,6 +61,15 @@
     </ArrayOfString>
     <ArrayOfString>
       <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Workspace.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Command.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\button.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>c:\Programing\Libs\SFML13\SFML-2.3.2-x64\include\SFML\System\Vector2.inl</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

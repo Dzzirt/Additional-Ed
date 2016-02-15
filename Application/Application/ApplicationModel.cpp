@@ -16,14 +16,13 @@ ApplicationModel::~ApplicationModel()
 {
 }
 
-std::shared_ptr<ShapeLogic>& ApplicationModel::CreateShape(ShapeType type)
+std::shared_ptr<ShapeLogic> ApplicationModel::CreateShape(ShapeType type)
 {
 	float border = (WindowWidth - CanvasSize.x) / 2.f;
 	sf::Vector2f canvasPos(border, WindowHeight - CanvasSize.y - border);
 	sf::Vector2f defaultPos = sf::Vector2f(canvasPos + CanvasSize / 2.f - DefaultShapeSize / 2.f);
-	sf::FloatRect & bounds = sf::FloatRect(defaultPos, DefaultShapeSize);
-	auto & shape = std::make_shared<ShapeLogic>(bounds, type);
-	return shape;
+	sf::FloatRect bounds = sf::FloatRect(defaultPos, DefaultShapeSize);
+	return std::make_shared<ShapeLogic>(bounds, type);
 }
 
 void ApplicationModel::AddShape(std::shared_ptr<ShapeLogic> & shapeLogic, size_t index)
@@ -82,7 +81,7 @@ std::shared_ptr<ShapeLogic> & ApplicationModel::GetTempShape()
 	return m_tempShape;
 }
 
-void ApplicationModel::AddCommand(std::shared_ptr<ICommand> & command)
+void ApplicationModel::AddCommand(std::shared_ptr<ICommand> command)
 {
 	m_undoStack.push(command);
 	while (!m_redoStack.empty())

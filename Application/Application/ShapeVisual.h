@@ -23,7 +23,7 @@ public:
 	void SetVisible(bool flag);
 	bool GetVisible();
 	void Draw(sf::RenderWindow & window);
-	void UpdateBounds(const sf::FloatRect & bounds, const sf::Vector2f & origin);
+	void UpdateBounds(const sf::FloatRect & bounds);
 	boost::signals2::connection& GetBoundsConnection();
 	bool ProcessEvents(sf::Event event);
 	boost::signals2::connection DoOnClick(const ButtonClickSignal::slot_type & handler);

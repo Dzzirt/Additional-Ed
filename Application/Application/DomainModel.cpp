@@ -43,6 +43,6 @@ size_t DomainModel::GetShapeIndex(ShapeLogic & shapeLogic)
 	auto it = std::find_if(m_shapesLogic.begin(), m_shapesLogic.end(), [&](std::shared_ptr<ShapeLogic> & m_shapeLogic) {
 		return &*m_shapeLogic == &shapeLogic;
 	});
-	assert(it != m_shapesLogic.end());
+	assert(it <= m_shapesLogic.end());
 	return it - m_shapesLogic.begin();
 }
