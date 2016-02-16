@@ -22,11 +22,11 @@ bool IsWithinRangeInclusive(const T& value, const T& lowerBound, const T& upperB
 
 int CharToNumber(char character)
 {
-	if (IsBetween(character, 'A', 'Z'))
+	if (IsWithinRangeInclusive(character, 'A', 'Z'))
 	{
 		return static_cast<int>(character - 'A' + 10);
 	}
-	else if (IsBetween(character, 'a', 'z'))
+	else if (IsWithinRangeInclusive(character, 'a', 'z'))
 	{
 		return static_cast<int>(character - 'a' + 10);
 	}
@@ -38,7 +38,7 @@ int CharToNumber(char character)
 }
 
 
-void AddWithOverflowCheck(int val1, int val2)
+int AddWithOverflowCheck(int val1, int val2)
 {
 	if (val2 > 0 && val1 > INT_MAX - val2)
 	{
@@ -48,10 +48,15 @@ void AddWithOverflowCheck(int val1, int val2)
 	{
 		throw underflow_error("Underflow of Int");
 	}
+	return val1 + val2;
 }
 
-void MultiplicationWithOverflowCheck(int val1, int val2)
+int MultiplicationWithOverflowCheck(int val1, int val2, bool isNegative)
 {
+	if (isNegative)
+	{
+		val2 *= -1;
+	}
 	if (val2 > 0 && val1 > INT_MAX / val2)
 	{
 		throw overflow_error("Overflow of Int");
@@ -63,6 +68,11 @@ void MultiplicationWithOverflowCheck(int val1, int val2)
 			throw underflow_error("Underflow of Int");
 		}
 	}
+	if (isNegative)
+	{
+		val2 *= -1;
+	}
+	return val1 * val2;
 	
 }
 std::string Transfer(int sourceNotation, int destNotaion, const std::string & value)
@@ -94,6 +104,22 @@ std::string Transfer(int sourceNotation, int destNotaion, const std::string & va
 
 void ValidationOfValue(const std::string &value, int sourceNotation)
 {
+	if (sourceNotation == 10)
+	{
+		string intMin = to_string(INT_MIN);
+		if (value > to_string(INT_MAX))
+		{
+			throw overflow_error("Overflow of Int");
+		}
+		if (value[0] == '-')
+		{
+			if (value > intMin)
+			{
+				throw underflow_error("Underflow of Int");
+			}
+		}
+	}
+	
 	for (size_t i = 0; i < value.size(); i++)
 	{
 		if (value[i] == '-' || value[i] == '+')
@@ -107,11 +133,11 @@ void ValidationOfValue(const std::string &value, int sourceNotation)
 	auto isValid = std::all_of(value.begin(), value.end(), [=](char character) {
 		if (character != '-' && character != '+')
 		{
-			if (!(IsBetween(character, 'A', 'Z')))
+			if (!(IsWithinRangeInclusive(character, 'A', 'Z')))
 			{
 				if (!(IsWithinRangeInclusive(character, '0', '9')))
 				{
-					if (!(IsBetween(character, 'a', 'z')))
+					if (!(IsWithinRangeInclusive(character, 'a', 'z')))
 					{
 						return false;
 					}
@@ -126,15 +152,15 @@ void ValidationOfValue(const std::string &value, int sourceNotation)
 	});
 	if (!isValid)
 	{
-		throw invalid_argument("Invalid value. Value can only include chars [0, 9], [A, Z), [a, z]. Also each symbol of value must be lower than source notation");
+		throw invalid_argument("Invalid value. Value can only include chars [0, 9], [A, Z], [a, z]. Also each symbol of value must be lower than source notation");
 	}
 }
 
 void ValidationOfNotation(int notation)
 {
-	if (!(IsBetween(notation, 2 , 36)))
+	if (!(IsWithinRangeInclusive(notation, 2, 36)))
 	{
-		throw invalid_argument("");
+		throw invalid_argument("Notation must be in range [2, 36]");
 	}
 }
 
@@ -161,22 +187,8 @@ int ToDecimalNotation(const std::string & value, int sourceNotation)
 		}
 		else
 		{
-			if (i == 6)
-			{
-				cout << "kek";
-			}
-			if (isNegative)
-			{
-				MultiplicationWithOverflowCheck(sourceNotation, result * -1);
-				AddWithOverflowCheck(CharToNumber(value[i]), result * sourceNotation * -1);
-			}
-			else
-			{
-				MultiplicationWithOverflowCheck(sourceNotation, result);
-				AddWithOverflowCheck(CharToNumber(value[i]), result * sourceNotation);
-			}
-			
-			result = result * sourceNotation + CharToNumber(value[i]);
+			auto miltiply = MultiplicationWithOverflowCheck(sourceNotation, result, isNegative);
+			result = AddWithOverflowCheck(CharToNumber(value[i]), miltiply);
 		}
 	}
 	if (isNegative)
@@ -208,7 +220,15 @@ std::string FromDecimalToDestination(int value, int destNotaion)
 		}
 		value /= destNotaion;
 	}
-	result += to_string(value);
+	if (value >= 10)
+	{
+		result += 'A';
+	}
+	else
+	{
+		result += to_string(value);
+	}
+	
 	if (isNegative)
 	{
 		result.push_back('-');

@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 	}
 	catch (invalid_argument const& err)
 	{
-		cout << "Notation must be in range [2, 36)" << endl;
+		cout << err.what() << endl;
 	}
 	return 0;
 }

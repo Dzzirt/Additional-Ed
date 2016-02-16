@@ -24,5 +24,5 @@ std::string FromDecimalToDestination(int value, int destNotaion);
 
 int CharToNumber(char character);
 
-void AddWithOverflowCheck(int val1, int val2);
-void MultiplicationWithOverflowCheck(int val1, int val2);
+int AddWithOverflowCheck(int val1, int val2);
+int MultiplicationWithOverflowCheck(int val1, int val2, bool isNegative);

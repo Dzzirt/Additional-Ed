@@ -21,6 +21,8 @@ BOOST_AUTO_TEST_CASE(TransferTest)
 	BOOST_CHECK_EQUAL(Transfer(30, 26, "-JJJ"), "-1049");
 	BOOST_CHECK_EQUAL(Transfer(34, 33, "2147483647"), "Overflow of Int");
 	BOOST_CHECK_EQUAL(Transfer(34, 16, "-2147483648"), "Underflow of Int");
+	BOOST_CHECK_EQUAL(Transfer(10, 16, "-2147483649"), "Underflow of Int");
+	BOOST_CHECK_EQUAL(Transfer(10, 16, "2147483648"), "Overflow of Int");
 	BOOST_CHECK_EQUAL(Transfer(25, 35, "0"), "0");
 	BOOST_CHECK_THROW(ValidationOfValue("2-0", 3), std::invalid_argument);
 	BOOST_CHECK_THROW(ValidationOfValue("sdfds", 3), std::invalid_argument);
