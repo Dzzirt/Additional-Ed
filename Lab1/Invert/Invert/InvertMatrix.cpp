@@ -23,7 +23,7 @@ void PrintMatrix(Matrix const& matrix)
 Matrix Get3dMatrixFromFile(string const& fileName)
 {
 	size_t lineNum = 0;
-	Matrix matrix = { { {}, {}, {} }, { {}, {}, {} }, { {}, {}, {} } };
+	Matrix matrix;
 	ifstream in(fileName);
 	string line;
 	while (!in.eof())
@@ -85,7 +85,7 @@ Matrix Invert3dMatrix(Matrix const& matrix)
 		throw invalid_argument("Inverted matrix does not exist");
 	}
 	auto resultMatrix = GetMinor3dMatrix(matrix);
-	ToAlgAdditions3dMatrix(resultMatrix);
+	GetCofactor3dMatrix(resultMatrix);
 	resultMatrix = GetTransposed3dMatrix(resultMatrix);
 	Multiply3dMatrixWithNum(resultMatrix, 1 / determinant);
 	return resultMatrix;
@@ -93,10 +93,6 @@ Matrix Invert3dMatrix(Matrix const& matrix)
 
 double Get3dMatrixDeterminant(Matrix const& matrix)
 {
-	if (matrix.size() != 3 || matrix[0].size() != 3)
-	{
-		throw invalid_argument("Matrix should be 3x3");
-	}
 	double determinant = matrix[0][0] * matrix[1][1] * matrix[2][2] +
 		matrix[2][0] * matrix[0][1] * matrix[1][2] +
 		matrix[1][0] * matrix[2][1] * matrix[0][2] -
@@ -108,11 +104,7 @@ double Get3dMatrixDeterminant(Matrix const& matrix)
 
 Matrix GetMinor3dMatrix(Matrix const& matrix)
 {
-	if (matrix.size() != 3 || matrix[0].size() != 3)
-	{
-		throw invalid_argument("Matrix should be 3x3");
-	}
-	Matrix matrixOfMinors = { { {}, {}, {} }, { {}, {}, {} }, { {}, {}, {} } };
+	Matrix matrixOfMinors;
 	for (size_t row = 0; row < matrix.size(); row++)
 	{
 		for (size_t col = 0; col < matrix[0].size(); col++)
@@ -125,18 +117,16 @@ Matrix GetMinor3dMatrix(Matrix const& matrix)
 
 double GetMinorByPos(Matrix const& matrix, std::pair<size_t, size_t> const& pos)
 {
-	if (matrix.size() != 3 || matrix[0].size() != 3)
-	{
-		throw invalid_argument("Matrix should be 3x3");
-	}
-	vector<double> minorElements;
+	array<double, 4> minorElements;
+	size_t counter = 0;
 	for (size_t row = 0; row < matrix.size(); row++)
 	{
 		for (size_t col = 0; col < matrix[0].size(); col++)
 		{
 			if (row != pos.first && col != pos.second)
-			{
-				minorElements.push_back(matrix[row][col]);
+			{	
+				minorElements.at(counter) = matrix[row][col];
+				counter++;
 			}
 		}
 	}
@@ -156,12 +146,8 @@ Matrix Multiply3dMatrixWithNum(Matrix & matrix, double value)
 	return matrix;
 }
 
-Matrix ToAlgAdditions3dMatrix(Matrix & matrix)
+Matrix GetCofactor3dMatrix(Matrix & matrix)
 {
-	if (matrix.size() != 3 || matrix[0].size() != 3)
-	{
-		throw invalid_argument("Matrix should be 3x3");
-	}
 	matrix[0][1] *= -1;
 	matrix[1][0] *= -1;
 	matrix[1][2] *= -1;
@@ -171,11 +157,7 @@ Matrix ToAlgAdditions3dMatrix(Matrix & matrix)
 
 Matrix GetTransposed3dMatrix(Matrix const& matrix)
 {
-	if (matrix.size() != 3 || matrix[0].size() != 3)
-	{
-		throw invalid_argument("Matrix should be 3x3");
-	}
-	Matrix transposed = { { {}, {}, {} }, { {}, {}, {} }, { {}, {}, {} } };
+	Matrix transposed;
 	for (size_t row = 0; row < matrix.size(); row++)
 	{
 		for (size_t col = 0; col < matrix[0].size(); col++)

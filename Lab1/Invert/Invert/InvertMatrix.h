@@ -1,7 +1,6 @@
-#include <vector>
+#include <array>
 
-typedef std::vector < std::vector<double> > Matrix;
-
+typedef std::array < std::array<double, 3>, 3 > Matrix;
 
 void PrintMatrix(Matrix const& matrix);
 
@@ -15,7 +14,7 @@ double Get3dMatrixDeterminant(Matrix const& matrix);
 
 Matrix GetMinor3dMatrix(Matrix const& matrix);
 
-Matrix ToAlgAdditions3dMatrix(Matrix & matrix);
+Matrix GetCofactor3dMatrix(Matrix & matrix);
 
 Matrix GetTransposed3dMatrix(Matrix const& matrix);
 
