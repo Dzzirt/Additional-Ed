@@ -81,25 +81,9 @@ std::string Transfer(int sourceNotation, int destNotaion, const std::string & va
 	{
 		return "0";
 	}
-	try
-	{
-		auto decimalVal = ToDecimalNotation(value, sourceNotation);
-		string result = FromDecimalToDestination(decimalVal, destNotaion);
-		return result;
-	}
-	catch(invalid_argument const& err)
-	{
-		return err.what();
-	}
-	catch (underflow_error const& err)
-	{
-		return err.what();
-	}
-	catch (overflow_error const& err)
-	{
-		return err.what();
-	}
-
+	auto decimalVal = ToDecimalNotation(value, sourceNotation);
+	string result = FromDecimalToDestination(decimalVal, destNotaion);
+	return result;
 }
 
 void ValidationOfValue(const std::string &value, int sourceNotation)

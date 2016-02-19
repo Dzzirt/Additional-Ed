@@ -2,24 +2,10 @@
 <ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArrayOfArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Lab1\Invert\Invert\Invert.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab1\Invert\Invert\Invert.cpp</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Lab1\Invert\Invert\InvertMatrix.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Lab1\Invert\Invert\InvertMatrix.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Lab1\Invert\InvertTest\InvertTest.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Lab1\Invert\InvertTest\stdafx.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Lab1\Invert\InvertTest\stdafx.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Lab1\Invert\InvertTest\InvertFunctionsTest.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>c:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\istream</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab1\Invert\Invert\InvertMatrix.cpp</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

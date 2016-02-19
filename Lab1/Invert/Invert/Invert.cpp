@@ -10,6 +10,7 @@ int main(int argc, char* argv[])
 	if (argc != 2)
 	{
 		std::cout << "Usage: invert.exe <input file with 3x3 matrix>" << std::endl;
+		return 1;
 	}
 	std::string fileName = argv[1];
 	try
@@ -19,6 +20,7 @@ int main(int argc, char* argv[])
 	catch (std::invalid_argument const& err)
 	{
 		std::cout << err.what() << std::endl;
+		return 1;
 	}
 	return 0;
 }
