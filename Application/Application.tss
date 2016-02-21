@@ -2,74 +2,7 @@
 <ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArrayOfArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\AddShapeCommand.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\AddShapeCommand.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\DeleteShapeCommand.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\DeleteShapeCommand.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Application.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Application.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationController.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationController.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationModel.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationModel.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationView.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ApplicationView.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\assets.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\assets.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Canvas.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\DomainModel.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Frame.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Frame.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ImageButton.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ImageButton.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\main.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeLogic.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeVisual.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\ShapeVisual.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\TextButton.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Toolbar.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Workspace.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\Command.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\Application\Application\button.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>c:\Programing\Libs\SFML13\SFML-2.3.2-x64\include\SFML\System\Vector2.inl</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\main.cpp</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

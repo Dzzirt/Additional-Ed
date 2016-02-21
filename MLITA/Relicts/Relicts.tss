@@ -2,14 +2,11 @@
 <ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArrayOfArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\MLITA\Relicts\Relicts\stdafx.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\MLITA\Relicts\Relicts\FenceCounter.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\MLITA\Relicts\Relicts\FenceCounter.h</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\MLITA\Relicts\Relicts\main.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\MLITA\Relicts\Relicts\FenceCounter.cpp</string>
-      <string>C:\Users\Dzzirt\Documents\Additional-Ed\MLITA\Relicts\Relicts\FenceCounter.h</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\MLITA\Relicts\Relicts\main.cpp</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

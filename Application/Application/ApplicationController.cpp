@@ -9,9 +9,9 @@ ApplicationController::ApplicationController(std::shared_ptr<ApplicationModel> m
 {
 	Workspace & workspace = m_view->GetWorkspace();
 	Frame & frame = m_view->GetFrame();
-	//m_dragConnection = frame.DoOnDrag(boost::bind(&ApplicationController::UpdateOnDrag, &*this, _1));
-	//m_releaseConnection = frame.DoOnRelease(boost::bind(&ApplicationController::UpdateOnDragRelease, &*this));
-	m_resizeConnection = frame.DoOnResize(boost::bind(&ApplicationController::UpdateOnResize, &*this, _1, _2, _3));
+	m_dragConnection = frame.DoOnDrag(boost::bind(&ApplicationController::UpdateOnDrag, &*this, _1));
+	m_releaseConnection = frame.DoOnRelease(boost::bind(&ApplicationController::UpdateOnDragRelease, &*this));
+	m_resizeConnection = frame.DoOnResize(boost::bind(&ApplicationController::UpdateOnResize, &*this, _1, _2));
 	m_canvasClickConnection = workspace.DoOnClick(boost::bind(&ApplicationController::UpdateOnCanvasClick, &*this));
 	auto & buttons = m_view->GetToolbar().GetButtons();
 	for_each(buttons.begin(), buttons.end(), [&](std::shared_ptr<CButton> & button) 
@@ -121,7 +121,6 @@ void ApplicationController::UpdateOnDrag(const sf::Vector2f & step)
 			tempShape->DoOnChange(boost::bind(&Frame::UpdateBounds, &m_view->GetFrame(), _1));
 		}
 		tempShape->SetPosition(tempShape->GetPosition() + step);
-		
 	}
 }
 
@@ -142,29 +141,39 @@ void ApplicationController::UpdateOnDragRelease()
 	}
 }
 
-void ApplicationController::UpdateOnResize(const sf::Vector2f & step, const sf::Vector2f & origin, Corners corner)
+void ApplicationController::UpdateOnResize(const sf::Vector2f & step, Corners corner)
 {
 	auto selectedIndex = m_model->GetShape(*m_model->GetSelected());
 	auto & visualShapes = m_view->GetWorkspace().GetShapesVisual();
-	visualShapes.at(selectedIndex)->SetOrigin(origin);
 	if (corner == BottomLeft)
 	{
 		auto fixedStep = step;
-		fixedStep.y *= -1;
-		m_model->GetSelected()->SetPosition(m_model->GetSelected()->GetPosition() + step);
-		m_model->GetSelected()->SetSize(m_model->GetSelected()->GetSize() - fixedStep);
-		m_model->GetSelected()->HandleChange();
-	}
-	else if (corner = BottomRight)
-	{
-	}
-	else if (corner = UpperLeft)
-	{
-	}
-	else if (corner = UpperRight)
-	{
-	}
+		fixedStep.y = 0;
+		m_model->GetSelected()->SetPosition(m_model->GetSelected()->GetPosition() + fixedStep);
+		fixedStep = step;
+		fixedStep.x *= -1.f;
+		m_model->GetSelected()->SetSize(m_model->GetSelected()->GetSize() + fixedStep);
 
+	}
+	else if (corner == BottomRight)
+	{
+		m_model->GetSelected()->SetSize(m_model->GetSelected()->GetSize() + step);
+	}
+	else if (corner == UpperLeft)
+	{
+		m_model->GetSelected()->SetPosition(m_model->GetSelected()->GetPosition() + step);
+		m_model->GetSelected()->SetSize(m_model->GetSelected()->GetSize() - step);
+	}
+	else if (corner == UpperRight)
+	{
+		auto fixedStep = step;
+		fixedStep.x = 0;
+		m_model->GetSelected()->SetPosition(m_model->GetSelected()->GetPosition() + fixedStep);
+		fixedStep = step;
+		fixedStep.y *= -1.f;
+		m_model->GetSelected()->SetSize(m_model->GetSelected()->GetSize() + fixedStep);
+	}
+	m_model->GetSelected()->HandleChange();
 }
 
 ApplicationController::~ApplicationController()

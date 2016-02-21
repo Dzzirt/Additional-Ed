@@ -23,7 +23,7 @@ public:
 	void UpdateOnCanvasClick();
 	void UpdateOnDrag(const sf::Vector2f & step);
 	void UpdateOnDragRelease();
-	void UpdateOnResize(const sf::Vector2f & step, const sf::Vector2f & origin, Corners corner);
+	void UpdateOnResize(const sf::Vector2f & step, Corners corner);
 private:
 
 	void StabiliseIndexes();

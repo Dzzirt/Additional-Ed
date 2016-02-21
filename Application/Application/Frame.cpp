@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Frame::Frame() : m_firstClick(true), m_isVisible(false)
+Frame::Frame() : m_firstClick(true), m_isVisible(false), m_isDrag(false), m_isResize(false), m_inResize(None)
 {
 	m_rect.setFillColor(sf::Color::Transparent);
 	m_rect.setOutlineThickness(1.f);
@@ -85,9 +85,9 @@ void Frame::HandleOnRelease()
 	m_onRelease();
 }
 
-void Frame::HandleOnResize(sf::Vector2f const& mousePos, sf::Vector2f const& origin, Corners corner)
+void Frame::HandleOnResize(sf::Vector2f const& mousePos, Corners corner)
 {
-	m_onResize(mousePos, origin, corner);
+	m_onResize(mousePos, corner);
 }
 boost::signals2::connection Frame::DoOnDrag(const DragSignal::slot_type & handler)
 {
@@ -104,43 +104,9 @@ boost::signals2::connection Frame::DoOnResize(const ResizeSignal::slot_type & ha
 	return m_onResize.connect(handler);
 }
 
-void Frame::ProcessEvents(sf::Event event)
+void Frame::CheckAndDrag(sf::Vector2f mousePos)
 {
-	sf::Vector2f mousePos = sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
-	for (size_t i = 0; i < m_points.size(); i++)
-	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_points[i]->getGlobalBounds().contains(mousePos))
-		{
-			if (m_firstClick)
-			{
-				m_prevMousePos = mousePos;
-				m_firstClick = false;
-			}
-			if (i == Corners::BottomLeft)
-			{
-				auto origin = sf::Vector2f(0.f, m_rect.getSize().y);
-				HandleOnResize(mousePos - m_prevMousePos, origin, BottomLeft);
-			}
-			else if (i == Corners::BottomRight)
-			{
-				auto origin = sf::Vector2f(m_rect.getSize());
-				HandleOnResize(mousePos - m_prevMousePos, origin, BottomRight);
-			}
-			else if (i == Corners::UpperLeft)
-			{
-				auto origin = sf::Vector2f(0.f, 0.f);
-				HandleOnResize(mousePos - m_prevMousePos, origin, UpperLeft);
-			}
-			else if (i == Corners::UpperRight)
-			{
-				auto origin = sf::Vector2f(m_rect.getSize().x, 0.f);
-				HandleOnResize(mousePos - m_prevMousePos, origin, UpperRight);
-			}
-			m_prevMousePos = mousePos;
-		}
-	}
-
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_rect.getGlobalBounds().contains(mousePos))
+	if (m_isDrag && m_inResize == None)
 	{
 		if (m_firstClick)
 		{
@@ -150,14 +116,83 @@ void Frame::ProcessEvents(sf::Event event)
 		HandleOnDrag(mousePos - m_prevMousePos);
 		m_prevMousePos = mousePos;
 	}
+}
+
+void Frame::CheckAndResize(sf::Vector2f mousePos)
+{
+	if (m_inResize != None)
+	{
+		if (m_firstClick)
+		{
+			m_prevMousePos = mousePos;
+			m_firstClick = false;
+		}
+		if (m_inResize == BottomLeft)
+		{
+			auto origin = sf::Vector2f(0.f, m_rect.getSize().y);
+			HandleOnResize(mousePos - m_prevMousePos, BottomLeft);
+		}
+		else if (m_inResize == BottomRight)
+		{
+			auto origin = sf::Vector2f(m_rect.getSize());
+			HandleOnResize(mousePos - m_prevMousePos, BottomRight);
+		}
+		else if (m_inResize == UpperLeft)
+		{
+			auto origin = sf::Vector2f(0.f, 0.f);
+			HandleOnResize(mousePos - m_prevMousePos, UpperLeft);
+		}
+		else if (m_inResize == UpperRight)
+		{
+			auto origin = sf::Vector2f(m_rect.getSize().x, 0.f);
+			HandleOnResize(mousePos - m_prevMousePos, UpperRight);
+		}
+		m_prevMousePos = mousePos;
+	}
+}
+void Frame::ProcessEvents(sf::Event event)
+{
+	sf::Vector2f mousePos = sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
+	for (size_t i = 0; i < m_points.size(); i++)
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_points[i]->getGlobalBounds().contains(mousePos))
+		{
+			if (i == Corners::BottomLeft)
+			{
+				m_inResize = BottomLeft;
+			}
+			else if (i == Corners::BottomRight)
+			{
+				m_inResize = BottomRight;
+			}
+			else if (i == Corners::UpperLeft)
+			{
+				m_inResize = UpperLeft;
+			}
+			else if (i == Corners::UpperRight)
+			{
+				m_inResize = UpperRight;
+			}
+		}
+	}
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_rect.getGlobalBounds().contains(mousePos))
+	{
+		m_isDrag = true;
+		
+	}
 	if (event.type == sf::Event::MouseButtonReleased)
 	{
 		if (event.mouseButton.button == sf::Mouse::Left)
 		{
 			m_firstClick = true;
+			m_isDrag = false;
+			m_inResize = None;
 			HandleOnRelease();
 		}
 	}
+	CheckAndDrag(mousePos);
+	CheckAndResize(mousePos);
+
 }
 
 void Frame::SetPointsOnCorners(sf::FloatRect & rect)

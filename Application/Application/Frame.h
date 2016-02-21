@@ -8,7 +8,8 @@ enum Corners
 	UpperLeft,
 	UpperRight,
 	BottomRight,
-	BottomLeft
+	BottomLeft,
+	None
 };
 
 class Frame
@@ -18,7 +19,7 @@ public:
 	~Frame();
 	typedef boost::signals2::signal<void(sf::Vector2f)> DragSignal;
 	typedef boost::signals2::signal<void()> ReleaseSignal;
-	typedef boost::signals2::signal<void(sf::Vector2f, sf::Vector2f, Corners)> ResizeSignal;
+	typedef boost::signals2::signal<void(sf::Vector2f, Corners)> ResizeSignal;
 	void SetPosition(const sf::Vector2f & pos);
 	void SetSize(sf::Vector2f const& size);
 
@@ -35,11 +36,15 @@ public:
 	boost::signals2::connection DoOnRelease(const ReleaseSignal::slot_type & handler);
 	boost::signals2::connection DoOnResize(const ResizeSignal::slot_type & handler);
 
+	
 	void HandleOnDrag(sf::Vector2f const& pos);
 	void HandleOnRelease();
-	void HandleOnResize(sf::Vector2f const& mousePos, sf::Vector2f const& origin, Corners corner);
+	void HandleOnResize(sf::Vector2f const& mousePos, Corners corner);
 
 	void ProcessEvents(sf::Event event);
+
+	
+
 private:
 	bool m_firstClick;
 	sf::Vector2f m_prevMousePos;
@@ -49,9 +54,12 @@ private:
 	DragSignal m_onDrag;
 	ReleaseSignal m_onRelease;
 	ResizeSignal m_onResize;
+	Corners m_inResize;
 	bool m_isVisible;
-
+	bool m_isDrag;
+	bool m_isResize;
 	void SetPointsOnCorners(sf::FloatRect & rect);
-
+	void CheckAndDrag(sf::Vector2f mousePos);
+	void CheckAndResize(sf::Vector2f mousePos);
 };
 
