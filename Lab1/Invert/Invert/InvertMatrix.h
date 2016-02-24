@@ -12,12 +12,10 @@ Matrix Invert3dMatrix(Matrix const& matrix);
 
 double Get3dMatrixDeterminant(Matrix const& matrix);
 
-Matrix GetMinor3dMatrix(Matrix const& matrix);
-
-Matrix GetCofactor3dMatrix(Matrix & matrix);
+Matrix GetUnion3dMatrix(Matrix const& matrix);
 
 Matrix GetTransposed3dMatrix(Matrix const& matrix);
 
 double GetMinorByPos(Matrix const& matrix, std::pair<size_t, size_t>const& pos);
 
-Matrix Multiply3dMatrixWithNum(Matrix & matrix, double value);
+Matrix Multiply3dMatrixWithNum(Matrix matrix, double value);

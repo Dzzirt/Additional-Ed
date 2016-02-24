@@ -15,12 +15,7 @@ BOOST_AUTO_TEST_CASE(InvertProcess)
 		{ 8, 0, 12 },
 		{ -14, 16, 18 }
 	}};
-	Matrix matrixOfMinors = { {
-		{ -48, 78, 32 },
-		{ -42, 30, -6 },
-		{ -12, -6, 8 }
-	}};
-	Matrix algAddMatrix = { {
+	Matrix unionMatrix = { {
 		{ -48, -78, 32 },
 		{ 42, 30, 6 },
 		{ -12, 6, 8 }
@@ -49,11 +44,9 @@ BOOST_AUTO_TEST_CASE(InvertProcess)
 	BOOST_CHECK_EQUAL(GetMinorByPos(matrix3d, { 2, 1 }), -6.f);
 	BOOST_CHECK_EQUAL(GetMinorByPos(matrix3d, { 0, 1 }), 78.f);
 
-	BOOST_CHECK(GetMinor3dMatrix(matrix3d) == matrixOfMinors);
+	BOOST_CHECK(GetUnion3dMatrix(matrix3d) == unionMatrix);
 
-	BOOST_CHECK(GetCofactor3dMatrix(matrixOfMinors) == algAddMatrix);
-
-	BOOST_CHECK(GetTransposed3dMatrix(matrixOfMinors) == transposed);
+	BOOST_CHECK(GetTransposed3dMatrix(unionMatrix) == transposed);
 
 	BOOST_CHECK(Multiply3dMatrixWithNum(matrix3d, 2.f) == multBy2);
 

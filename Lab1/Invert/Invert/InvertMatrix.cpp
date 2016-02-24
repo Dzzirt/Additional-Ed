@@ -84,10 +84,9 @@ Matrix Invert3dMatrix(Matrix const& matrix)
 	{
 		throw invalid_argument("Inverted matrix does not exist");
 	}
-	auto resultMatrix = GetMinor3dMatrix(matrix);
-	GetCofactor3dMatrix(resultMatrix);
+	auto resultMatrix = GetUnion3dMatrix(matrix);
 	resultMatrix = GetTransposed3dMatrix(resultMatrix);
-	Multiply3dMatrixWithNum(resultMatrix, 1 / determinant);
+	resultMatrix = Multiply3dMatrixWithNum(resultMatrix, 1 / determinant);
 	return resultMatrix;
 }
 
@@ -102,7 +101,7 @@ double Get3dMatrixDeterminant(Matrix const& matrix)
 	return determinant;
 }
 
-Matrix GetMinor3dMatrix(Matrix const& matrix)
+Matrix GetUnion3dMatrix(Matrix const& matrix)
 {
 	Matrix matrixOfMinors;
 	for (size_t row = 0; row < matrix.size(); row++)
@@ -110,6 +109,10 @@ Matrix GetMinor3dMatrix(Matrix const& matrix)
 		for (size_t col = 0; col < matrix[0].size(); col++)
 		{
 			matrixOfMinors[row][col] = GetMinorByPos(matrix, { row, col });
+			if ((row + col) % 2 != 0)
+			{
+				matrixOfMinors[row][col] *= -1;
+			}
 		}
 	}
 	return matrixOfMinors;
@@ -134,7 +137,7 @@ double GetMinorByPos(Matrix const& matrix, std::pair<size_t, size_t> const& pos)
 	return minor;
 }
 
-Matrix Multiply3dMatrixWithNum(Matrix & matrix, double value)
+Matrix Multiply3dMatrixWithNum(Matrix matrix, double value)
 {
 	for (size_t row = 0; row < matrix.size(); row++)
 	{
@@ -143,15 +146,6 @@ Matrix Multiply3dMatrixWithNum(Matrix & matrix, double value)
 			matrix[row][col] *= value;
 		}
 	}
-	return matrix;
-}
-
-Matrix GetCofactor3dMatrix(Matrix & matrix)
-{
-	matrix[0][1] *= -1;
-	matrix[1][0] *= -1;
-	matrix[1][2] *= -1;
-	matrix[2][1] *= -1;
 	return matrix;
 }
 
