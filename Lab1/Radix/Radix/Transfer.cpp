@@ -5,8 +5,6 @@
 #include "iostream"
 using namespace std;
 
-const int AsciiNumDifference = 55;
-
 template <typename T>
 bool IsBetween(const T& value, const T& lowerBound, const T& upperBound)
 {
@@ -34,7 +32,7 @@ int CharToNumber(char character)
 	{
 		return static_cast<int>(character - '0');
 	}
-	return character;
+	throw std::invalid_argument("Cannot convert this to number");
 }
 
 
@@ -117,15 +115,11 @@ void ValidationOfValue(const std::string &value, int sourceNotation)
 	auto isValid = std::all_of(value.begin(), value.end(), [=](char character) {
 		if (character != '-' && character != '+')
 		{
-			if (!(IsWithinRangeInclusive(character, 'A', 'Z')))
+			if (!(IsWithinRangeInclusive(character, 'A', 'Z') ||
+				IsWithinRangeInclusive(character, '0', '9') ||
+				IsWithinRangeInclusive(character, 'a', 'z')))
 			{
-				if (!(IsWithinRangeInclusive(character, '0', '9')))
-				{
-					if (!(IsWithinRangeInclusive(character, 'a', 'z')))
-					{
-						return false;
-					}
-				}
+				return false;
 			}
 			if (CharToNumber(character) >= sourceNotation)
 			{
@@ -155,17 +149,16 @@ int ToDecimalNotation(const std::string & value, int sourceNotation)
 	{
 		return stoi(value);
 	}
-	std::vector<char> digits(value.begin(), value.end());
 	int result = 0;
 	bool isNegative = false;
 	int firstNonSignSymbol = 0;
-	for (size_t i = 0; i < digits.size(); i++)
+	for (size_t i = 0; i < value.size(); i++)
 	{
-		if (digits[i] == '+')
+		if (value[i] == '+')
 		{
 			continue;
 		}
-		if (digits[i] == '-')
+		if (value[i] == '-')
 		{
 			isNegative = true;
 		}
@@ -196,7 +189,7 @@ std::string FromDecimalToDestination(int value, int destNotaion)
 		int currRemainder = value % destNotaion;
 		if (currRemainder >= 10)
 		{
-			result += currRemainder + AsciiNumDifference;
+			result += currRemainder + 'A' - 10;
 		}
 		else
 		{

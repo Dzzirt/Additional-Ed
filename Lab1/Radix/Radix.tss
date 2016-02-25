@@ -7,5 +7,11 @@
     <ArrayOfString>
       <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab1\Radix\Radix\main.cpp</string>
     </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab1\Radix\RadixTests\RadixTests.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab1\Radix\RadixTests\TransferTests.cpp</string>
+    </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>
