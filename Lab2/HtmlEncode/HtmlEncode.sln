@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HtmlEncode", "HtmlEncode\HtmlEncode.vcxproj", "{6F0218D6-2A65-4595-958F-9BAB410E748E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HtmlEncodeTests", "HtmlEncodeTests\HtmlEncodeTests.vcxproj", "{8FFAE52A-15B5-46DC-813D-D3315C1893B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F0218D6-2A65-4595-958F-9BAB410E748E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6F0218D6-2A65-4595-958F-9BAB410E748E}.Debug|Win32.Build.0 = Debug|Win32
+		{6F0218D6-2A65-4595-958F-9BAB410E748E}.Release|Win32.ActiveCfg = Release|Win32
+		{6F0218D6-2A65-4595-958F-9BAB410E748E}.Release|Win32.Build.0 = Release|Win32
+		{8FFAE52A-15B5-46DC-813D-D3315C1893B5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8FFAE52A-15B5-46DC-813D-D3315C1893B5}.Debug|Win32.Build.0 = Debug|Win32
+		{8FFAE52A-15B5-46DC-813D-D3315C1893B5}.Release|Win32.ActiveCfg = Release|Win32
+		{8FFAE52A-15B5-46DC-813D-D3315C1893B5}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

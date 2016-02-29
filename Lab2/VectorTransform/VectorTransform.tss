@@ -11,5 +11,12 @@
     <ArrayOfString>
       <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\VectorTransform\VectorTransformTest\VectorTransformTest.cpp</string>
     </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\VectorTransform\VectorTransformTest\stdafx.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\VectorTransform\VectorTransformTest\stdafx.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\VectorTransform\VectorTransformTest\TransformUtilsTests.cpp</string>
+    </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>
