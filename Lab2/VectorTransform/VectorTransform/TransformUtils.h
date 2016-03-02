@@ -14,4 +14,4 @@ void Sort(std::vector<double> & numbers);
 
 void PrintSeparatedByComma(std::vector<double> const& numbers);
 
-void Transform(std::vector<double> &numbers);
+std::vector<double> Transform(std::vector<double> const&numbers);

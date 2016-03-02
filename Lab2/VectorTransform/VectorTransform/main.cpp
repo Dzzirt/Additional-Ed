@@ -17,6 +17,8 @@ int main(int argc, char* argv[])
 	Transform(numbers);
 	Sort(numbers);
 	PrintSeparatedByComma(numbers);
+
+
 	return 0;
 }
 

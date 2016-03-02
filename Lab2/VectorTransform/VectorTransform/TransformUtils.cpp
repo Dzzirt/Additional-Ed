@@ -24,8 +24,15 @@ void PrintSeparatedByComma(std::vector<double> const& numbers)
 	std::copy(numbers.begin(), numbers.end(), std::ostream_iterator<double>(cout, ", "));
 }
 
-void Transform(std::vector<double> &numbers)
+std::vector<double> Transform(std::vector<double> const&numbers)
 {
-	auto maxElem = std::max_element(numbers.begin(), numbers.end());
-	DevideEachOn(numbers, *maxElem / 2.f);
+	auto result = numbers;
+	if (numbers.size() != 0)
+	{
+		auto maxElem = std::max_element(result.begin(), result.end());
+		DevideEachOn(result, *maxElem / 2.f);
+	}
+	return result;
 }
+
+
