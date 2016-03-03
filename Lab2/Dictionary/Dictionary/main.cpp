@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include <iostream>
-
+#include "fstream"
 int _tmain(int argc, _TCHAR* argv[])
 {
 	if (argc != 2)
@@ -11,6 +11,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::cout << "Usage: <dictionary file>" << std::endl;
 	}
 
+	std::ifstream in(argv[1]);
+	if (in)
+	{
+	}
+	
 	return 0;
 }
 

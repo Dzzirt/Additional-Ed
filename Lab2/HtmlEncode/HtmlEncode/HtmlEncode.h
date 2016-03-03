@@ -1,6 +1,6 @@
-#include "string"
-#include "iostream"
+#pragma once
+#include <iostream>
 
 std::string HtmlEncode(std::string const& text);
-void ReadInString(std::string & source);
-void PrintString(std::string &result);
+std::string ReadIntoString();
+void PrintString(std::string & result);

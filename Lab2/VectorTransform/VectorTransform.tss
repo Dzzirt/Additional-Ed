@@ -18,5 +18,11 @@
     <ArrayOfString>
       <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\VectorTransform\VectorTransformTest\TransformUtilsTests.cpp</string>
     </ArrayOfString>
+    <ArrayOfString>
+      <string>c:\Users\DzzirtNik\Documents\Libraries\boost_1_60_0\boost\test\tools\old\impl.hpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets</string>
+    </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

@@ -8,37 +8,34 @@ string HtmlEncode(string const& text)
 	string result = "";
 	for (const auto & character : text)
 	{
-		if (character == '\'')
+		switch (character)
 		{
+		case '\'':
 			result.append("&apos");
-		}
-		else if (character == '\"')
-		{
+			break;
+		case '\"':
 			result.append("&quot");
-		}
-		else if (character == '<')
-		{
+			break;
+		case '<':
 			result.append("&lt");
-		}
-		else if (character == '>')
-		{
+			break;
+		case '>':
 			result.append("&dt");
-		}
-		else if (character == '&')
-		{
+			break;
+		case '&':
 			result.append("&amp");
-		}
-		else
-		{
+			break;
+		default:
 			result += character;
+			break;
 		}
 	}
 	return result;
 }
 
-void ReadInString(std::string & source)
+std::string ReadIntoString()
 {
-	source = { (std::istreambuf_iterator<char>(std::cin)), std::istreambuf_iterator<char>() };
+	return { (std::istreambuf_iterator<char>(std::cin)), std::istreambuf_iterator<char>() };
 }
 
 void PrintString(std::string &result)

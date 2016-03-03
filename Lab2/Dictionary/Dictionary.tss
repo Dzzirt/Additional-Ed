@@ -2,10 +2,14 @@
 <ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArrayOfArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\Dictionary\Dictionary\stdafx.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\Dictionary\Dictionary\main.cpp</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\Dictionary\Dictionary\main.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\Dictionary\DictionaryTest\DictionaryTest.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\Dictionary\DictionaryTest\stdafx.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Lab2\Dictionary\DictionaryTest\stdafx.h</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

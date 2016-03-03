@@ -3,14 +3,14 @@
 
 #include "stdafx.h"
 #include "HtmlEncode.h"
-#include "iostream"
+#include <iostream>
 
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	std::string source;
-	ReadInString(source);
+	source = ReadIntoString();
 	std::string result = HtmlEncode(source);
 	PrintString(result);
 	return 0;
