@@ -26,3 +26,5 @@
 *.exe
 *.out
 *.app
+Application/Application.tss
+Lab2/HtmlEncode/HtmlEncode.tss
