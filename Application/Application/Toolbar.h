@@ -16,7 +16,7 @@ public:
 	void Draw(sf::RenderWindow & window);
 	void SetSize(sf::Vector2f const& size);
 	void SetPosition(sf::Vector2f const& point);
-	void ProcessVisualEvents(sf::Event event);
+	bool ProcessVisualEvents(sf::Event event, sf::RenderWindow & window);
 	std::vector<std::shared_ptr<CButton>>& GetButtons();
 private:
 	std::vector<std::shared_ptr<CButton>> m_buttons;

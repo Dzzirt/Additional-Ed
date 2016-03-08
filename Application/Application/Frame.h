@@ -41,7 +41,7 @@ public:
 	void HandleOnRelease();
 	void HandleOnResize(sf::Vector2f const& mousePos, Corners corner);
 
-	void ProcessEvents(sf::Event event);
+	bool ProcessEvents(sf::Event event, sf::RenderWindow & window);
 
 	
 
@@ -59,7 +59,7 @@ private:
 	bool m_isDrag;
 	bool m_isResize;
 	void SetPointsOnCorners(sf::FloatRect & rect);
-	void CheckAndDrag(sf::Vector2f mousePos);
-	void CheckAndResize(sf::Vector2f mousePos);
+	bool CheckAndDrag(sf::Vector2f mousePos);
+	bool CheckAndResize(sf::Vector2f mousePos);
 };
 

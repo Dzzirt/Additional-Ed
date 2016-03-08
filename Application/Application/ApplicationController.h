@@ -26,7 +26,6 @@ public:
 	void UpdateOnResize(const sf::Vector2f & step, Corners corner);
 private:
 
-	void StabiliseIndexes();
 	std::shared_ptr<ApplicationModel> m_model;
 	std::shared_ptr<ApplicationView> m_view;
 	boost::signals2::scoped_connection m_dragConnection;

@@ -1,11 +1,13 @@
 #include "ShapeVisual.h"
 #include "iostream"
+
+// ConvexShapes
 ShapeVisual::ShapeVisual()
 {
 }
 
 ShapeVisual::ShapeVisual(std::shared_ptr<sf::ConvexShape> & shape)
-	: m_isVisible(true)
+	: m_isVisible(true), m_isPressed(false)
 {
 	shape->setPointCount(3);
  	shape->setPoint(0, sf::Vector2f(0.5f, 0.f));
@@ -18,7 +20,7 @@ ShapeVisual::ShapeVisual(std::shared_ptr<sf::ConvexShape> & shape)
 }
 
 ShapeVisual::ShapeVisual(std::shared_ptr<sf::RectangleShape> & shape)
-	: m_isVisible(true)
+	: m_isVisible(true), m_isPressed(false)
 {
 	shape->setFillColor(sf::Color::Blue);
 	shape->setOutlineThickness(1);
@@ -28,7 +30,7 @@ ShapeVisual::ShapeVisual(std::shared_ptr<sf::RectangleShape> & shape)
 }
 
 ShapeVisual::ShapeVisual(std::shared_ptr<EllipseShape> & shape)
-	: m_isVisible(true)
+	: m_isVisible(true), m_isPressed(false)
 {
 	shape->setFillColor(sf::Color::Magenta);
 	shape->setOutlineThickness(1);
@@ -62,8 +64,17 @@ bool ShapeVisual::ProcessEvents(sf::Event event)
 	sf::Vector2f mousePos = sf::Vector2f(float(event.mouseButton.x), float(event.mouseButton.y));
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_shape->getGlobalBounds().contains(mousePos))
 	{
-		HandleOnClick();
+		m_isPressed = true;
 		return true;
+	}
+	if (event.type == event.MouseButtonReleased && m_isPressed)
+	{
+		if (event.mouseButton.button == sf::Mouse::Left)
+		{
+			m_isPressed = false;
+			HandleOnClick();
+			return true;
+		}
 	}
 	return false;
 }

@@ -1,6 +1,6 @@
 #include "WorkSpace.h"
 #include <boost/range/adaptor/reversed.hpp>
-
+#include <iostream>
 Workspace::Workspace(const sf::Vector2f & pos, sf::Vector2f & size)
 {
 	m_canvasVisual.setPosition(pos);
@@ -71,20 +71,22 @@ sf::RectangleShape& Workspace::GetCanvasVisual()
 	return m_canvasVisual;
 }
 
-void Workspace::ProcessEvents(sf::Event event)
+bool Workspace::ProcessEvents(sf::Event event, sf::RenderWindow & window)
 {
-	sf::Vector2f mousePos = sf::Vector2f(float(event.mouseButton.x), float(event.mouseButton.y));
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_canvasVisual.getGlobalBounds().contains(mousePos))
-	{
-		HandleClick();
-	}
+	sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
 	for (auto shapeVisual : boost::adaptors::reverse(m_shapesVisual))
 	{
 		if (shapeVisual->ProcessEvents(event))
 		{
-			break;
+			return true;
 		}
 	}
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_canvasVisual.getGlobalBounds().contains(mousePos))
+	{
+		HandleClick();
+		return true;
+	}
+	return false;
 }
 
 boost::signals2::connection Workspace::DoOnClick(const WorkSpaceClickSignal::slot_type & handler)

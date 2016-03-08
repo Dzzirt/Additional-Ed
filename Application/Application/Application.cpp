@@ -28,7 +28,7 @@ void Application::Exec()
 			{
 				window.close();
 			}
-			m_view->ProcessVisualEvents(event);
+			m_view->ProcessVisualEvents(event, window);
 		}
 		m_view->Draw(window);
 	}

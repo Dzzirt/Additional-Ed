@@ -1,5 +1,5 @@
 #include "ApplicationView.h"
-
+#include "iostream"
 ApplicationView::ApplicationView() 
 {
 	m_workspace = std::make_shared<Workspace>(sf::Vector2f((WindowWidth - 640) / 2.f, 100), sf::Vector2f(640, 480));
@@ -20,13 +20,17 @@ void ApplicationView::Draw(sf::RenderWindow & window)
 	m_frame.Draw(window);
 	window.display();
 }
-
-
-void ApplicationView::ProcessVisualEvents(const sf::Event & event)
+//Chain of responsibility
+//Events Interface
+void ApplicationView::ProcessVisualEvents(const sf::Event & event, sf::RenderWindow & window)
 {
-	m_toolbar.ProcessVisualEvents(event);
-	m_workspace->ProcessEvents(event);
-	m_frame.ProcessEvents(event);
+	if (!m_toolbar.ProcessVisualEvents(event, window))
+	{
+		if (!m_frame.ProcessEvents(event, window))
+		{
+			m_workspace->ProcessEvents(event, window);
+		}
+	}
 }
 
 Toolbar & ApplicationView::GetToolbar()

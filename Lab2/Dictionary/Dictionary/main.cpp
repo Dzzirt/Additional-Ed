@@ -2,20 +2,23 @@
 //
 
 #include "stdafx.h"
-#include <iostream>
-#include "fstream"
-int _tmain(int argc, _TCHAR* argv[])
+#include "DictUtils.h"
+#include <windows.h>
+
+using namespace std;
+
+
+
+int main(int argc, char* argv[])
 {
 	if (argc != 2)
 	{
-		std::cout << "Usage: <dictionary file>" << std::endl;
+		cout << "Usage: <dictionary file>" << std::endl;
 	}
-
-	std::ifstream in(argv[1]);
-	if (in)
-	{
-	}
-	
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
+	string filename = argv[1];
+	OpenDictionary(filename);
 	return 0;
 }
 

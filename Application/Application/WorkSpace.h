@@ -17,7 +17,7 @@ public:
 	size_t GetShapesCount();
 	std::vector<std::shared_ptr<ShapeVisual>>& GetShapesVisual();
 	sf::RectangleShape& GetCanvasVisual();
-	void ProcessEvents(sf::Event event);
+	bool ProcessEvents(sf::Event event, sf::RenderWindow & window);
 	boost::signals2::connection DoOnClick(const WorkSpaceClickSignal::slot_type & handler);
 	size_t GetShapeIndex(const ShapeVisual & shapeVisual);
 	void HandleClick();

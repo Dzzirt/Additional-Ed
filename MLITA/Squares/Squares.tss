@@ -4,5 +4,37 @@
     <ArrayOfString>
       <string>C:\Users\DzzirtNik\Documents\Git\OOP\MLITA\Squares\Squares\Squares.cpp</string>
     </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\DomainModel.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\ApplicationView.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\ApplicationView.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\ApplicationController.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\ApplicationController.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\Frame.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\Frame.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\WorkSpace.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\Workspace.cpp</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\ShapeVisual.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\ShapeVisual.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\Toolbar.cpp</string>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\Toolbar.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\DzzirtNik\Documents\Git\OOP\Application\Application\Application.cpp</string>
+    </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

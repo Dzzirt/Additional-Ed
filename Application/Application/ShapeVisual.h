@@ -4,7 +4,7 @@
 #include "AppConsts.h"
 #include "EllipseShape.h"
 #include "Frame.h"
-#include "boost/signals2.hpp"
+#include <boost/signals2.hpp>
 
 class ShapeVisual
 {
@@ -32,6 +32,7 @@ public:
 
 private:
 	bool m_isVisible;
+	bool m_isPressed;
 	sf::FloatRect m_bounds;
 	std::shared_ptr<sf::Shape> m_shape;
 	ButtonClickSignal m_onClick;

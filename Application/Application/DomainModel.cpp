@@ -1,11 +1,11 @@
 #include "DomainModel.h"
 #include "AppConsts.h"
 #include <stdexcept>
+
 DomainModel::DomainModel()
 {
 	float border = (WindowWidth - CanvasSize.x) / 2.f;
 	sf::Vector2f canvasPos(border, WindowHeight - CanvasSize.y - border);
-	m_canvas = Canvas(canvasPos, CanvasSize);
 }
 
 
@@ -21,11 +21,6 @@ void DomainModel::AddShapeLogic(std::shared_ptr<ShapeLogic> & shapeLogic, size_t
 void DomainModel::RemoveShapeLogic(int pos)
 {
 	m_shapesLogic.erase(m_shapesLogic.begin() + pos);
-}
-
-Canvas& DomainModel::GetCanvas()
-{
-	return m_canvas;
 }
 
 std::shared_ptr<ShapeLogic>& DomainModel::GetShape(size_t pos)

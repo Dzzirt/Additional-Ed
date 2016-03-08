@@ -13,7 +13,7 @@ public:
 	ApplicationView();
 	~ApplicationView();
 	void Draw(sf::RenderWindow & window);
-	void ProcessVisualEvents(const sf::Event & event);
+	void ProcessVisualEvents(const sf::Event & event, sf::RenderWindow & window);
 	Toolbar & GetToolbar();
 	Workspace & GetWorkspace();
 	Frame & GetFrame();

@@ -48,12 +48,16 @@ void Toolbar::SetPosition(sf::Vector2f const& point)
 	m_bar.setPosition(point);
 }
 
-void Toolbar::ProcessVisualEvents(sf::Event event)
+bool Toolbar::ProcessVisualEvents(sf::Event event, sf::RenderWindow & window)
 {
 	for (auto & button : m_buttons)
 	{
-		button->OnEvent(event);
+		if (button->OnEvent(event))
+		{
+			return true;
+		}
 	}
+	return false;
 }
 
 std::vector<std::shared_ptr<CButton>>& Toolbar::GetButtons()

@@ -179,7 +179,6 @@
     <ClInclude Include="assets.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="ButtonsConsts.h" />
-    <ClInclude Include="Canvas.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="DomainModel.h" />
     <ClInclude Include="EllipseShape.h" />
@@ -202,7 +201,6 @@
     <ClCompile Include="ApplicationView.cpp" />
     <ClCompile Include="assets.cpp" />
     <ClCompile Include="button.cpp" />
-    <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="DeleteShapeCommand.cpp" />
     <ClCompile Include="SetShapePositionCommand.cpp" />
     <ClCompile Include="DomainModel.cpp" />
