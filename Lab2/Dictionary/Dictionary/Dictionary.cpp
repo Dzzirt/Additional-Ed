@@ -1,21 +1,37 @@
 #include "stdafx.h"
-#include "DictUtils.h"
+#include <vector>
+#include "Dictionary.h"
+#include "boost/algorithm/string.hpp"
 using namespace std;
 
-map<string, string> GetMapFromFile(string filename)
+
+Dictionary::Dictionary(string const& filename)
+{
+	this->filename = filename;
+	oldWords = GetMapFromFile(filename);
+
+}
+
+Dictionary::~Dictionary()
+{
+
+}
+
+map<string, string> Dictionary::GetMapFromFile(string const& filename)
 {
 	map<string, string> dict;
-	string key;
-	string val;
+	string pair;
 	ifstream in(filename);
-	while (in >> key >> val)
+	while (getline(in, pair))
 	{
-		dict.insert({ key, val });
+		vector<string> splittedPair;
+		boost::split(splittedPair, pair, boost::is_any_of(":"));
+		dict.emplace(move(splittedPair[0]), move(splittedPair[1]));
 	}
 	return dict;
 }
 
-void AskAndSave(string filename, map<string, string> & newWords)
+void Dictionary::SaveDictionaryIfUserAgrees()
 {
 	ofstream out(filename, ios_base::app);
 	string save;
@@ -25,23 +41,23 @@ void AskAndSave(string filename, map<string, string> & newWords)
 	{
 		for (auto & pair : newWords)
 		{
-			out << pair.first << " " << pair.second << endl;
+			out << pair.first << ":" << pair.second << endl;
 		}
 		out.close();
 		cout << "Изменения успешно сохранены. До свидания." << endl;
 	}
 }
 
-bool AddTranslation(string enWord, map<string, string> & dict, map<string, string> & newWords)
+bool Dictionary::AddTranslation(string const& enWord)
 {
 	string ruWord;
 	cout << "Неизвестное слово " << enWord << ". Введите перевод или пустую строку для отказа." << endl;
 	getline(cin, ruWord);
 	if (!ruWord.empty())
 	{
-		newWords.insert({ enWord, ruWord });
-		dict.insert({ enWord, ruWord });
 		cout << "Слово \"" << enWord << "\" сохранено в словаре как \"" << ruWord << "\"." << endl;
+		newWords.emplace(enWord, ruWord);
+		oldWords.emplace(move(enWord), move(ruWord));
 		return true;
 	}
 	else
@@ -51,29 +67,27 @@ bool AddTranslation(string enWord, map<string, string> & dict, map<string, strin
 	return false;
 }
 
-void OpenDictionary(string filename)
+void Dictionary::InteractWithUser()
 {
 	cout << "Введите слово на английском языке и я вам его переведу." << endl;
-	map<string, string> dict = GetMapFromFile(filename);
-	map<string, string> newWords;
 	string enWord;
 	bool needToSave = false;
-	size_t saveFrom = dict.size();
+	size_t saveFrom = oldWords.size();
 	getline(cin, enWord);
 	while (enWord != "...")
 	{
-		if (dict.find(enWord) == dict.end())
+		if (oldWords.find(enWord) == oldWords.end())
 		{
-			needToSave = AddTranslation(enWord, dict, newWords);
+			needToSave = AddTranslation(enWord);
 		}
 		else
 		{
-			cout << dict.at(enWord) << endl;
+			cout << oldWords.at(enWord) << endl;
 		}
 		getline(cin, enWord);
 	}
 	if (needToSave)
 	{
-		AskAndSave(filename, newWords);
+		SaveDictionaryIfUserAgrees();
 	}
 }
