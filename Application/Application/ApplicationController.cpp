@@ -97,7 +97,6 @@ void ApplicationController::UpdateOnShapeClick(const ShapeVisual & shapeVisual)
 {
 	m_model->SetSelected(m_model->GetShape(m_view->GetWorkspace().GetShapeIndex(shapeVisual)));
 	m_view->GetFrame().GetBoundsConnection() = m_model->GetSelected()->DoOnChange(boost::bind(&Frame::UpdateBounds, &m_view->GetFrame(), _1));
-	m_view->GetFrame().SetVisible(true);
 }
 
 void ApplicationController::UpdateOnCanvasClick()

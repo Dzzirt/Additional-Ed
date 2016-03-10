@@ -47,6 +47,8 @@ public:
 
 private:
 	bool m_firstClick;
+	bool m_isPointPressed = false;
+	bool m_isFramePressed = false;
 	sf::Vector2f m_prevMousePos;
 	sf::RectangleShape m_rect;
 	std::vector<std::shared_ptr<sf::RectangleShape>> m_points;

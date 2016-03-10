@@ -155,28 +155,26 @@ bool Frame::CheckAndResize(sf::Vector2f mousePos)
 bool Frame::ProcessEvents(sf::Event event, sf::RenderWindow & window)
 {
 	sf::Vector2f mousePos = sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
-	bool isPointPressed = false;
-	bool isFramePressed = false;
 	if (!m_isVisible)
 	{
 		return false;
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_rect.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(window))))
 	{
-		isFramePressed = true;
+		m_isFramePressed = true;
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_rect.getGlobalBounds().contains(mousePos))
 	{
 		m_isDrag = true;
-
+		m_isFramePressed = true;
 	}
 
 	for (size_t i = 0; i < m_points.size(); i++)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_points[i]->getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(window))))
 		{
-			isPointPressed = true;
-			isFramePressed = false;
+			m_isPointPressed = true;
+			m_isFramePressed = false;
 			m_isDrag = false;
 		}
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_points[i]->getGlobalBounds().contains(mousePos))
@@ -207,11 +205,15 @@ bool Frame::ProcessEvents(sf::Event event, sf::RenderWindow & window)
 			m_firstClick = true;
 			m_isDrag = false;
 			m_inResize = None;
+			m_isFramePressed = false;
+			m_isPointPressed = false;
 			HandleOnRelease();
 		}
 	}
-	if (CheckAndDrag(mousePos) || CheckAndResize(mousePos) || isPointPressed || isFramePressed)
+	if (CheckAndDrag(mousePos) || CheckAndResize(mousePos) || m_isPointPressed || m_isFramePressed)
 	{
+		cout << "true" << endl;
+
 		return true;
 	}
 	return false;
