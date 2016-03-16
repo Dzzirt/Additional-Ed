@@ -8,8 +8,8 @@ BOOST_AUTO_TEST_SUITE(EncodeStringElementsToHtmlEntities)
 
 	BOOST_AUTO_TEST_CASE(EncodeNotEmptyString)
 	{
-		std::string source = "sdljfa jlsa	ldsjfa \"..//sdaf\'asdfljjhlkzxcv    <<  >>  &&&";
-		BOOST_CHECK_EQUAL(HtmlEncode(source), "sdljfa jlsa	ldsjfa &quot..//sdaf&aposasdfljjhlkzxcv    &lt&lt  &dt&dt  &amp&amp&amp");
+		std::string source = R"(a"bb'c<<d>>e&&&)";
+		BOOST_CHECK_EQUAL(HtmlEncode(source), "a&quot;bb&apos;c&lt;&lt;d&dt;&dt;e&amp;&amp;&amp;");
 	};
 	BOOST_AUTO_TEST_CASE(EncodeEmptyString)
 	{

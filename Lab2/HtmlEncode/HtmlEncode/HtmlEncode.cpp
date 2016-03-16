@@ -5,25 +5,26 @@ using namespace std;
 
 string HtmlEncode(string const& text)
 {
-	string result = "";
+	string result;
+	result.reserve(text.length());
 	for (const auto & character : text)
 	{
 		switch (character)
 		{
 		case '\'':
-			result.append("&apos");
+			result.append("&apos;");
 			break;
 		case '\"':
-			result.append("&quot");
+			result.append("&quot;");
 			break;
 		case '<':
-			result.append("&lt");
+			result.append("&lt;");
 			break;
 		case '>':
-			result.append("&dt");
+			result.append("&dt;");
 			break;
 		case '&':
-			result.append("&amp");
+			result.append("&amp;");
 			break;
 		default:
 			result += character;
@@ -35,7 +36,9 @@ string HtmlEncode(string const& text)
 
 std::string ReadIntoString()
 {
-	return { (std::istreambuf_iterator<char>(std::cin)), std::istreambuf_iterator<char>() };
+	string line;
+	getline(std::cin, line);
+	return line;
 }
 
 void PrintString(std::string &result)

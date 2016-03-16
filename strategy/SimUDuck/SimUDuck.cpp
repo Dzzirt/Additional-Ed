@@ -27,6 +27,10 @@ struct IQuackBehavior
 class DanceWaltz: public IDanceBehavior
 {
 public:
+	void operator()()
+	{
+		Dance();
+	}
 	void Dance() override
 	{
 		cout << "I dance the waltz" << endl;
@@ -36,34 +40,26 @@ public:
 class DanceNoWay: public IDanceBehavior
 {
 public:
+	void operator()()
+	{
+		Dance();
+	}
 	void Dance() override {}
 };
 
 class DanceMinuet : public IDanceBehavior
 {
 public:
+	void operator()()
+	{
+		Dance();
+	}
 	void Dance() override
 	{
 		cout << "I dance the minuet" << endl;
 	}
 };
 
-class Counter 
-{
-public:
-	size_t Get()
-	{
-
-	}
-
-	void operator++(int)
-	{
-		m_counter++;
-	}
-private:
-	size_t m_counter = 0;
-
-};
 class FlyWithWings : public IFlyBehavior
 {
 public:
@@ -71,24 +67,36 @@ public:
 	{
 
 	}
+	void operator()()
+	{
+		Fly();
+	}
 	void Fly() override
 	{
 		counter++;
-		cout << "I'm flying with wings!! I fly " << counter.Get() << " times." << endl;
+		cout << "I'm flying with wings!! I fly " << counter << " times." << endl;
 	}
 private:
-	Counter counter;
+	size_t counter = 0;
 };
 
 class FlyNoWay : public IFlyBehavior
 {
 public:
+	void operator()()
+	{
+		Fly();
+	}
 	void Fly() override {}
 };
 
 class QuackBehavior : public IQuackBehavior
 {
 public:
+	void operator()()
+	{
+		Quack();
+	}
 	void Quack() override
 	{
 		cout << "Quack Quack!!!" << endl;
@@ -97,6 +105,10 @@ public:
 class SqueakBehavior : public IQuackBehavior
 {
 public:
+	void operator()()
+	{
+		Quack();
+	}
 	void Quack() override
 	{
 		cout << "Squeek!!!" << endl;
@@ -106,22 +118,26 @@ public:
 class MuteQuackBehavior : public IQuackBehavior
 {
 public:
+	void operator()()
+	{
+		Quack();
+	}
 	void Quack() override{}
 };
 
 class Duck
 {
 public:
-	Duck(std::function<void()> && func, unique_ptr<IQuackBehavior> && quackBehavior, 
-unique_ptr<IDanceBehavior> && danceBehavior)
+	Duck(std::function<void()> && flyBehavior, std::function<void()> && quackBehavior,
+		std::function<void()> && danceBehavior)
 	{
 		SetQuackBehavior(move(quackBehavior));
-		SetFlyBehavior(move(func));
+		SetFlyBehavior(move(flyBehavior));
 		SetDanceBehavior(move(danceBehavior));
 	}
 	void Quack() const
 	{
-		m_quackBehavior->Quack();
+		m_quackBehavior();
 	}
 	void Swim()
 	{
@@ -133,45 +149,36 @@ unique_ptr<IDanceBehavior> && danceBehavior)
 	}
 	virtual void Dance()
 	{
-		m_danceBehavior->Dance();
+		m_danceBehavior();
 	}
-	void SetFlyBehavior(std::function<void()> && func)
+	void SetFlyBehavior(std::function<void()> const& flyBehavior)
 	{
-		//assert(flyBehavior);
-		m_flyBehavior = func;
+		assert(flyBehavior);
+		m_flyBehavior = flyBehavior;
 	}
-	void SetQuackBehavior(unique_ptr<IQuackBehavior> && quackBehavior)
+	void SetQuackBehavior(std::function<void()> const& quackBehavior)
 	{
 		assert(quackBehavior);
-		m_quackBehavior = move(quackBehavior);
+		m_quackBehavior = quackBehavior;
 	}
-	void SetDanceBehavior(unique_ptr<IDanceBehavior> && danceBehavior)
+	void SetDanceBehavior(std::function<void()> const& danceBehavior)
 	{
 		assert(danceBehavior);
-		m_danceBehavior = move(danceBehavior);
+		m_danceBehavior = danceBehavior;
 	}
 	virtual void Display() const = 0;
 	virtual ~Duck() {};
 private:
 	std::function<void()> m_flyBehavior;
-	unique_ptr<IQuackBehavior> m_quackBehavior;
-	unique_ptr<IDanceBehavior> m_danceBehavior;
+	std::function<void()> m_quackBehavior;
+	std::function<void()> m_danceBehavior;
 };
 
-void FlyWithWings()
-{
-	cout << "I'm flying with wings!!" << endl;
-}
-
-void FlyNoWay()
-{
-
-}
 class MallardDuck : public Duck
 {
 public:
 	MallardDuck()
-		: Duck(move(FlyWithWings), make_unique<QuackBehavior>(), make_unique<DanceWaltz>())
+		: Duck(FlyWithWings(), QuackBehavior(), DanceWaltz())
 	{
 	}
 
@@ -185,7 +192,7 @@ class RedheadDuck : public Duck
 {
 public:
 	RedheadDuck()
-		: Duck(move(FlyWithWings), make_unique<QuackBehavior>(), make_unique<DanceMinuet>())
+		: Duck(FlyWithWings(), QuackBehavior(), DanceMinuet())
 	{
 	}
 	void Display() const override
@@ -197,7 +204,7 @@ class DeckoyDuck : public Duck
 {
 public:
 	DeckoyDuck()
-		: Duck(move(FlyNoWay), make_unique<MuteQuackBehavior>(), make_unique<DanceNoWay>())
+		: Duck(FlyNoWay(), MuteQuackBehavior(), DanceNoWay())
 	{
 	}
 	void Display() const override
@@ -210,7 +217,7 @@ class RubberDuck : public Duck
 {
 public:
 	RubberDuck()
-		: Duck(move(FlyNoWay), make_unique<QuackBehavior>(), make_unique<DanceNoWay>())
+		: Duck(FlyNoWay(), QuackBehavior(), DanceNoWay())
 	{
 	}
 	void Display() const override
@@ -223,7 +230,7 @@ class ModelDuck : public Duck
 {
 public:
 	ModelDuck()
-		: Duck(move(FlyNoWay), make_unique<QuackBehavior>(), make_unique<DanceNoWay>())
+		: Duck(FlyNoWay(), QuackBehavior(), DanceNoWay())
 	{
 	}
 	void Display() const override
@@ -261,6 +268,6 @@ void main()
 	PlayWithDuck(deckoyDuck);
 	ModelDuck modelDuck;
 	PlayWithDuck(modelDuck);
-	modelDuck.SetFlyBehavior(move(FlyNoWay));
+	modelDuck.SetFlyBehavior(FlyNoWay());
 	PlayWithDuck(modelDuck);
 }
