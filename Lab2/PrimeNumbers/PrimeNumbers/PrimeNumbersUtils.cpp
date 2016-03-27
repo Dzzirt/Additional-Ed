@@ -26,7 +26,7 @@ std::set<int> GeneratePrimeNumbersSet(unsigned upperBound)
 		{
 			for (size_t j = i * i; j <= upperBound; j += 2 * i)
 			{
-				if (j + i < upperBound)
+				if (j + i <= upperBound)
 				{
 					primeNumbers[j + i] = false;
 				}
