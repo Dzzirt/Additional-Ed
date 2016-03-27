@@ -1,24 +1,18 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <map>
+#include "DictionaryLogic.h"
+#include "DictionaryUI.h"
 
 class Dictionary
 {
 public:
-	Dictionary(std::string const& filename);
+	Dictionary(DictionaryLogic & logic, DictionaryUI & ui);
 	~Dictionary();
-	void InteractWithUser();
+	void Exec();
 private:
-	std::map<std::string, std::string> newWords;
-	std::map<std::string, std::string> oldWords;
-	std::string filename;
+	DictionaryLogic & m_logic;
+	DictionaryUI & m_ui;
 
-	std::map<std::string, std::string> GetMapFromFile(std::string const& filename);
-	void SaveDictionaryIfUserAgrees();
-	bool AddTranslation(std::string const& enWord);
+	void AddTranslation(std::string const& enWord);
+	void AddsTranslationIfNotEmpty(std::string const& userInput, std::string const& enWord);
 };
-
-
 

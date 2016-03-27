@@ -17,8 +17,10 @@ int main(int argc, char* argv[])
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 	string filename = argv[1];
-	Dictionary dict(filename);
-	dict.InteractWithUser();
+	DictionaryLogic logic(filename);
+	DictionaryUI ui;
+	Dictionary dict(logic, ui);
+	dict.Exec();
 	return 0;
 }
 

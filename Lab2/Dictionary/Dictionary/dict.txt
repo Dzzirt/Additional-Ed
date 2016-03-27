@@ -1,2 +1,6 @@
 красная площадь:the red square
 teddy bear:мишка Тедди
+Hi bear:превед медвед
+Привет медвед:Hi bear
+lol:смех
+Teddy:Тедди

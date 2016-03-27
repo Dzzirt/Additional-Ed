@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 		size_t inputNum = stoi(argv[1]);
 		if (inputNum > MaxNumber)
 		{
-			throw std::invalid_argument("Upper bound should be less than 100 000 000.");
+			throw std::invalid_argument("Upper bound should be equal or less than 100 000 000.");
 		}
 		set<int> primeNumbers = GeneratePrimeNumbersSet(inputNum);
 		PrintSet(primeNumbers);
