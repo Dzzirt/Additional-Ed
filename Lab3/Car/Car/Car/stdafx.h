@@ -10,6 +10,13 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <functional>
+#include <vector>
+#include <map>
+#include <boost/algorithm/string.hpp>
 
 
 // TODO: reference additional headers your program requires here
