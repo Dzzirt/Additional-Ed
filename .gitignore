@@ -28,3 +28,5 @@
 *.app
 *.tss
 Lab2/HtmlEncode/HtmlEncode.tss
+*.db
+*.opendb

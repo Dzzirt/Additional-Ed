@@ -2,6 +2,7 @@
 #include "Car.h"
 #include <boost/noncopyable.hpp>
 #include "CarExceptions.h"
+
 class CCarUI : boost::noncopyable
 {
 public:

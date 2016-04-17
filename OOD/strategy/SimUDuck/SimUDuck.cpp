@@ -128,12 +128,12 @@ public:
 class Duck
 {
 public:
-	Duck(std::function<void()> && flyBehavior, std::function<void()> && quackBehavior,
-		std::function<void()> && danceBehavior)
+	Duck(std::function<void()> const& flyBehavior, std::function<void()> const& quackBehavior,
+		std::function<void()> const& danceBehavior)
 	{
-		SetQuackBehavior(move(quackBehavior));
-		SetFlyBehavior(move(flyBehavior));
-		SetDanceBehavior(move(danceBehavior));
+		SetQuackBehavior(quackBehavior);
+		SetFlyBehavior(flyBehavior);
+		SetDanceBehavior(danceBehavior);
 	}
 	void Quack() const
 	{

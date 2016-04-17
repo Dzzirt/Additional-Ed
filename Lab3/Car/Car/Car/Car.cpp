@@ -1,6 +1,15 @@
 #include "stdafx.h"
 #include "Car.h"
 
+std::map<int, std::pair<int, int>> CCar::m_speedRanges = {
+	{ -1, { 0, 20 } },
+	{ 0, { 0, 150 } },
+	{ 1, { 0, 30 } },
+	{ 2, { 20, 50 } },
+	{ 3, { 30, 60 } },
+	{ 4, { 40, 90 } },
+	{ 5, { 50, 150 } }
+};
 CCar::CCar()
 	:m_gear(0), m_speed(0), m_isTurnedOn(false), m_state(STOP), m_speedRanges({
 		{ -1, { 0, 20 } },
@@ -26,14 +35,11 @@ void CCar::TurnOnEngine()
 
 void CCar::TurnOffEngine()
 {
-	if (m_gear == 0 && m_speed == 0)
-	{
-		m_isTurnedOn = false;
-	}
-	else
+	if (m_gear != 0 && m_speed != 0)
 	{
 		throw CannotTurnOffEngine();
 	}
+	m_isTurnedOn = false;
 
 }
 
@@ -124,28 +130,24 @@ void CCar::SetSpeed(int speed)
 
 }
 
-int CCar::GetGear()
+int CCar::GetGear() const
 {
 	return m_gear;
 }
 
-int CCar::GetSpeed()
+int CCar::GetSpeed() const
 {
 	return m_speed;
 }
 
-bool CCar::isTurnedOn()
+bool CCar::IsTurnedOn() const
 {
 	return m_isTurnedOn;
 }
 
-MovementState CCar::GetDirection()
+MovementState CCar::GetDirection() const
 {
 	return m_state;
-}
-
-CCar::~CCar()
-{
 }
 
 bool CCar::IsGearsSpeedCompatible(int gear1, int gear2)

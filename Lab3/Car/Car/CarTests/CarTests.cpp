@@ -34,7 +34,7 @@ struct Car_
 	{
 		CCar clone(car);
 		BOOST_CHECK(!action);
-		BOOST_CHECK_EQUAL(car.isTurnedOn(), clone.isTurnedOn());
+		BOOST_CHECK_EQUAL(car.IsTurnedOn(), clone.IsTurnedOn());
 		BOOST_CHECK_EQUAL(car.GetGear(), clone.GetGear());
 		BOOST_CHECK_EQUAL(car.GetSpeed(), clone.GetSpeed());
 	}
@@ -43,7 +43,7 @@ struct Car_
 BOOST_FIXTURE_TEST_SUITE(CarTest, Car_)
 	BOOST_AUTO_TEST_CASE(when_turned_off_can_only_switch_to_neutral_gear)
 	{
-		BOOST_CHECK(!car.isTurnedOn());
+		BOOST_CHECK(!car.IsTurnedOn());
 		BOOST_CHECK_THROW(car.SetGear(1), GearChangingWhenEngineTurnedOff);
 		car.SetGear(0);
 		BOOST_CHECK_NO_THROW(car.SetGear(0));
@@ -62,7 +62,7 @@ BOOST_FIXTURE_TEST_SUITE(CarTest, Car_)
 		at_backward_movement()
 		{
 			BOOST_REQUIRE_NO_THROW(car.TurnOnEngine());
-			BOOST_REQUIRE_NO_THROW(car.isTurnedOn());
+			BOOST_REQUIRE_NO_THROW(car.IsTurnedOn());
 			BOOST_REQUIRE_NO_THROW(car.SetGear(-1));
 			BOOST_REQUIRE_EQUAL(car.GetGear(), -1);
 		}
@@ -72,7 +72,7 @@ BOOST_FIXTURE_TEST_SUITE(CarTest, Car_)
 		at_1st_gear()
 		{
 			BOOST_REQUIRE_NO_THROW(car.TurnOnEngine());
-			BOOST_REQUIRE_NO_THROW(car.isTurnedOn());
+			BOOST_REQUIRE_NO_THROW(car.IsTurnedOn());
 			BOOST_REQUIRE_NO_THROW(car.SetGear(1));
 
 			BOOST_REQUIRE_EQUAL(car.GetGear(), 1);
