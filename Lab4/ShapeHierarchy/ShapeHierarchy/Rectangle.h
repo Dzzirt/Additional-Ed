@@ -9,16 +9,21 @@ public:
 	CRectangle(CPoint upperLeft, double width, double height);
 	double GetArea()const override;
 	double GetPerimeter()const override;
-	std::string GetBorderColor()const override;
-	void SetBorderColor(std::string const& color) override;
+	CColorRGB GetBorderColor()const;
+	double GetWidth()const;
+	double GetHeight()const;
+	std::pair<double, double> GetPosition()const;
+	void SetBorderColor(CColorRGB const& color);
 	std::string ToString()const override;
-	std::string GetFillColor()const override;
-	void SetFillColor(std::string const& color) override;
+	CColorRGB GetFillColor()const override;
+	void SetFillColor(CColorRGB const& color) override;
+	Shapes GetType()const override;
+
 private:
 	CPoint m_upperLeftCorner;
 	double m_width;
 	double m_height;
-	std::string m_borderColor;
-	std::string m_fillColor;
+	CColorRGB m_borderColor;
+	CColorRGB m_fillColor;
 };
 

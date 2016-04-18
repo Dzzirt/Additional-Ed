@@ -28,12 +28,12 @@ double CPoint::GetPerimeter()const
 	return 0;
 }
 
-std::string CPoint::GetBorderColor()const
+CColorRGB CPoint::GetBorderColor() const 
 {
-	return "";
+	return CColorRGB();
 }
 
-void CPoint::SetBorderColor(std::string const& color)
+void CPoint::SetBorderColor(CColorRGB const& color)
 {
 
 }
@@ -46,4 +46,9 @@ std::string CPoint::ToString()const
 	output += std::to_string(GetPosition().second);
 	output += ")";
 	return output;
+}
+
+Shapes CPoint::GetType() const
+{
+	return POINT;
 }

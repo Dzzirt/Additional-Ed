@@ -9,14 +9,16 @@ public:
 	CLineSegment(CPoint first, CPoint second);
 	double GetArea()const override;
 	double GetPerimeter()const override;
-	std::string GetBorderColor()const override;
-	void SetBorderColor(std::string const& color) override;
+	CColorRGB GetBorderColor()const override;
+	void SetBorderColor(CColorRGB const& color);
 	std::string ToString()const override;
-
+	Shapes GetType()const override;
+	CPoint GetFirstPoint()const;
+	CPoint GetSecondPoint()const;
 private:
 	CPoint m_first;
 	CPoint m_second;
 	double m_length;
-	std::string m_borderColor;
+	CColorRGB m_borderColor;
 };
 

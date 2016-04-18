@@ -33,6 +33,9 @@
     <ClInclude Include="..\ShapeHierarchy\Rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ShapeHierarchy\ColorRGB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\ShapeHierarchy\Rectangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShapeHierarchy\ColorRGB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

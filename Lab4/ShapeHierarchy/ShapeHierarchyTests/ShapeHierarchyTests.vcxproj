@@ -153,6 +153,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ShapeHierarchy\ColorRGB.h" />
     <ClInclude Include="..\ShapeHierarchy\LineSegment.h" />
     <ClInclude Include="..\ShapeHierarchy\Point.h" />
     <ClInclude Include="..\ShapeHierarchy\Rectangle.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\ShapeHierarchy\ColorRGB.cpp" />
     <ClCompile Include="..\ShapeHierarchy\LineSegment.cpp" />
     <ClCompile Include="..\ShapeHierarchy\Point.cpp" />
     <ClCompile Include="..\ShapeHierarchy\Rectangle.cpp" />

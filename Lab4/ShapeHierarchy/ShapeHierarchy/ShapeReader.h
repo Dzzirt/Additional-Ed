@@ -12,6 +12,7 @@ public:
 	void ReadShapes();
 	void PrintSortedByAreaIncreasing();
 	void PrintSortedByPerimeterDecreasing();
+	std::vector<std::shared_ptr<IShape>> GetShapes()const;
 private:
 	std::istream & m_input;
 	std::vector<std::shared_ptr<IShape>> m_shapes;

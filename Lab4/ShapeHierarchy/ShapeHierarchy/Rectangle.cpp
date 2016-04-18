@@ -23,12 +23,27 @@ double CRectangle::GetPerimeter() const
 	return (m_width + m_height) * 2;
 }
 
-std::string CRectangle::GetBorderColor() const
+CColorRGB CRectangle::GetBorderColor() const
 {
 	return m_borderColor;
 }
 
-void CRectangle::SetBorderColor(std::string const& color)
+double CRectangle::GetWidth() const
+{
+	return m_width;
+}
+
+double CRectangle::GetHeight() const
+{
+	return m_height;
+}
+
+std::pair<double, double> CRectangle::GetPosition() const
+{
+	return m_upperLeftCorner.GetPosition();
+}
+
+void CRectangle::SetBorderColor(CColorRGB const& color)
 {
 	m_borderColor = color;
 }
@@ -46,22 +61,36 @@ std::string CRectangle::ToString() const
 	output += std::to_string(GetPerimeter());
 	output += "\n";
 	output += "Border Color: ";
-	output += GetBorderColor();
+	output += std::to_string(GetBorderColor().r);
+	output += " ";
+	output += std::to_string(GetBorderColor().g);
+	output += " ";
+	output += std::to_string(GetBorderColor().b);
 	output += "\n";
 	output += "Fill Color: ";
-	output += GetFillColor();
+	output += std::to_string(GetFillColor().r);
+	output += " ";
+	output += std::to_string(GetFillColor().g);
+	output += " ";
+	output += std::to_string(GetFillColor().b);
 	output += "\n";
 	output += "=============================";
 	return output;
 }
 
-std::string CRectangle::GetFillColor() const
+CColorRGB CRectangle::GetFillColor() const
 {
 	return m_fillColor;
 }
 
-void CRectangle::SetFillColor(std::string const& color)
+void CRectangle::SetFillColor(CColorRGB const& color)
 {
 	m_fillColor = color;
+}
+
+
+Shapes CRectangle::GetType() const
+{
+	return RECTANGLE;
 }
 

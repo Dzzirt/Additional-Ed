@@ -9,17 +9,18 @@ public:
 	CCircle(CPoint center, double radius);
 	double GetArea()const override;
 	double GetPerimeter()const override;
-	std::string GetBorderColor()const override;
-	void SetBorderColor(std::string const& color) override;
+	CColorRGB GetBorderColor()const override;
+	void SetBorderColor(CColorRGB const& color) override;
 	std::string ToString()const override;
-	std::string GetFillColor()const override;
-	void SetFillColor(std::string const& color) override;
+	CColorRGB GetFillColor()const override;
+	void CCircle::SetFillColor(CColorRGB const& color);
 	double GetRadius()const;
 	CPoint GetCenter()const;
+	Shapes GetType()const override;
 private:
 	CPoint m_center;
 	double m_radius;
-	std::string m_borderColor;
-	std::string m_fillColor;
+	CColorRGB m_borderColor;
+	CColorRGB m_fillColor;
 };
 

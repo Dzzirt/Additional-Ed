@@ -25,12 +25,12 @@ double CTriangle::GetPerimeter() const
 	return baseLen + leftLen + rightLen;
 }
 
-std::string CTriangle::GetBorderColor() const
+CColorRGB CTriangle::GetBorderColor() const
 {
 	return m_borderColor;
 }
 
-void CTriangle::SetBorderColor(std::string const& color)
+void CTriangle::SetBorderColor(CColorRGB const& color)
 {
 	m_borderColor = color;
 }
@@ -53,21 +53,29 @@ std::string CTriangle::ToString() const
 	output += std::to_string(GetPerimeter());
 	output += "\n";
 	output += "Border Color: ";
-	output += GetBorderColor();
+	output += std::to_string(GetBorderColor().r);
+	output += " ";
+	output += std::to_string(GetBorderColor().g);
+	output += " ";
+	output += std::to_string(GetBorderColor().b);
 	output += "\n";
 	output += "Fill Color: ";
-	output += GetFillColor();
+	output += std::to_string(GetFillColor().r);
+	output += " ";
+	output += std::to_string(GetFillColor().g);
+	output += " ";
+	output += std::to_string(GetFillColor().b);
 	output += "\n";
 	output += "=============================";
 	return output;
 }
 
-std::string CTriangle::GetFillColor() const
+CColorRGB CTriangle::GetFillColor() const
 {
 	return m_fillColor;
 }
 
-void CTriangle::SetFillColor(std::string const& color)
+void CTriangle::SetFillColor(CColorRGB const& color)
 {
 	m_fillColor = color;
 }
@@ -85,5 +93,25 @@ CLineSegment CTriangle::GetLeftEdge() const
 CLineSegment CTriangle::GetRightEdge() const
 {
 	return CLineSegment(m_vertex2, m_vertex3);
+}
+
+CPoint CTriangle::GetMiddleVertex() const
+{
+	return m_vertex2;
+}
+
+CPoint CTriangle::GetLeftVertex() const
+{
+	return m_vertex1;
+}
+
+CPoint CTriangle::GetRightVertex() const
+{
+	return m_vertex3;
+}
+
+Shapes CTriangle::GetType() const
+{
+	return TRIANGLE;
 }
 

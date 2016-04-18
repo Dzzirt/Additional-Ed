@@ -29,8 +29,12 @@ void CShapeReader::ReadShapes()
 			auto height = stod(splitted[3]);
 			auto upperLeft = CPoint(stod(pos[0]), stod(pos[1]));
 			auto rect = std::make_shared<CRectangle>(upperLeft, width, height);
-			rect->SetFillColor(splitted[4]);
-			rect->SetBorderColor(splitted[5]);
+			vector<string> fill;
+			boost::split(fill, splitted[4], bind2nd(equal_to<char>(), ':'));
+			rect->SetFillColor(CColorRGB(stoi(fill[0]), stoi(fill[1]), stoi(fill[2])));
+			vector<string> border;
+			boost::split(border, splitted[5], bind2nd(equal_to<char>(), ':'));
+			rect->SetBorderColor(CColorRGB(stoi(border[0]), stoi(border[1]), stoi(border[2])));
 			m_shapes.push_back(rect);
 		}
 		else if (splitted[0] == "Line")
@@ -42,7 +46,9 @@ void CShapeReader::ReadShapes()
 			auto firstPoint = CPoint(stod(first[0]), stod(first[1]));
 			auto secondPoint = CPoint(stod(second[0]), stod(second[1]));
 			auto line = std::make_shared<CLineSegment>(firstPoint, secondPoint);
-			line->SetBorderColor(splitted[3]);
+			vector<string> border;
+			boost::split(border, splitted[3], bind2nd(equal_to<char>(), ':'));
+			line->SetBorderColor(CColorRGB(stoi(border[0]), stoi(border[1]), stoi(border[2])));
 			m_shapes.push_back(line);
 		}
 		else if (splitted[0] == "Triangle")
@@ -57,8 +63,12 @@ void CShapeReader::ReadShapes()
 			auto secondVertex = CPoint(stod(vertex2[0]), stod(vertex2[1]));
 			auto thirdVertex = CPoint(stod(vertex3[0]), stod(vertex3[1]));
 			auto triangle = std::make_shared<CTriangle>(firstVertex, secondVertex, thirdVertex);
-			triangle->SetFillColor(splitted[4]);
-			triangle->SetBorderColor(splitted[5]);
+			vector<string> fill;
+			boost::split(fill, splitted[4], bind2nd(equal_to<char>(), ':'));
+			triangle->SetFillColor(CColorRGB(stoi(fill[0]), stoi(fill[1]), stoi(fill[2])));
+			vector<string> border;
+			boost::split(border, splitted[5], bind2nd(equal_to<char>(), ':'));
+			triangle->SetBorderColor(CColorRGB(stoi(border[0]), stoi(border[1]), stoi(border[2])));
 			m_shapes.push_back(triangle);
 		}
 		else if (splitted[0] == "Circle")
@@ -68,8 +78,12 @@ void CShapeReader::ReadShapes()
 			auto radius = splitted[2];
 			auto centerPos = CPoint(stod(center[0]), stod(center[1]));
 			auto circle = std::make_shared<CCircle>(centerPos, stod(radius));
-			circle->SetFillColor(splitted[3]);
-			circle->SetBorderColor(splitted[4]);
+			vector<string> fill;
+			boost::split(fill, splitted[3], bind2nd(equal_to<char>(), ':'));
+			circle->SetFillColor(CColorRGB(stoi(fill[0]), stoi(fill[1]), stoi(fill[2])));
+			vector<string> border;
+			boost::split(border, splitted[4], bind2nd(equal_to<char>(), ':'));
+			circle->SetBorderColor(CColorRGB(stoi(border[0]), stoi(border[1]), stoi(border[2])));
 			m_shapes.push_back(circle);
 		}
 	}
@@ -101,4 +115,9 @@ void CShapeReader::PrintSortedByPerimeterDecreasing()
 	{
 		cout << ptr->ToString() << endl;
 	});
+}
+
+std::vector<std::shared_ptr<IShape>> CShapeReader::GetShapes() const
+{
+	return m_shapes;
 }

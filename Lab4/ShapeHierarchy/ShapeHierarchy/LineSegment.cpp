@@ -18,12 +18,12 @@ double CLineSegment::GetPerimeter() const
 	return m_length;
 }
 
-std::string CLineSegment::GetBorderColor() const
+CColorRGB CLineSegment::GetBorderColor() const 
 {
 	return m_borderColor;
 }
 
-void CLineSegment::SetBorderColor(std::string const& color)
+void CLineSegment::SetBorderColor(CColorRGB const& color)
 {
 	m_borderColor = color;
 }
@@ -44,9 +44,28 @@ std::string CLineSegment::ToString() const
 	output += std::to_string(GetPerimeter());
 	output += "\n";
 	output += "Border Color: ";
-	output += GetBorderColor();
+	output += std::to_string(GetBorderColor().r);
+	output += " ";
+	output += std::to_string(GetBorderColor().g);
+	output += " ";
+	output += std::to_string(GetBorderColor().b);
 	output += "\n";
 	output += "=============================";
 	return output;
+}
+
+Shapes CLineSegment::GetType() const
+{
+	return LINE_SEGMENT;
+}
+
+CPoint CLineSegment::GetFirstPoint() const
+{
+	return m_first;
+}
+
+CPoint CLineSegment::GetSecondPoint() const
+{
+	return m_second;
 }
 

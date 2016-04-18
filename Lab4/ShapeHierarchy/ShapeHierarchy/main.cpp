@@ -3,14 +3,18 @@
 
 #include "stdafx.h"
 #include "ShapeReader.h"
+#include "ShapeRenderer.h"
 #include <fstream>
+
 int main()
 {
-	auto in = std::ifstream("input.txt");
+	std::ifstream in("input.txt");
 	CShapeReader reader(in);
 	reader.ReadShapes();
 	reader.PrintSortedByAreaIncreasing();
 	reader.PrintSortedByPerimeterDecreasing();
+	CShapeRenderer renderer(reader.GetShapes());
+	renderer.Render();
 	return 0;
 }
 
