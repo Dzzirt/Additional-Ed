@@ -28,16 +28,6 @@ double CPoint::GetPerimeter()const
 	return 0;
 }
 
-CColorRGB CPoint::GetBorderColor() const 
-{
-	return CColorRGB();
-}
-
-void CPoint::SetBorderColor(CColorRGB const& color)
-{
-
-}
-
 std::string CPoint::ToString()const
 {
 	std::string output = "(";

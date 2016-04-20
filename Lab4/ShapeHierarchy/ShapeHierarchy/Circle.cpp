@@ -19,16 +19,6 @@ double CCircle::GetPerimeter() const
 	return 2 * M_PI * GetRadius();
 }
 
-CColorRGB CCircle::GetBorderColor() const 
-{
-	return m_borderColor;
-}
-
-void CCircle::SetBorderColor(CColorRGB const& color)
-{
-	m_borderColor = color;
-}
-
 std::string CCircle::ToString() const
 {
 	std::string output = "Circle\n";
@@ -61,11 +51,6 @@ std::string CCircle::ToString() const
 	return output;
 }
 
-CColorRGB CCircle::GetFillColor() const 
-{
-	return m_fillColor;
-}
-
 double CCircle::GetRadius() const
 {
 	return m_radius;
@@ -79,9 +64,4 @@ CPoint CCircle::GetCenter() const
 Shapes CCircle::GetType() const
 {
 	return CIRCLE;
-}
-
-void CCircle::SetFillColor(CColorRGB const& color)
-{
-	m_fillColor = color;
 }

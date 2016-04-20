@@ -8,7 +8,6 @@
 
 int main()
 {
-	std::ifstream in("input.txt");
 	CShapeReader reader(std::cin);
 	reader.ReadShapes();
 	reader.PrintSortedByAreaIncreasing();

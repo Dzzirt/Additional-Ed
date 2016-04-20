@@ -11,11 +11,8 @@ public:
 	void SetPosition(double x, double y);
 	double GetArea()const override;
 	double GetPerimeter()const override;
-	CColorRGB GetBorderColor()const override;
-	void SetBorderColor(CColorRGB const& color) override;
 	std::string ToString()const override;
 	Shapes GetType()const override;
 private:
 	std::pair<double, double> m_pos;
-
 };

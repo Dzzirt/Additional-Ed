@@ -25,16 +25,6 @@ double CTriangle::GetPerimeter() const
 	return baseLen + leftLen + rightLen;
 }
 
-CColorRGB CTriangle::GetBorderColor() const
-{
-	return m_borderColor;
-}
-
-void CTriangle::SetBorderColor(CColorRGB const& color)
-{
-	m_borderColor = color;
-}
-
 std::string CTriangle::ToString() const
 {
 	std::string output = "Triangle ";
@@ -68,16 +58,6 @@ std::string CTriangle::ToString() const
 	output += "\n";
 	output += "=============================";
 	return output;
-}
-
-CColorRGB CTriangle::GetFillColor() const
-{
-	return m_fillColor;
-}
-
-void CTriangle::SetFillColor(CColorRGB const& color)
-{
-	m_fillColor = color;
 }
 
 CLineSegment CTriangle::GetBaseLine() const

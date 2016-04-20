@@ -18,16 +18,6 @@ double CLineSegment::GetPerimeter() const
 	return m_length;
 }
 
-CColorRGB CLineSegment::GetBorderColor() const 
-{
-	return m_borderColor;
-}
-
-void CLineSegment::SetBorderColor(CColorRGB const& color)
-{
-	m_borderColor = color;
-}
-
 std::string CLineSegment::ToString() const
 {
 	std::string output = "Line Segment ";
