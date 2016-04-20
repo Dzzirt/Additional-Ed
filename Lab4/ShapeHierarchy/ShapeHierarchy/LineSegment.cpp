@@ -44,11 +44,6 @@ std::string CLineSegment::ToString() const
 	return output;
 }
 
-Shapes CLineSegment::GetType() const
-{
-	return LINE_SEGMENT;
-}
-
 CPoint CLineSegment::GetFirstPoint() const
 {
 	return m_first;
@@ -57,5 +52,10 @@ CPoint CLineSegment::GetFirstPoint() const
 CPoint CLineSegment::GetSecondPoint() const
 {
 	return m_second;
+}
+
+void CLineSegment::Accept(IVisitor & visitor)
+{
+	visitor.Visit(*this);
 }
 

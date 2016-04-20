@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <SFML/Graphics.hpp>
+#include <memory>
 
 
 // TODO: reference additional headers your program requires here

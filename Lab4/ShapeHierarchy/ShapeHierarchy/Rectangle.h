@@ -1,8 +1,7 @@
 #pragma once
-#include "SolidShape.h"
-#include "Point.h"
-#include "BorderColor.h"
 #include "FillColor.h"
+#include "BorderColor.h"
+#include "Point.h"
 
 class CRectangle : public IShape, public CFillColor, public CBorderColor
 {
@@ -15,7 +14,7 @@ public:
 	double GetHeight()const;
 	std::pair<double, double> GetPosition()const;
 	std::string ToString()const override;
-	Shapes GetType()const override;
+	void Accept(IVisitor & visitor) override;
 private:
 	CPoint m_upperLeftCorner;
 	double m_width;

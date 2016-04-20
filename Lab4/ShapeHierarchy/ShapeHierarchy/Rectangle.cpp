@@ -68,9 +68,8 @@ std::string CRectangle::ToString() const
 	return output;
 }
 
-
-Shapes CRectangle::GetType() const
+void CRectangle::Accept(IVisitor & visitor)
 {
-	return RECTANGLE;
+	visitor.Visit(*this);
 }
 

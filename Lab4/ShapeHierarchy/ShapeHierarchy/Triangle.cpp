@@ -90,8 +90,8 @@ CPoint CTriangle::GetRightVertex() const
 	return m_vertex3;
 }
 
-Shapes CTriangle::GetType() const
+void CTriangle::Accept(IVisitor & visitor)
 {
-	return TRIANGLE;
+	visitor.Visit(*this);
 }
 

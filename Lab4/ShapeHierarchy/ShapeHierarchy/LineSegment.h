@@ -1,7 +1,7 @@
 #pragma once
-#include "Shape.h"
-#include "Point.h"
+#include "FillColor.h"
 #include "BorderColor.h"
+#include "Point.h"
 
 class CLineSegment :public IShape, public CBorderColor
 {
@@ -11,9 +11,9 @@ public:
 	double GetArea()const override;
 	double GetPerimeter()const override;
 	std::string ToString()const override;
-	Shapes GetType()const override;
 	CPoint GetFirstPoint()const;
 	CPoint GetSecondPoint()const;
+	void Accept(IVisitor & visitor) override;
 private:
 	CPoint m_first;
 	CPoint m_second;

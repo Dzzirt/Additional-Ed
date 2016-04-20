@@ -1,7 +1,8 @@
 #pragma once
-#include "SolidShape.h"
-#include "LineSegment.h"
 #include "FillColor.h"
+#include "BorderColor.h"
+#include "Point.h"
+#include "LineSegment.h"
 
 class CTriangle : public IShape, public CBorderColor, public CFillColor
 {
@@ -17,7 +18,7 @@ public:
 	CPoint GetMiddleVertex()const;
 	CPoint GetLeftVertex()const;
 	CPoint GetRightVertex()const;
-	Shapes GetType()const override;
+	void Accept(IVisitor & visitor) override;
 private:
 	CPoint m_vertex1;
 	CPoint m_vertex2;

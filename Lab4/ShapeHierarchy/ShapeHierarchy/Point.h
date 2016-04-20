@@ -12,7 +12,7 @@ public:
 	double GetArea()const override;
 	double GetPerimeter()const override;
 	std::string ToString()const override;
-	Shapes GetType()const override;
+	void Accept(IVisitor & visitor) override;
 private:
 	std::pair<double, double> m_pos;
 };

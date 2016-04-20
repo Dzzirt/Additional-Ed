@@ -1,8 +1,7 @@
 #pragma once
-#include "SolidShape.h"
-#include "Point.h"
 #include "FillColor.h"
 #include "BorderColor.h"
+#include "Point.h"
 
 class CCircle : public IShape, public CBorderColor, public CFillColor
 {
@@ -14,7 +13,7 @@ public:
 	std::string ToString()const override;
 	double GetRadius()const;
 	CPoint GetCenter()const;
-	Shapes GetType()const override;
+	void Accept(IVisitor & visitor) override;
 private:
 	CPoint m_center;
 	double m_radius;

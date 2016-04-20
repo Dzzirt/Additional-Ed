@@ -61,7 +61,7 @@ CPoint CCircle::GetCenter() const
 	return m_center;
 }
 
-Shapes CCircle::GetType() const
+void CCircle::Accept(IVisitor & visitor)
 {
-	return CIRCLE;
+	visitor.Visit(*this);
 }

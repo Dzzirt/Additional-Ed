@@ -38,7 +38,7 @@ std::string CPoint::ToString()const
 	return output;
 }
 
-Shapes CPoint::GetType() const
+void CPoint::Accept(IVisitor & visitor)
 {
-	return POINT;
+
 }

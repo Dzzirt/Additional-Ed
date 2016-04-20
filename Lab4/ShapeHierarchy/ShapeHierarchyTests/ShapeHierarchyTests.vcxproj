@@ -155,10 +155,12 @@
   <ItemGroup>
     <ClInclude Include="..\ShapeHierarchy\BorderColor.h" />
     <ClInclude Include="..\ShapeHierarchy\ColorRGB.h" />
+    <ClInclude Include="..\ShapeHierarchy\Element.h" />
     <ClInclude Include="..\ShapeHierarchy\FillColor.h" />
     <ClInclude Include="..\ShapeHierarchy\LineSegment.h" />
     <ClInclude Include="..\ShapeHierarchy\Point.h" />
     <ClInclude Include="..\ShapeHierarchy\Rectangle.h" />
+    <ClInclude Include="..\ShapeHierarchy\Visitor.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
