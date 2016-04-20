@@ -56,6 +56,7 @@ void CDrawVisitor::Visit(CCircle & circle)
 	visualShape->setPosition(sf::Vector2f(static_cast<float>(circle.GetCenter().GetPosition().first), 
 		static_cast<float>(circle.GetCenter().GetPosition().second)));
 	visualShape->setFillColor(sf::Color(circle.GetFillColor().r, circle.GetFillColor().g, circle.GetFillColor().b));
+	visualShape->setOutlineThickness(1);
 	visualShape->setOutlineColor(sf::Color(circle.GetBorderColor().r, circle.GetBorderColor().g, circle.GetBorderColor().b));
 	visualShape->setOrigin(sf::Vector2f(static_cast<float>(circle.GetRadius()), static_cast<float>(circle.GetRadius())));
 	m_drawable = std::move(visualShape);
