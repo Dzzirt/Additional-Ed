@@ -52,11 +52,12 @@ void CDrawVisitor::Visit(CRectangle & rectangle)
 void CDrawVisitor::Visit(CCircle & circle)
 {
 	auto visualShape = std::make_unique<sf::CircleShape>();
-	visualShape->setRadius(circle.GetRadius());
-	visualShape->setPosition(sf::Vector2f(circle.GetCenter().GetPosition().first, circle.GetCenter().GetPosition().second));
+	visualShape->setRadius(static_cast<float>(circle.GetRadius()));
+	visualShape->setPosition(sf::Vector2f(static_cast<float>(circle.GetCenter().GetPosition().first), 
+		static_cast<float>(circle.GetCenter().GetPosition().second)));
 	visualShape->setFillColor(sf::Color(circle.GetFillColor().r, circle.GetFillColor().g, circle.GetFillColor().b));
 	visualShape->setOutlineColor(sf::Color(circle.GetBorderColor().r, circle.GetBorderColor().g, circle.GetBorderColor().b));
-	visualShape->setOrigin(sf::Vector2f(circle.GetRadius(), circle.GetRadius()));
+	visualShape->setOrigin(sf::Vector2f(static_cast<float>(circle.GetRadius()), static_cast<float>(circle.GetRadius())));
 	m_drawable = std::move(visualShape);
 }
 

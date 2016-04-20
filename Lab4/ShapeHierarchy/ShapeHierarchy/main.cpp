@@ -2,18 +2,14 @@
 //
 
 #include "stdafx.h"
-#include "ShapeReader.h"
-#include "ShapeRenderer.h"
+#include "ShapeManager.h"
 #include <fstream>
 
 int main()
 {
-	CShapeReader reader(std::cin);
-	reader.ReadShapes();
-	reader.PrintSortedByAreaIncreasing();
-	reader.PrintSortedByPerimeterDecreasing();
-	CShapeRenderer renderer(reader.GetShapes());
-	renderer.Render();
+	CShapeManager manager(std::cin);
+	manager.Print();
+	manager.Render();
 	return 0;
 }
 
