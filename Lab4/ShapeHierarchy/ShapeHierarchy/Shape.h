@@ -18,5 +18,5 @@ public:
 	virtual void SetBorderColor(CColorRGB const& color) = 0;
 	virtual std::string ToString()const = 0;
 	virtual Shapes GetType()const = 0;
-
+	virtual ~IShape() = default;
 };

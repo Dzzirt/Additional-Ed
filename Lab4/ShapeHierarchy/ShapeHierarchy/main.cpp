@@ -9,7 +9,7 @@
 int main()
 {
 	std::ifstream in("input.txt");
-	CShapeReader reader(in);
+	CShapeReader reader(std::cin);
 	reader.ReadShapes();
 	reader.PrintSortedByAreaIncreasing();
 	reader.PrintSortedByPerimeterDecreasing();
