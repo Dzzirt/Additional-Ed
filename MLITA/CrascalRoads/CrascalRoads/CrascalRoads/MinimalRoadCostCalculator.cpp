@@ -5,31 +5,30 @@ using namespace std;
 CMinimalRoadCostCalculator::CMinimalRoadCostCalculator(string const& input)
 {
 
-	GetGraph(input);
+	ReadGraph(input);
 }
 
-void CMinimalRoadCostCalculator::GetGraph(std::string const& input)
+void CMinimalRoadCostCalculator::ReadGraph(std::string const& input)
 {
 	ifstream in(input);
 	string line;
-	getline(in, line);
-	auto arcsCount = line[2] - '0';
-	auto vertexesCount = line[0] - '0';
+	int arcsCount;
+	int vertexesCount;
+	in >> vertexesCount >> arcsCount;
 	m_arcs = Arcs(arcsCount);
 	for (size_t i = 0; i < m_arcs.size(); ++i)
 	{
-		getline(in, line);
-		vector<string> parsed;
-		boost::split(parsed, line, bind2nd(equal_to<char>(), ' '));
-		int first = stoi(parsed[0]);
-		int second = stoi(parsed[1]);
-		if (first > second)
+		int firstVertex;
+		int secondVertex;
+		int weight;
+		in >> firstVertex >> secondVertex >> weight;
+		if (firstVertex > secondVertex)
 		{
-			swap(first, second);
+			swap(firstVertex, secondVertex);
 		}
-		m_arcs[i] = { { first, second }, stoi(parsed[2]) };
-		m_vertexes.insert(first);
-		m_vertexes.insert(second);
+		m_arcs[i] = { { firstVertex, secondVertex }, weight };
+		m_vertexes.insert(firstVertex);
+		m_vertexes.insert(secondVertex);
 	}
 }
 void CMinimalRoadCostCalculator::Calculate(string const& output)
@@ -52,7 +51,7 @@ void CMinimalRoadCostCalculator::Calculate(string const& output)
 	}
 	sort(outputArcs.begin(), outputArcs.end(), [&](auto const& pair1, auto const& pair2)
 	{
-		return pair1.first < pair2.first;
+		return pair1 < pair2;
 	});
 	ofstream out(output);
 	out << cost << endl;

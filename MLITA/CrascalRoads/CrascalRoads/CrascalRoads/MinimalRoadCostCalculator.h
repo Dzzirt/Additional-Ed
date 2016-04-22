@@ -10,7 +10,7 @@ public:
 	CMinimalRoadCostCalculator(std::string const& input);
 	void Calculate(std::string const& output);
 private:
-	void GetGraph(std::string const& input);
+	void ReadGraph(std::string const& input);
 	Arcs m_arcs;
 	Vertexes m_vertexes;
 };
