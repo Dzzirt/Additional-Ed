@@ -12,7 +12,7 @@ public:
 	double GetPerimeter()const override;
 	double GetWidth()const;
 	double GetHeight()const;
-	std::pair<double, double> GetPosition()const;
+	Vector2Double GetPosition()const;
 	std::string ToString()const override;
 	void Accept(IVisitor & visitor) override;
 private:

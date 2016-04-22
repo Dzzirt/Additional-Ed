@@ -46,7 +46,7 @@ BOOST_FIXTURE_TEST_SUITE(point_tests, PointFixture)
 	BOOST_AUTO_TEST_CASE(can_set_position)
 	{
 		point.SetPosition(20, 30);
-		auto new_pos = std::pair<double, double>(20, 30);
+		auto new_pos = Vector2Double(20, 30);
 		BOOST_CHECK(point.GetPosition() == new_pos);
 	}
 BOOST_AUTO_TEST_SUITE_END()

@@ -4,8 +4,8 @@
 CLineSegment::CLineSegment(CPoint first, CPoint second)
 	:m_first(first), m_second(second)
 {
-	m_length = sqrt(pow(second.GetPosition().first - first.GetPosition().first, 2)
-	+ pow(second.GetPosition().second - first.GetPosition().second, 2));
+	m_length = sqrt(pow(second.GetPosition().x - first.GetPosition().x, 2)
+	+ pow(second.GetPosition().y - first.GetPosition().y, 2));
 }
 
 double CLineSegment::GetArea() const

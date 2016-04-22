@@ -2,20 +2,20 @@
 #include "Point.h"
 
 CPoint::CPoint(double x, double y)
-	:m_pos(std::make_pair(x, y))
+	:m_pos(Vector2Double(x, y))
 {
 
 }
 
-std::pair<double, double> CPoint::GetPosition() const
+Vector2Double CPoint::GetPosition() const
 {
 	return m_pos;
 }
 
 void CPoint::SetPosition(double x, double y)
 {
-	m_pos.first = x;
-	m_pos.second = y;
+	m_pos.x = x;
+	m_pos.y = y;
 }
 
 double CPoint::GetArea()const
@@ -31,9 +31,9 @@ double CPoint::GetPerimeter()const
 std::string CPoint::ToString()const
 {
 	std::string output = "(";
-	output += std::to_string(GetPosition().first);
+	output += std::to_string(GetPosition().x);
 	output += ";";
-	output += std::to_string(GetPosition().second);
+	output += std::to_string(GetPosition().y);
 	output += ")";
 	return output;
 }

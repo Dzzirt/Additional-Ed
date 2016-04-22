@@ -66,6 +66,9 @@
     <ClInclude Include="ShapeManager.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vector2Double.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShapeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2Double.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

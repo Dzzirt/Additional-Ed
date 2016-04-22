@@ -33,7 +33,7 @@ double CRectangle::GetHeight() const
 	return m_height;
 }
 
-std::pair<double, double> CRectangle::GetPosition() const
+Vector2Double CRectangle::GetPosition() const
 {
 	return m_upperLeftCorner.GetPosition();
 }

@@ -7,10 +7,10 @@
 
 void CDrawVisitor::Visit(CLineSegment & line)
 {
-	auto leftPoint = sf::Vector2f((float)line.GetFirstPoint().GetPosition().first,
-		(float)line.GetFirstPoint().GetPosition().second);
-	auto rightPoint = sf::Vector2f((float)line.GetSecondPoint().GetPosition().first,
-		(float)line.GetSecondPoint().GetPosition().second);
+	auto leftPoint = sf::Vector2f((float)line.GetFirstPoint().GetPosition().x,
+		(float)line.GetFirstPoint().GetPosition().y);
+	auto rightPoint = sf::Vector2f((float)line.GetSecondPoint().GetPosition().x,
+		(float)line.GetSecondPoint().GetPosition().y);
 	auto visualLine = sf::VertexArray(sf::Lines, 2);
 	visualLine[0].position = leftPoint;
 	visualLine[1].position = rightPoint;
@@ -23,12 +23,12 @@ void CDrawVisitor::Visit(CTriangle & triangle)
 {
 	auto visualShape = std::make_unique<sf::ConvexShape>();
 	visualShape->setPointCount(3);
-	auto leftPoint = sf::Vector2f((float)triangle.GetLeftVertex().GetPosition().first,
-		(float)triangle.GetLeftVertex().GetPosition().second);
-	auto middlePoint = sf::Vector2f((float)triangle.GetMiddleVertex().GetPosition().first,
-		(float)triangle.GetMiddleVertex().GetPosition().second);
-	auto rightPoint = sf::Vector2f((float)triangle.GetRightVertex().GetPosition().first,
-		(float)triangle.GetRightVertex().GetPosition().second);
+	auto leftPoint = sf::Vector2f((float)triangle.GetLeftVertex().GetPosition().x,
+		(float)triangle.GetLeftVertex().GetPosition().y);
+	auto middlePoint = sf::Vector2f((float)triangle.GetMiddleVertex().GetPosition().x,
+		(float)triangle.GetMiddleVertex().GetPosition().y);
+	auto rightPoint = sf::Vector2f((float)triangle.GetRightVertex().GetPosition().x,
+		(float)triangle.GetRightVertex().GetPosition().y);
 	visualShape->setPoint(0, leftPoint);
 	visualShape->setPoint(1, middlePoint);
 	visualShape->setPoint(2, rightPoint);
@@ -41,7 +41,7 @@ void CDrawVisitor::Visit(CTriangle & triangle)
 void CDrawVisitor::Visit(CRectangle & rectangle)
 {
 	auto visualRect = std::make_unique<sf::RectangleShape>();
-	visualRect->setPosition((float)rectangle.GetPosition().first, (float)rectangle.GetPosition().second);
+	visualRect->setPosition((float)rectangle.GetPosition().x, (float)rectangle.GetPosition().y);
 	visualRect->setSize(sf::Vector2f((float)rectangle.GetWidth(), (float)rectangle.GetHeight()));
 	visualRect->setOutlineThickness(1);
 	visualRect->setFillColor(sf::Color(rectangle.GetFillColor().r, rectangle.GetFillColor().g, rectangle.GetFillColor().b));
@@ -53,8 +53,8 @@ void CDrawVisitor::Visit(CCircle & circle)
 {
 	auto visualShape = std::make_unique<sf::CircleShape>();
 	visualShape->setRadius(static_cast<float>(circle.GetRadius()));
-	visualShape->setPosition(sf::Vector2f(static_cast<float>(circle.GetCenter().GetPosition().first), 
-		static_cast<float>(circle.GetCenter().GetPosition().second)));
+	visualShape->setPosition(sf::Vector2f(static_cast<float>(circle.GetCenter().GetPosition().x), 
+		static_cast<float>(circle.GetCenter().GetPosition().y)));
 	visualShape->setFillColor(sf::Color(circle.GetFillColor().r, circle.GetFillColor().g, circle.GetFillColor().b));
 	visualShape->setOutlineThickness(1);
 	visualShape->setOutlineColor(sf::Color(circle.GetBorderColor().r, circle.GetBorderColor().g, circle.GetBorderColor().b));
