@@ -8,5 +8,9 @@ public:
 	unsigned char r;
 	unsigned char g;
 	unsigned char b;
+
+	bool operator==(CColorRGB const& other)const;
 };
+
+
 

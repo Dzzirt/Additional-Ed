@@ -12,4 +12,8 @@ CColorRGB::CColorRGB(unsigned char r, unsigned char g, unsigned
 {
 }
 
+bool CColorRGB::operator==(CColorRGB const& other) const
+{
+	return (r == other.r) && (g == other.g) && (b == other.b);
+}
 

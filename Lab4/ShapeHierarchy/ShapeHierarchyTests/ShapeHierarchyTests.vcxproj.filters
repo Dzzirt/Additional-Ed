@@ -51,6 +51,9 @@
     <ClInclude Include="..\ShapeHierarchy\Vector2Double.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ShapeHierarchy\Triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +81,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\ShapeHierarchy\FillColor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShapeHierarchy\Vector2Double.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShapeHierarchy\Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

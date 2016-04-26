@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "ShapeManager.h"
 #include <fstream>
+#include "Triangle.h"
 
 int main()
 {

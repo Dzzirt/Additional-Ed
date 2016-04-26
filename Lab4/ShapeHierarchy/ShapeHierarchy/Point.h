@@ -14,6 +14,7 @@ public:
 	double GetPerimeter()const override;
 	std::string ToString()const override;
 	void Accept(IVisitor & visitor) override;
+	bool operator==(CPoint const& other)const;
 private:
 	Vector2Double m_pos;
 };

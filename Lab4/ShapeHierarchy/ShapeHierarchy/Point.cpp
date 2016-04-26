@@ -42,3 +42,8 @@ void CPoint::Accept(IVisitor & visitor)
 {
 
 }
+
+bool CPoint::operator==(CPoint const& other) const
+{
+	return m_pos == other.m_pos;
+}
