@@ -1,5 +1,6 @@
 #pragma once
-#include "Visitor.h"
+
+class IVisitor;
 
 class IElement {
 public:

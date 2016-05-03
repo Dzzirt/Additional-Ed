@@ -61,10 +61,20 @@ BOOST_FIXTURE_TEST_SUITE(line_segment_tests, LineFixture)
 		BOOST_CHECK_EQUAL(line.GetArea(), 0);
 	}
 
+	void LinesAreEqual(const CLineSegment & lhs, const CLineSegment & rhs)
+	{
+		BOOST_CHECK(lhs == rhs);
+	}
+
 	BOOST_AUTO_TEST_CASE(distance_between_2_points_is_line_length)
 	{
 		BOOST_CHECK_EQUAL(line.GetPerimeter(), 2.8284271247461903);
+		CLineSegment line1 = CLineSegment(CPoint(0, 0), CPoint(1, 1));
+		CLineSegment line2 = CLineSegment(CPoint(0, 0), CPoint(1, 1));
+		LinesAreEqual(line1, line2);
 	}
+
+
 
 	BOOST_AUTO_TEST_CASE(can_get_points)
 	{

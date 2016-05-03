@@ -41,11 +41,10 @@ void CMinimalRoadCostCalculator::Calculate(string const& output)
 	Arcs outputArcs;
 	size_t counter = 0;
 	Vertexes compared;
-	while (m_vertexes != compared && counter < m_arcs.size())
+	while (counter < m_arcs.size())
 	{
 		cost += m_arcs[counter].second;
 		outputArcs.push_back(m_arcs[counter]);
-		compared.insert(m_arcs[counter].first.first);
 		counter++;
 	}
 	sort(outputArcs.begin(), outputArcs.end(), [&](auto const& pair1, auto const& pair2)

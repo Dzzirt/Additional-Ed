@@ -11,5 +11,7 @@ public:
 	~CShapePrinter();
 private:
 	std::vector<std::shared_ptr<IShape>> m_shapes;
+
+	std::string ShapeToString(std::shared_ptr<IShape> & shape);
 };
 

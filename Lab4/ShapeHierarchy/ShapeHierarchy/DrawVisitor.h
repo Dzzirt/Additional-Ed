@@ -11,6 +11,6 @@ public:
 	void Visit(CCircle & circle) override;
 	void Draw(sf::RenderWindow & window);
 private:
-	std::unique_ptr<sf::Drawable> m_drawable;
+	std::vector<std::unique_ptr<sf::Drawable>> m_drawable;
 };
 

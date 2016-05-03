@@ -23,8 +23,8 @@ void CShapeRenderer::Render()
 		for (auto & logic : m_logicShapes)
 		{
 			logic->Accept(visitor);
-			visitor.Draw(window);
 		}
+		visitor.Draw(window);
 		window.display();
 	}
 

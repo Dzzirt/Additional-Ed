@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Circle.h"
+#include "Visitor.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 

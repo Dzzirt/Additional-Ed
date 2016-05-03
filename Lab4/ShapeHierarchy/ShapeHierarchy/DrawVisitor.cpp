@@ -16,7 +16,7 @@ void CDrawVisitor::Visit(CLineSegment & line)
 	visualLine[1].position = rightPoint;
 	visualLine[0].color = sf::Color(line.GetBorderColor().r, line.GetBorderColor().g, line.GetBorderColor().b);
 	visualLine[1].color = sf::Color(line.GetBorderColor().r, line.GetBorderColor().g, line.GetBorderColor().b);
-	m_drawable = std::make_unique<sf::VertexArray>(visualLine);
+	m_drawable.push_back(std::make_unique<sf::VertexArray>(visualLine));
 }
 
 void CDrawVisitor::Visit(CTriangle & triangle)
@@ -35,7 +35,7 @@ void CDrawVisitor::Visit(CTriangle & triangle)
 	visualShape->setOutlineThickness(1);
 	visualShape->setFillColor(sf::Color(triangle.GetFillColor().r, triangle.GetFillColor().g, triangle.GetFillColor().b));
 	visualShape->setOutlineColor(sf::Color(triangle.GetBorderColor().r, triangle.GetBorderColor().g, triangle.GetBorderColor().b));
-	m_drawable = std::move(visualShape);
+	m_drawable.push_back(std::move(visualShape));
 }
 
 void CDrawVisitor::Visit(CRectangle & rectangle)
@@ -46,7 +46,7 @@ void CDrawVisitor::Visit(CRectangle & rectangle)
 	visualRect->setOutlineThickness(1);
 	visualRect->setFillColor(sf::Color(rectangle.GetFillColor().r, rectangle.GetFillColor().g, rectangle.GetFillColor().b));
 	visualRect->setOutlineColor(sf::Color(rectangle.GetBorderColor().r, rectangle.GetBorderColor().g, rectangle.GetBorderColor().b));
-	m_drawable = std::move(visualRect);
+	m_drawable.push_back(std::move(visualRect));
 }
 
 void CDrawVisitor::Visit(CCircle & circle)
@@ -59,10 +59,13 @@ void CDrawVisitor::Visit(CCircle & circle)
 	visualShape->setOutlineThickness(1);
 	visualShape->setOutlineColor(sf::Color(circle.GetBorderColor().r, circle.GetBorderColor().g, circle.GetBorderColor().b));
 	visualShape->setOrigin(sf::Vector2f(static_cast<float>(circle.GetRadius()), static_cast<float>(circle.GetRadius())));
-	m_drawable = std::move(visualShape);
+	m_drawable.push_back(std::move(visualShape));
 }
 
 void CDrawVisitor::Draw(sf::RenderWindow & window)
 {
-	window.draw(*m_drawable);
+	for (auto & shape : m_drawable)
+	{
+		window.draw(*shape);
+	}
 }

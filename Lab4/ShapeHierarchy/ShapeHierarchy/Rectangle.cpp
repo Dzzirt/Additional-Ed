@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Rectangle.h"
 #include <cassert>
-
+#include "Visitor.h"
 
 
 CRectangle::CRectangle(CPoint upperLeft, double width, double height)

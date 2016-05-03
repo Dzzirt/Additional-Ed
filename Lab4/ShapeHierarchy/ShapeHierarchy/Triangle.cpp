@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Triangle.h"
-
+#include "Visitor.h"
 
 CTriangle::CTriangle(CPoint vertex1, CPoint vertex2, CPoint vertex3)
 	:m_vertex1(vertex1), m_vertex2(vertex2), m_vertex3(vertex3)
