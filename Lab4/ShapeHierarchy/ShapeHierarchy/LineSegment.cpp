@@ -60,17 +60,9 @@ void CLineSegment::Accept(IVisitor & visitor)
 	visitor.Visit(*this);
 }
 
-/*
-bool CLineSegment::operator==(CLineSegment const& other)
+bool CLineSegment::operator==(CLineSegment const& other) const
 {
 	return (m_first == other.GetFirstPoint())
 		&& (m_second == other.GetSecondPoint())
 		&& (m_length == other.GetPerimeter());
-}*/
-
-bool operator==(CLineSegment const& lhs, CLineSegment const& rhs)
-{
-	return (lhs.GetFirstPoint() == rhs.GetFirstPoint())
-		&& (lhs.GetSecondPoint() == rhs.GetSecondPoint())
-		&& (lhs.GetPerimeter() == rhs.GetPerimeter());
 }

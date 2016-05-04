@@ -14,12 +14,9 @@ public:
 	CPoint GetFirstPoint()const;
 	CPoint GetSecondPoint()const;
 	void Accept(IVisitor & visitor) override;
-	//bool operator==(CLineSegment const& other);
+	bool operator==(CLineSegment const& other)const;
 private:
 	CPoint m_first;
 	CPoint m_second;
 	double m_length;
 };
-
-
-bool operator==(CLineSegment const& lhs, CLineSegment const& rhs);
