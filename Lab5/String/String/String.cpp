@@ -4,11 +4,13 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
+#include "MyString.h"
 int main()
 {
-	std::string kek("lkl \0 lkl", 9);
-	auto str2 = kek + "1";
-	std::cout << kek << std::endl;
+	std::istringstream ss("mama papa");
+	std::string str;
+	ss >> str >> str;
+	std::cout << str;
     return 0;
 }
 

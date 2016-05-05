@@ -53,16 +53,15 @@ BOOST_AUTO_TEST_SUITE(MyString_tests)
 	{
 		CMyString str("hel\0lo");
 		CMyString str2(str);
-		ExpectStringContent(str.GetStringData(), str2.GetStringData(), str.GetLength());
+		ExpectStringContent(str, str2.GetStringData(), str.GetLength());
 		CMyString str3(std::move(str));
-		BOOST_CHECK(!str.GetStringData());
-		BOOST_CHECK_EQUAL(str.GetLength(), 0);
+		ExpectStringContent(str, "", 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(can_get_substring_from_string)
 	{
 		CMyString str("hel\0lo");
-		auto newStr = str.SubString(1, 10);
+		auto newStr = str.SubString(1);
 		auto newStr2 = str.SubString(0, 0);
 		BOOST_CHECK_THROW(str.SubString(10, 1), std::out_of_range);
 		ExpectStringContent("el", newStr.GetStringData(), newStr.GetLength());
@@ -128,15 +127,14 @@ BOOST_AUTO_TEST_SUITE(MyString_tests)
 		ExpectStringContent(sumWithMyString3.GetStringData(), "12", 2);
 		ExpectStringContent(sumWithMyString4.GetStringData(), "", 0);
 	}
-//lexicographical comparison
 
 	BOOST_AUTO_TEST_CASE(has_lexicographical_comparison_operators)
 	{
 		BOOST_CHECK_EQUAL(CMyString("123") > "", true);
 		BOOST_CHECK_EQUAL(CMyString("") > "123", false);
-		BOOST_CHECK_EQUAL(CMyString("123") > "123", false);
+		BOOST_CHECK_EQUAL(CMyString("1234") > "123", true);
 		BOOST_CHECK_EQUAL(CMyString("124") > "123", true);
-		BOOST_CHECK_EQUAL(CMyString("122") > "123", false);
+		BOOST_CHECK_EQUAL(CMyString("1222") > "123", false);
 
 		BOOST_CHECK_EQUAL(CMyString("123") < "123", false);
 
@@ -169,7 +167,7 @@ BOOST_AUTO_TEST_SUITE(MyString_tests)
 		BOOST_CHECK_EQUAL(str, "12345");
 		iss = std::istringstream("654321");
 		iss >> str;
-		BOOST_CHECK_EQUAL(str, "12345654321");
+		BOOST_CHECK_EQUAL(str, "654321");
 
 	}
 
@@ -180,10 +178,10 @@ BOOST_AUTO_TEST_SUITE(MyString_tests)
 		auto sumWithMyString3 = CMyString("1") + CMyString("2");
 		auto sumWithMyString4 = CMyString() + CMyString();
 
-		ExpectStringContent(sumWithMyString.GetStringData(), "1", 1);
-		ExpectStringContent(sumWithMyString2.GetStringData(), "1", 1);
-		ExpectStringContent(sumWithMyString3.GetStringData(), "12", 2);
-		ExpectStringContent(sumWithMyString4.GetStringData(), "", 0);
+		ExpectStringContent(sumWithMyString, "1", 1);
+		ExpectStringContent(sumWithMyString2, "1", 1);
+		ExpectStringContent(sumWithMyString3, "12", 2);
+		ExpectStringContent(sumWithMyString4, "", 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(has_concatenation_with_stl_string_operator)
@@ -193,10 +191,10 @@ BOOST_AUTO_TEST_SUITE(MyString_tests)
 		auto sumWithStlString3 = std::string("1") + CMyString("2");
 		auto sumWithStlString4 = std::string() + CMyString();
 
-		ExpectStringContent(sumWithStlString.GetStringData(), "1", 1);
-		ExpectStringContent(sumWithStlString2.GetStringData(), "1", 1);
-		ExpectStringContent(sumWithStlString3.GetStringData(), "12", 2);
-		ExpectStringContent(sumWithStlString4.GetStringData(), "", 0);
+		ExpectStringContent(sumWithStlString, "1", 1);
+		ExpectStringContent(sumWithStlString2, "1", 1);
+		ExpectStringContent(sumWithStlString3, "12", 2);
+		ExpectStringContent(sumWithStlString4, "", 0);
 	}
 
 	BOOST_AUTO_TEST_CASE(has_concatenation_with_char_string_operator)

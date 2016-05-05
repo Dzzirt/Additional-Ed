@@ -12,7 +12,7 @@ public:
 	CMyString(std::string const& stlString);
 	size_t GetLength()const;
 	const char* GetStringData()const;
-	CMyString const SubString(size_t start, size_t length = SIZE_MAX)const;
+	CMyString SubString(size_t start, size_t length = SIZE_MAX)const;
 	void Clear();
 
 	CMyString & operator=(CMyString const & other);
@@ -28,19 +28,23 @@ public:
 
 	CMyString & operator+=(CMyString const & other);
 
+	friend CMyString operator+(CMyString const & lhs, CMyString const & rhs);
+	friend CMyString operator+(std::string const & lhs, CMyString const & rhs);
+	friend CMyString operator+(const char * lhs, CMyString const & rhs);
 	~CMyString();
 private:
-	char * CreateString(size_t length);
-
+	static int Compare(CMyString const&  lhs, CMyString const&  rhs);
+	static void SafeDelete(char * pString);
+	static char * CreateString(size_t length);
+	CMyString(size_t len);
+	static char m_emptyStr[];
 	char * m_first;
 	size_t m_length;
+
 };
 
 std::istream & operator>> (std::istream & strm, CMyString & str);
 std::ostream & operator<< (std::ostream & strm, CMyString const& str);
 
-CMyString const operator+(CMyString const & lhs, CMyString const & rhs);
-/*
-CMyString const& operator+(std::string const & lhs, CMyString const & rhs);
-CMyString operator+(const char * lhs, CMyString const & rhs);*/
+
 
