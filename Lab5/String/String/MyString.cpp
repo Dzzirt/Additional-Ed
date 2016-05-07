@@ -118,6 +118,63 @@ void CMyString::Clear()
 	m_length = 0;
 }
 
+CMyString::iterator CMyString::begin()
+{
+	if (!m_first)
+	{
+		return iterator(m_emptyStr);
+	}
+	return m_first;
+	
+}
+
+CMyString::constIterator CMyString::begin() const
+{
+	return constIterator(GetStringData());
+}
+
+CMyString::constIterator CMyString::end() const
+{
+	return constIterator(GetStringData() + m_length);
+}
+
+CMyString::iterator CMyString::end()
+{
+	if (!m_first)
+	{
+		return iterator(m_emptyStr);
+	}
+	return m_first + m_length;
+}
+
+CMyString::iterator CMyString::rbegin()
+{
+	if (!m_first)
+	{
+		return iterator(m_emptyStr, true);
+	}
+	return iterator(m_first + m_length, true);
+}
+
+CMyString::iterator CMyString::rend()
+{
+	if (!m_first)
+	{
+		return iterator(m_emptyStr, true);
+	}
+	return iterator(m_first, true);
+}
+
+CMyString::constIterator CMyString::rbegin() const
+{
+	return constIterator(GetStringData() + m_length, true);
+}
+
+CMyString::constIterator CMyString::rend() const
+{
+	return constIterator(GetStringData(), true);
+}
+
 CMyString & CMyString::operator+=(CMyString const & other)
 {
 	if (other.GetLength() != 0)

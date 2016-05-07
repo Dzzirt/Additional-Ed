@@ -1,9 +1,14 @@
 #pragma once
 #include <string.h>
+#include "StringIterator.h"
+
 
 class CMyString
 {
 public:
+	typedef CStringIterator<char> iterator;
+	typedef CStringIterator<const char> constIterator;
+
 	CMyString();
 	CMyString(const char * pString);
 	CMyString(const char * pString, size_t length);
@@ -14,6 +19,16 @@ public:
 	const char* GetStringData()const;
 	CMyString SubString(size_t start, size_t length = SIZE_MAX)const;
 	void Clear();
+
+	iterator begin();
+	iterator end();
+	constIterator begin() const;
+	constIterator end() const;
+
+	iterator rbegin();
+	iterator rend();
+	constIterator rbegin() const;
+	constIterator rend() const;
 
 	CMyString & operator=(CMyString const & other);
 	CMyString & operator=(CMyString && other);
