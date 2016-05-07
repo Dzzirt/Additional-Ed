@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char * argv[])
 {
-	if (argc != 3)
+if (argc != 3)
 	{
 		CMinimalRoadCostCalculator calc("input.txt");
 		calc.Calculate("output.txt");
