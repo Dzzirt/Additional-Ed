@@ -15,32 +15,33 @@ BOOST_AUTO_TEST_SUITE(after_passing_url_to_constructor_as_string)
 
 	BOOST_AUTO_TEST_CASE(throws_parsing_error_if_protocol_is_incorrect)
 	{
-		BOOST_CHECK_THROW(CHttpUrl url("ftp://game.com/abc.jpeg"), CUrlParsingError);
-		BOOST_CHECK_THROW(CHttpUrl url("html://game.com/abc.jpeg"), CUrlParsingError);
+		BOOST_CHECK_THROW(CHttpUrl url("ftp://"), CUrlParsingError);
+		BOOST_CHECK_THROW(CHttpUrl url("html://"), CUrlParsingError);
 		BOOST_CHECK_NO_THROW(CHttpUrl url("http://game.com/abc.jpeg"));
 		BOOST_CHECK_NO_THROW(CHttpUrl url("https://game.com/abc.jpeg"));
 	}
 	BOOST_AUTO_TEST_CASE(throws_parsing_error_if_incorrect_format_after_protocol)
 	{
-		BOOST_CHECK_THROW(CHttpUrl url("http::/game.com/abc.jpeg"), CUrlParsingError);
-		BOOST_CHECK_THROW(CHttpUrl url("http::///game.com/abc.jpeg"), CUrlParsingError);
+		BOOST_CHECK_THROW(CHttpUrl url("http::/"), CUrlParsingError);
+		BOOST_CHECK_THROW(CHttpUrl url("http::///"), CUrlParsingError);
 		BOOST_CHECK_NO_THROW(CHttpUrl url("http://game.com/abc.jpeg"));
 		BOOST_CHECK_NO_THROW(CHttpUrl url("https://game.com"));
 	}
 	BOOST_AUTO_TEST_CASE(throws_parsing_error_if_domain_is_empty_or_contains_whitespaces)
 	{
-		BOOST_CHECK_THROW(CHttpUrl url("http://ga me .com/abc.jpeg"), CUrlParsingError);
+		BOOST_CHECK_THROW(CHttpUrl url("http://ga me .com"), CUrlParsingError);
 		BOOST_CHECK_THROW(CHttpUrl url("http:///abc.jpeg"), CUrlParsingError);
-		BOOST_CHECK_THROW(CHttpUrl url("http://		s/abc.jpeg"), CUrlParsingError);
+		BOOST_CHECK_THROW(CHttpUrl url("http://		s"), CUrlParsingError);
 		BOOST_CHECK_NO_THROW(CHttpUrl url("http://game.com"));
 		BOOST_CHECK_NO_THROW(CHttpUrl url("https://game.com/abc.jpeg"));
 	}
 	BOOST_AUTO_TEST_CASE(throws_parsing_error_if_port_more_than_65535_or_have_non_digit_value)
 	{
-		BOOST_CHECK_NO_THROW(CHttpUrl url("http://game.com:0/abc.jpeg"));
-		BOOST_CHECK_NO_THROW(CHttpUrl url("https://game.com:65534/abc.jpeg"));
-		BOOST_CHECK_THROW(CHttpUrl url("http://game.com:dfsf/abc.jpeg"), CUrlParsingError);
-		BOOST_CHECK_THROW(CHttpUrl url("https://game.com:65545/abc.jpeg"), CUrlParsingError);
+		BOOST_CHECK_NO_THROW(CHttpUrl url("http://game.com:0"));
+		BOOST_CHECK_NO_THROW(CHttpUrl url("https://game.com:65534"));
+		BOOST_CHECK_THROW(CHttpUrl url("http://game.com:dfsf"), CUrlParsingError);
+		BOOST_CHECK_THROW(CHttpUrl url("https://game.com:65f545"), CUrlParsingError);
+		BOOST_CHECK_THROW(CHttpUrl url("https://game.com:65545"), CUrlParsingError);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -50,10 +51,8 @@ BOOST_AUTO_TEST_SUITE(after_passing_url_parameters_manually)
 
 	BOOST_AUTO_TEST_CASE(throws_parsing_error_if_domain_is_empty_or_contains_whitespaces)
 	{
-		std::string domain = "";
-		BOOST_CHECK_THROW(CHttpUrl url(domain, "/asd.jpeg", HTTPS, 789), std::invalid_argument);
-		domain = "ispring.com";
-		BOOST_CHECK_NO_THROW(CHttpUrl url(domain, "/asd.jpeg", HTTPS, 789));
+		BOOST_CHECK_THROW(CHttpUrl url("", "/asd.jpeg", HTTPS, 789), std::invalid_argument);
+		BOOST_CHECK_NO_THROW(CHttpUrl url("ispring.com", "/asd.jpeg", HTTPS, 789));
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -76,6 +75,14 @@ BOOST_AUTO_TEST_SUITE(after_initializing)
 		BOOST_CHECK(url2.GetPort() != 1234);
 		BOOST_CHECK(url2.GetDocument() != "/abc.jpeg");
 		BOOST_CHECK_EQUAL(url2.GetURL(), "https://katewinslet.com:666/cats");
+	}
+
+	BOOST_AUTO_TEST_CASE(document_can_be_any)
+	{
+		BOOST_CHECK_NO_THROW(CHttpUrl url1("katewinslet.com", "cats", HTTPS, 666));
+		BOOST_CHECK_NO_THROW(CHttpUrl url2("https://kek.com/lol/nya/kok"));
+		BOOST_CHECK_NO_THROW(CHttpUrl url3("katewinslet.com", "", HTTPS, 666));
+		BOOST_CHECK_NO_THROW(CHttpUrl url4("https://kek.com"));
 	}
 
 	BOOST_AUTO_TEST_CASE(adds_forward_slash_if_document_havent_it)

@@ -6,9 +6,14 @@ enum Protocol
 	HTTPS
 };
 
+typedef std::vector<std::string> UrlParts;
+
 class CHttpUrl
 {
 public:
+	static const unsigned short DefaultHttpPort = 80;
+	static const unsigned short DefaultHttpsPort = 443;
+
 	CHttpUrl() = delete;
 	CHttpUrl(std::string const& url);
 	CHttpUrl(
@@ -23,9 +28,9 @@ public:
 	unsigned short GetPort()const;
 	static std::string ToString(Protocol protocol);
 private:
-	static std::vector<std::string> ParseUrl(std::string const& url);
-	static void Validate(std::vector<std::string> const& urlParts);
-	void Initialize(std::vector<std::string> const& urlParts);
+	static UrlParts ParseUrl(std::string const& url);
+	static void Validate(UrlParts const& urlParts);
+	void Initialize(UrlParts const& urlParts);
 
 	std::string m_domain;
 	std::string m_document;

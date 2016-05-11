@@ -2,6 +2,8 @@
 #include "HttpUrl.h"
 #include "UrlParsingError.h"
 
+using namespace std;
+
 enum ParsingState
 {
 	PROTOCOL_,
@@ -11,7 +13,7 @@ enum ParsingState
 	DOCUMENT_
 };
 
-CHttpUrl::CHttpUrl(std::string const& url)
+CHttpUrl::CHttpUrl(string const& url)
 {
 	if (url.empty())
 	{
@@ -20,64 +22,56 @@ CHttpUrl::CHttpUrl(std::string const& url)
 	Initialize(ParseUrl(url));
 }
 
-CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document,
+CHttpUrl::CHttpUrl(string const& domain, string const& document,
 	Protocol protocol , unsigned short port) : m_protocol(protocol), m_port(port), m_document(document)
 {
-	if (domain.find_first_of(" \t") != std::string::npos)
+	if (domain.find_first_of(" \t") != string::npos)
 	{
-		throw std::invalid_argument("Domain can't contain a whitespace characters");
+		throw invalid_argument("Domain can't contain a whitespace characters");
 	}
 	if (domain.empty())
 	{
-		throw std::invalid_argument("Domain shouldn't be empty");
+		throw invalid_argument("Domain shouldn't be empty");
 	}
 	if (m_document[0] != '/' && !m_document.empty())
 	{
-		m_document.insert(0, std::string("/"));
+		m_document.insert(0, string("/"));
 	}
 	m_domain = domain;
 }
 
-void CHttpUrl::Initialize(std::vector<std::string> const& urlParts)
+void CHttpUrl::Initialize(UrlParts const& urlParts)
 {
-	auto protocol = urlParts[PROTOCOL_];
-	if (protocol == "http")
-	{
-		m_protocol = HTTP;
-	}
-	else
-	{
-		m_protocol = HTTPS;
-	}
 	m_domain = urlParts[DOMAIN_];
+	m_document = urlParts[DOCUMENT_];
 	auto port = urlParts[PORT_];
+	urlParts[PROTOCOL_] == "http" ? m_protocol = HTTP : m_protocol = HTTPS;
 	if (port.empty())
 	{
-		m_protocol == HTTP ? m_port = 80 : m_port = 443;
+		m_protocol == HTTP ? m_port = DefaultHttpPort : m_port = DefaultHttpsPort;
 	}
 	else
 	{
 		m_port = stoi(port);
 	}
-	m_document = urlParts[DOCUMENT_];
 }
 
-std::string CHttpUrl::GetURL() const
+string CHttpUrl::GetURL() const
 {
-	std::string portOutput = ":" + std::to_string(m_port);
-	if ((m_protocol == HTTP && m_port == 80) || (m_protocol == HTTPS && m_port == 443))
+	string portOutput = ":" + to_string(m_port);
+	if ((m_protocol == HTTP && m_port == DefaultHttpPort) || (m_protocol == HTTPS && m_port == DefaultHttpsPort))
 	{
 		portOutput.clear();
 	}
 	return ToString(m_protocol) + "://" + m_domain + portOutput + m_document;
 }
 
-std::string CHttpUrl::GetDomain() const
+string CHttpUrl::GetDomain() const
 {
 	return m_domain;
 }
 
-std::string CHttpUrl::GetDocument() const
+string CHttpUrl::GetDocument() const
 {
 	return m_document;
 }
@@ -93,9 +87,9 @@ unsigned short CHttpUrl::GetPort() const
 }
 
 
-std::vector<std::string> CHttpUrl::ParseUrl(std::string const& url)
+UrlParts CHttpUrl::ParseUrl(string const& url)
 {
-	std::vector<std::string> urlParts = {"", "", "", "", ""};
+	UrlParts urlParts = {"", "", "", "", ""};
 
 	ParsingState state = PROTOCOL_;
 	for (size_t i = 0; i < url.length(); i++)
@@ -136,11 +130,6 @@ std::vector<std::string> CHttpUrl::ParseUrl(std::string const& url)
 				state = DOCUMENT_;
 				urlParts[DOCUMENT_] += '/';
 			}
-			else if (i == url.size() - 1)
-			{
-				state = DOCUMENT_;
-				urlParts[DOMAIN_] += url[i];
-			}
 			else
 			{
 				urlParts[DOMAIN_] += url[i];
@@ -152,11 +141,6 @@ std::vector<std::string> CHttpUrl::ParseUrl(std::string const& url)
 			{
 				state = DOCUMENT_;
 				urlParts[DOCUMENT_] += '/';
-			}
-			else if (i == url.size() - 1)
-			{
-				state = DOCUMENT_;
-				urlParts[PORT_] += url[i];
 			}
 			else
 			{
@@ -172,44 +156,44 @@ std::vector<std::string> CHttpUrl::ParseUrl(std::string const& url)
 	return urlParts;
 }
 
-void CHttpUrl::Validate(std::vector<std::string> const& urlParts)
+void CHttpUrl::Validate(UrlParts const& urlParts)
 {
-	std::string specSymb = urlParts[SPECIAL_SYMBOLS_];
-	std::string protocol = urlParts[PROTOCOL_];
-	std::string domain = urlParts[DOMAIN_];
-	std::string port = urlParts[PORT_];
-	std::string document = urlParts[DOCUMENT_];
+	string specSymb = urlParts[SPECIAL_SYMBOLS_];
+	string protocol = urlParts[PROTOCOL_];
+	string domain = urlParts[DOMAIN_];
+	string port = urlParts[PORT_];
+	string document = urlParts[DOCUMENT_];
 
 	if (protocol != "http" && protocol != "https")
 	{
-		throw CUrlParsingError("Incorrect protocol");
+		throw CUrlParsingError("Incorrect protocol. Available protocols : HTTP, HTTPS");
 	}
 	if (specSymb != "://")
 	{
-		throw CUrlParsingError("Incorrect special symbols after protocol");
-	}
-	if (domain.find_first_of(" \t") != std::string::npos)
-	{
-		throw CUrlParsingError("Domain can't contain a whitespace characters");
+		throw CUrlParsingError(":// should be between protocol and domain");
 	}
 	if (domain.empty())
 	{
 		throw CUrlParsingError("Domain shouldn't be empty");
 	}
+	if (domain.find_first_of(" \t\n\v\f\r") != string::npos)
+	{
+		throw CUrlParsingError("Domain can't contain a whitespace characters");
+	}
 	if (!port.empty())
 	{
-		if (port.find_first_not_of("0123456789") != std::string::npos)
+		if (port.find_first_not_of("0123456789") != string::npos)
 		{
 			throw CUrlParsingError("Port should be digit value");
 		}
-		if (stoi(port) > unsigned short(-1))
+		if (stoi(port) > USHRT_MAX)
 		{
 			throw CUrlParsingError("Port must be the less than 65535");
 		}
 	}
 }
 
-std::string CHttpUrl::ToString(Protocol protocol)
+string CHttpUrl::ToString(Protocol protocol)
 {
 	if (protocol == HTTP)
 	{
