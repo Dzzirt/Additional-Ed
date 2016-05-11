@@ -17,7 +17,7 @@ public:
 	CMyString(std::string const& stlString);
 	size_t GetLength()const;
 	const char* GetStringData()const;
-	CMyString SubString(size_t start, size_t length = SIZE_MAX)const;
+	CMyString SubString(size_t start, size_t length = SIZE_MAX)const;//
 	void Clear();
 
 	iterator begin();

@@ -16,8 +16,13 @@ public:
 	CStringIterator & operator++();
 	CStringIterator & operator--();
 
+	CStringIterator operator++(int);
+	CStringIterator operator--(int);
+
 	CStringIterator & operator+=(size_t digit);
 	CStringIterator & operator-=(size_t digit);
+
+
 
 	typename CStringIterator::reference operator[](size_t pos) const;
 
@@ -81,6 +86,22 @@ CStringIterator<T> & CStringIterator<T>::operator--()
 {
 	m_isReverse ? m_ptr++ : m_ptr--;
 	return *this;
+}
+
+template <typename T>
+CStringIterator<T> CStringIterator<T>::operator--(int)
+{
+	auto tmp = *this;
+	--(*this);
+	return tmp;
+}
+
+template <typename T>
+CStringIterator<T> CStringIterator<T>::operator++(int)
+{
+	auto tmp = *this;
+	++(*this);
+	return tmp;
 }
 
 template <typename T>

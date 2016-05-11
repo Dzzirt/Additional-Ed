@@ -67,7 +67,7 @@ CMyString::CMyString(size_t len)
 
 void CMyString::SafeDelete(char * pString)
 {
-	if (pString && pString != m_emptyStr)
+	if (pString)
 	{
 		delete[] pString;
 	}
@@ -108,7 +108,7 @@ CMyString CMyString::SubString(size_t start, size_t length /*= SIZE_MAX*/) const
 	{
 		length = m_length - start;
 	}
-	return CMyString(m_first + start, length);
+	return CMyString(GetStringData() + start, length);
 }
 
 void CMyString::Clear()
@@ -210,7 +210,7 @@ CMyString & CMyString::operator=(CMyString && other)
 		std::swap(m_first, other.m_first);
 		std::swap(m_length, other.m_length);
 		SafeDelete(other.m_first);
-		other.m_first = m_emptyStr;
+		other.m_first = nullptr;
 		other.m_length = 0;
 	}
 	return *this;
@@ -236,7 +236,15 @@ int CMyString::Compare(CMyString const& lhs, CMyString const& rhs)
 	{
 		return res;
 	}
-	return lhs.GetLength() > rhs.GetLength();
+	if (lhs.GetLength() == rhs.GetLength())
+	{
+		return 0;
+	}
+	else if (lhs.GetLength() > rhs.GetLength())
+	{
+		return 1;
+	}
+	return -1;
 }
 
 bool CMyString::operator<(CMyString const & other) const

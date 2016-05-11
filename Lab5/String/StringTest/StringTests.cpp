@@ -6,6 +6,26 @@
 
 using namespace std;
 
+struct AfterClearFixture
+{
+	CMyString cleanStr;
+
+	AfterClearFixture()
+	{
+		cleanStr.Clear();
+	}
+};
+
+struct AfterMoveFixture
+{
+	CMyString movedStr;
+
+	AfterMoveFixture() : movedStr("123456")
+	{
+		CMyString str = std::move(movedStr);
+	}
+};
+
 void ExpectStringContent(const CMyString& str, const char * arr, size_t len)
 {
 	BOOST_REQUIRE_EQUAL(str.GetLength(), len);
@@ -130,16 +150,15 @@ BOOST_AUTO_TEST_SUITE(MyString_tests)
 
 	BOOST_AUTO_TEST_CASE(has_lexicographical_comparison_operators)
 	{
-		BOOST_CHECK_EQUAL(CMyString("123") > "", true);
-		BOOST_CHECK_EQUAL(CMyString("") > "123", false);
-		BOOST_CHECK_EQUAL(CMyString("1234") > "123", true);
-		BOOST_CHECK_EQUAL(CMyString("124") > "123", true);
-		BOOST_CHECK_EQUAL(CMyString("1222") > "123", false);
-
+		BOOST_CHECK_EQUAL(CMyString("123") < "1234", true);
+		BOOST_CHECK_EQUAL(CMyString("123") > "1234", false);
+		BOOST_CHECK_EQUAL(CMyString("123") > "123", false);
 		BOOST_CHECK_EQUAL(CMyString("123") < "123", false);
 
 		BOOST_CHECK_EQUAL(CMyString("123") <= "123", true);
 		BOOST_CHECK_EQUAL(CMyString("123") >= "123", true);
+		BOOST_CHECK_EQUAL(CMyString("123") >= "1234", false);
+		BOOST_CHECK_EQUAL(CMyString("123") <= "1234", true);
 	}
 
 	BOOST_AUTO_TEST_CASE(has_indexed_acces_operators)
@@ -215,5 +234,107 @@ BOOST_AUTO_TEST_SUITE(MyString_tests)
 		delete[] ptrString;
 		delete[] ptrString2;
 	}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_FIXTURE_TEST_SUITE(after_clearing_string, AfterClearFixture)
+
+BOOST_AUTO_TEST_CASE(can_get_substring)
+{
+	BOOST_CHECK(CMyString("") == cleanStr.SubString(0, 5));
+}
+
+BOOST_AUTO_TEST_CASE(method_begin_get_iterator_equal_to_end)
+{
+	BOOST_CHECK(cleanStr.begin() == cleanStr.end());
+}
+
+BOOST_AUTO_TEST_CASE(can_use_copy_assignment)
+{
+	cleanStr = CMyString("123");
+	BOOST_CHECK(cleanStr == CMyString("123"));
+}
+
+BOOST_AUTO_TEST_CASE(can_use_move_assignment)
+{
+	cleanStr = std::move(CMyString("123"));
+	BOOST_CHECK(cleanStr == CMyString("123"));
+}
+
+BOOST_AUTO_TEST_CASE(can_be_used_in_copy_assignment)
+{
+	auto str = cleanStr;
+	BOOST_CHECK(str == cleanStr);
+}
+
+BOOST_AUTO_TEST_CASE(can_be_used_in_move_assignment)
+{
+	auto str = std::move(cleanStr);
+	BOOST_CHECK(cleanStr == CMyString(""));
+}
+
+BOOST_AUTO_TEST_CASE(can_concatenate_with_assignment)
+{
+	cleanStr += CMyString("123");
+	BOOST_CHECK(cleanStr == CMyString("123"));
+}
+
+BOOST_AUTO_TEST_CASE(can_be_used_in_concatenate_with_assignment)
+{
+	CMyString str("123");
+	str += cleanStr;
+	BOOST_CHECK(str == CMyString("123"));
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_FIXTURE_TEST_SUITE(after_moving_string, AfterMoveFixture)
+
+BOOST_AUTO_TEST_CASE(can_get_substring)
+{
+	BOOST_CHECK(CMyString("") == movedStr.SubString(0, 5));
+}
+
+BOOST_AUTO_TEST_CASE(method_begin_get_iterator_equal_to_end)
+{
+	BOOST_CHECK(movedStr.begin() == movedStr.end());
+}
+
+BOOST_AUTO_TEST_CASE(can_use_copy_assignment)
+{
+	movedStr = CMyString("123");
+	BOOST_CHECK(movedStr == CMyString("123"));
+}
+
+BOOST_AUTO_TEST_CASE(can_use_move_assignment)
+{
+	movedStr = std::move(CMyString("123"));
+	BOOST_CHECK(movedStr == CMyString("123"));
+}
+
+BOOST_AUTO_TEST_CASE(can_be_used_in_copy_assignment)
+{
+	auto str = movedStr;
+	BOOST_CHECK(str == movedStr);
+}
+
+BOOST_AUTO_TEST_CASE(can_be_used_in_move_assignment)
+{
+	auto str = std::move(movedStr);
+	BOOST_CHECK(movedStr == CMyString(""));
+}
+
+BOOST_AUTO_TEST_CASE(can_concatenate_with_assignment)
+{
+	movedStr += CMyString("123");
+	BOOST_CHECK(movedStr == CMyString("123"));
+}
+
+BOOST_AUTO_TEST_CASE(can_be_used_in_concatenate_with_assignment)
+{
+	CMyString str("123");
+	str += movedStr;
+	BOOST_CHECK(str == CMyString("123"));
+}
 
 BOOST_AUTO_TEST_SUITE_END()

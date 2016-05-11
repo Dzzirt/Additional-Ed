@@ -64,6 +64,25 @@ BOOST_AUTO_TEST_CASE(has_prefix_decrement_operator)
 	BOOST_CHECK(--it == numPtr);
 }
 
+BOOST_AUTO_TEST_CASE(has_postfix_increment_operator)
+{
+	char * numPtr = &str[0];
+	CStringIterator<char> it(numPtr);
+	BOOST_CHECK(it++ == numPtr);
+	BOOST_CHECK(it++ == numPtr + 1);
+	BOOST_CHECK(it++ == numPtr + 2);
+}
+
+BOOST_AUTO_TEST_CASE(has_postfix_decrement_operator)
+{
+	char * numPtr = &str[0];
+	CStringIterator<char> it(numPtr);
+	++it;
+	++it;
+	BOOST_CHECK(it-- == numPtr + 2);
+	BOOST_CHECK(it-- == numPtr + 1);
+}
+
 BOOST_AUTO_TEST_CASE(have_add_with_assignment_operator)
 {
 	char * numPtr = &str[0];
