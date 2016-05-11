@@ -10,12 +10,19 @@ int main()
 	while (!std::cin.fail() && !std::cin.eof())
 	{
 		std::string url;
-		std::cin >> url;
-		auto parser = CHttpUrl(url);
-		std::cout << CHttpUrl::ToString(parser.GetProtocol()) << std::endl;
-		std::cout << parser.GetDomain() << std::endl;
-		std::cout << parser.GetPort() << std::endl;
-		std::cout << parser.GetDocument() << std::endl;
+		std::getline(std::cin, url);
+		try
+		{
+			auto parser = CHttpUrl(url);
+			std::cout << CHttpUrl::ToString(parser.GetProtocol()) << std::endl;
+			std::cout << parser.GetDomain() << std::endl;
+			std::cout << parser.GetPort() << std::endl;
+			std::cout << parser.GetDocument() << std::endl;
+		}
+		catch (std::exception const& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
 	}
     return 0;
 }
