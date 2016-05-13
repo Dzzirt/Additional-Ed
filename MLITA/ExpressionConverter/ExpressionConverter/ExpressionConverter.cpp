@@ -2,6 +2,9 @@
 #include "ExpressionConverter.h"
 using namespace std;
 
+std::vector<char> CExpressionConverter::operations = {'/', '+', '-', '*', '(', ')'};
+
+// ParseExprSum
 void CExpressionConverter::HandlePlusAndMinus(std::string & output, size_t & index)
 {
 	HandleMultAndDiv(output, index);
@@ -14,6 +17,7 @@ void CExpressionConverter::HandlePlusAndMinus(std::string & output, size_t & ind
 	}
 }
 
+// ParseExprMul
 void CExpressionConverter::HandleMultAndDiv(std::string & output, size_t & index)
 {
 	HandleVariables(output, index);
@@ -26,6 +30,7 @@ void CExpressionConverter::HandleMultAndDiv(std::string & output, size_t & index
 	}
 }
 
+// ParseAtom
 void CExpressionConverter::HandleVariables(std::string & output, size_t & index)
 {
 	if (m_expression[index] == '(') {
@@ -41,6 +46,8 @@ void CExpressionConverter::HandleVariables(std::string & output, size_t & index)
 	}
 	else 
 	{
+		// while isdigit() -> while in '0'..'9'
+		// boost::any_of("0123456789.,")
 		while (std::find(operations.begin(), operations.end(), m_expression[index]) == operations.end()
 			&& index < m_expression.size())
 		{
@@ -50,8 +57,6 @@ void CExpressionConverter::HandleVariables(std::string & output, size_t & index)
 		output += " ";
 	}	
 }
-
-std::vector<char> CExpressionConverter::operations = {'/', '+', '-', '*', '(', ')'};
 
 std::string CExpressionConverter::ToSuffixNotation(const std::string &expression)
 {

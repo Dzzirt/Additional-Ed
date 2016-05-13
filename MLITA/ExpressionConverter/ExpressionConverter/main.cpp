@@ -9,7 +9,7 @@ int main()
 	CExpressionConverter conv;
 	try
 	{
-		cout << conv.ToSuffixNotation(" 2  +   10   * (  ( 1   +   2)  *    3)/2+  3-2") << endl;
+		cout << conv.ToSuffixNotation("5*3+6/3/2") << endl;
 		cout << conv.ToSuffixNotation(" 2  +   10   * (  ( 1   +   2  *    3)/2+  3-2") << endl;
 	}
 	catch (const exception& ex)
