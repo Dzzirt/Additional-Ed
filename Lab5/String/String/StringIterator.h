@@ -1,11 +1,11 @@
 #pragma once
+
 template <typename T>
 class CStringIterator : std::iterator<std::random_access_iterator_tag, T>
 {
 public:
 	CStringIterator() = default;
-	CStringIterator(T * ptr, bool isReverse = false);
-	CStringIterator(CStringIterator const& other);
+	explicit CStringIterator(T * ptr, bool isReverse = false);
 
 	bool operator==(CStringIterator const& other) const;
 	bool operator!=(CStringIterator const& other) const;
@@ -19,35 +19,22 @@ public:
 	CStringIterator operator++(int);
 	CStringIterator operator--(int);
 
-	CStringIterator & operator+=(size_t digit);
-	CStringIterator & operator-=(size_t digit);
-
-
+	CStringIterator & operator+=(ptrdiff_t digit);
+	CStringIterator & operator-=(ptrdiff_t digit);
 
 	typename CStringIterator::reference operator[](size_t pos) const;
 
-	~CStringIterator() = default;
-
-
 private:
 	T * m_ptr;
-	bool m_isReverse;
+	ptrdiff_t m_sign;
 };
 
 template <typename T>
 CStringIterator<T>::CStringIterator(T * ptr, bool isReverse = false)
+	: m_sign(isReverse ? -1 : 1)
 {
 	assert(ptr);
 	m_ptr = ptr;
-	m_isReverse = isReverse;
-}
-
-template <typename T>
-CStringIterator<T>::CStringIterator(CStringIterator const& other)
-	:m_ptr(other.m_ptr)
-	, m_isReverse(other.m_isReverse)
-{
-
 }
 
 template <typename T>
@@ -77,14 +64,14 @@ typename CStringIterator<T>::pointer CStringIterator<T>::operator->() const
 template <typename T>
 CStringIterator<T> & CStringIterator<T>::operator++()
 {
-	m_isReverse ? m_ptr-- : m_ptr++;
+	m_ptr += m_sign;
 	return *this;
 }
 
 template <typename T>
 CStringIterator<T> & CStringIterator<T>::operator--()
 {
-	m_isReverse ? m_ptr++ : m_ptr--;
+	m_ptr += -m_sign;
 	return *this;
 }
 
@@ -105,31 +92,16 @@ CStringIterator<T> CStringIterator<T>::operator++(int)
 }
 
 template <typename T>
-CStringIterator<T> & CStringIterator<T>::operator+=(size_t digit)
+CStringIterator<T> & CStringIterator<T>::operator+=(ptrdiff_t digit)
 {
-	if (m_isReverse)
-	{
-		m_ptr -= digit;
-	}
-	else
-	{
-		m_ptr += digit;
-	}
+	m_ptr += m_sign * digit;
 	return *this;
 }
 
 template <typename T>
-CStringIterator<T> & CStringIterator<T>::operator-=(size_t digit)
+CStringIterator<T> & CStringIterator<T>::operator-=(ptrdiff_t digit)
 {
-	if (m_isReverse)
-	{
-		m_ptr += digit;
-	}
-	else
-	{
-		m_ptr -= digit;
-	}
-
+	m_ptr += -m_sign * digit;
 	return *this;
 }
 
@@ -150,14 +122,14 @@ ptrdiff_t const operator-(CStringIterator<T> const& it1, CStringIterator<T> cons
 }
 
 template <typename T>
-CStringIterator<T> operator+(size_t pos, CStringIterator<T> it)
+CStringIterator<T> operator+(ptrdiff_t pos, CStringIterator<T> it)
 {
 	return it += pos;
 }
 
 
 template <typename T>
-CStringIterator<T> operator+(CStringIterator<T> it, size_t pos)
+CStringIterator<T> operator+(CStringIterator<T> it, ptrdiff_t pos)
 {
 	return it += pos;
 }

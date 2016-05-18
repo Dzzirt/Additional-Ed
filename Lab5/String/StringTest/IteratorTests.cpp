@@ -49,9 +49,9 @@ BOOST_AUTO_TEST_CASE(has_prefix_increment_operator)
 {
 	char * numPtr = &str[0];
 	CStringIterator<char> it(numPtr);
-	BOOST_CHECK(++it != numPtr);
-	BOOST_CHECK(++it == numPtr + 2);
-	BOOST_CHECK(++it == numPtr + 3);
+	BOOST_CHECK(++it != CStringIterator<char>(numPtr));
+	BOOST_CHECK(++it == CStringIterator<char>(numPtr + 2));
+	BOOST_CHECK(++it == CStringIterator<char>(numPtr + 3));
 }
 
 BOOST_AUTO_TEST_CASE(has_prefix_decrement_operator)
@@ -60,17 +60,17 @@ BOOST_AUTO_TEST_CASE(has_prefix_decrement_operator)
 	CStringIterator<char> it(numPtr);
 	++it;
 	++it;
-	BOOST_CHECK(--it == numPtr + 1);
-	BOOST_CHECK(--it == numPtr);
+	BOOST_CHECK(--it == CStringIterator<char>(numPtr + 1));
+	BOOST_CHECK(--it == CStringIterator<char>(numPtr));
 }
 
 BOOST_AUTO_TEST_CASE(has_postfix_increment_operator)
 {
 	char * numPtr = &str[0];
 	CStringIterator<char> it(numPtr);
-	BOOST_CHECK(it++ == numPtr);
-	BOOST_CHECK(it++ == numPtr + 1);
-	BOOST_CHECK(it++ == numPtr + 2);
+	BOOST_CHECK(it++ == CStringIterator<char>(numPtr));
+	BOOST_CHECK(it++ == CStringIterator<char>(numPtr + 1));
+	BOOST_CHECK(it++ == CStringIterator<char>(numPtr + 2));
 }
 
 BOOST_AUTO_TEST_CASE(has_postfix_decrement_operator)
@@ -79,17 +79,17 @@ BOOST_AUTO_TEST_CASE(has_postfix_decrement_operator)
 	CStringIterator<char> it(numPtr);
 	++it;
 	++it;
-	BOOST_CHECK(it-- == numPtr + 2);
-	BOOST_CHECK(it-- == numPtr + 1);
+	BOOST_CHECK(it-- == CStringIterator<char>(numPtr + 2));
+	BOOST_CHECK(it-- == CStringIterator<char>(numPtr + 1));
 }
 
 BOOST_AUTO_TEST_CASE(have_add_with_assignment_operator)
 {
 	char * numPtr = &str[0];
 	CStringIterator<char> it(numPtr);
-	BOOST_CHECK(*(it += 3) == *(numPtr + 3));
-	BOOST_CHECK(*(it += 1) == *(numPtr + 4));
-	BOOST_CHECK(*(it += 2) == *(numPtr + 6));
+	BOOST_CHECK(*(it += 3) == *CStringIterator<char>(numPtr + 3));
+	BOOST_CHECK(*(it += 1) == *CStringIterator<char>(numPtr + 4));
+	BOOST_CHECK(*(it += 2) == *CStringIterator<char>(numPtr + 6));
 }
 
 BOOST_AUTO_TEST_CASE(have_substract_with_assignment_operator)
@@ -97,8 +97,8 @@ BOOST_AUTO_TEST_CASE(have_substract_with_assignment_operator)
 	char * numPtr = &str[0];
 	CStringIterator<char> it(numPtr);
 	it += 3;
-	BOOST_CHECK(*(it -= 1) == *(numPtr + +2));
-	BOOST_CHECK(*(it -= 2) == *numPtr);
+	BOOST_CHECK(*(it -= 1) == *CStringIterator<char>(numPtr + 2));
+	BOOST_CHECK(*(it -= 2) == *CStringIterator<char>(numPtr));
 }
 
 BOOST_AUTO_TEST_CASE(can_substract_one_iterator_from_another)
@@ -116,9 +116,9 @@ BOOST_AUTO_TEST_CASE(can_add_digit_to_iterator_and_vice_versa)
 	char * numPtr = &str[0];
 	CStringIterator<char> it(numPtr);
 	CStringIterator<char> it2(numPtr + 3);
-	BOOST_CHECK(it + 3  == numPtr + 3);
-	BOOST_CHECK(it + 2 == numPtr + 2);
-	BOOST_CHECK(3 + it == numPtr + 3);
+	BOOST_CHECK(it + 3  == CStringIterator<char>(numPtr + 3));
+	BOOST_CHECK(it + 2 == CStringIterator<char>(numPtr + 2));
+	BOOST_CHECK(3 + it == CStringIterator<char>(numPtr + 3));
 }
 
 BOOST_AUTO_TEST_CASE(has_random_access_operator)
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(iterator_can_iterate_from_begin_to_end)
 	size_t counter = 0;
 	for (auto it = str.begin(); it != str.end(); ++it)
 	{
-		BOOST_CHECK(*it == *(numPtr + counter));
+		BOOST_CHECK(*it == *CStringIterator<char>(numPtr + counter));
 		counter++;
 	}
 
@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_CASE(reverse_iterator_iterate_from_end_to_begin)
 	size_t counter = 6;
 	for (auto it = str.rbegin(); it != str.rend(); ++it)
 	{
-		BOOST_CHECK(*it == *(numPtr + counter));
+		BOOST_CHECK(*it == *CStringIterator<char>(numPtr + counter));
 		counter--;
 	}
 

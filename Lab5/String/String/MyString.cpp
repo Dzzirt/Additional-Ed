@@ -11,23 +11,13 @@ CMyString::CMyString()
 }
 
 CMyString::CMyString(std::string const& stlString)
+	: CMyString(stlString.c_str(), stlString.length())
 {
-	auto len = stlString.size();
-	m_first = CreateString(len);
-	m_length = len;
-	memcpy(m_first, stlString.c_str(), m_length);
 }
 
 CMyString::CMyString(const char * pString)
+	: CMyString(pString, pString ? strlen(pString) : 0)
 {
-	if (pString == nullptr)
-	{
-		throw std::invalid_argument("Can't create string from nullptr");
-	}
-	auto len = strlen(pString);
-	m_first = CreateString(len);
-	m_length = len;
-	memcpy(m_first, pString, m_length);
 }
 
 CMyString::CMyString(const char * pString, size_t length)
@@ -42,18 +32,15 @@ CMyString::CMyString(const char * pString, size_t length)
 }
 
 CMyString::CMyString(CMyString const& other)
+	: CMyString(other.GetStringData(), other.m_length)
 {
-	auto len = other.GetLength();
-	m_first = CreateString(len);
-	m_length = len;
-	memcpy(m_first, other.GetStringData(), m_length);
 }
 
 CMyString::CMyString(CMyString && other)
 	: m_first(other.m_first)
 	, m_length(other.m_length)
 {
-	other.m_first = nullptr;
+	other.m_first = m_emptyStr;
 	other.m_length = 0;
 }
 
@@ -62,15 +49,6 @@ CMyString::CMyString(size_t len)
 {
 	m_first = CreateString(len);
 	m_length = len;
-}
-
-
-void CMyString::SafeDelete(char * pString)
-{
-	if (pString)
-	{
-		delete[] pString;
-	}
 }
 
 char * CMyString::CreateString(size_t length)
@@ -87,10 +65,6 @@ size_t CMyString::GetLength() const
 
 const char* CMyString::GetStringData() const
 {
-	if (!m_first)
-	{
-		return m_emptyStr;
-	}
 	return m_first;
 }
 
@@ -114,18 +88,13 @@ CMyString CMyString::SubString(size_t start, size_t length /*= SIZE_MAX*/) const
 void CMyString::Clear()
 {
 	SafeDelete(m_first);
-	m_first = nullptr;
+	m_first = m_emptyStr;
 	m_length = 0;
 }
 
 CMyString::iterator CMyString::begin()
 {
-	if (!m_first)
-	{
-		return iterator(m_emptyStr);
-	}
-	return m_first;
-	
+	return iterator(m_first);
 }
 
 CMyString::constIterator CMyString::begin() const
@@ -140,28 +109,16 @@ CMyString::constIterator CMyString::end() const
 
 CMyString::iterator CMyString::end()
 {
-	if (!m_first)
-	{
-		return iterator(m_emptyStr);
-	}
-	return m_first + m_length;
+	return iterator(m_first + m_length);
 }
 
 CMyString::iterator CMyString::rbegin()
 {
-	if (!m_first)
-	{
-		return iterator(m_emptyStr, true);
-	}
 	return iterator(m_first + m_length, true);
 }
 
 CMyString::iterator CMyString::rend()
 {
-	if (!m_first)
-	{
-		return iterator(m_emptyStr, true);
-	}
 	return iterator(m_first, true);
 }
 
@@ -210,7 +167,7 @@ CMyString & CMyString::operator=(CMyString && other)
 		std::swap(m_first, other.m_first);
 		std::swap(m_length, other.m_length);
 		SafeDelete(other.m_first);
-		other.m_first = nullptr;
+		other.m_first = m_emptyStr;
 		other.m_length = 0;
 	}
 	return *this;
@@ -227,6 +184,13 @@ CMyString & CMyString::operator=(CMyString const & other)
 	return *this;
 }
 
+void CMyString::SafeDelete(char * pString)
+{
+	if (pString != m_emptyStr)
+	{
+		delete[] pString;
+	}
+}
 
 int CMyString::Compare(CMyString const& lhs, CMyString const& rhs)
 {

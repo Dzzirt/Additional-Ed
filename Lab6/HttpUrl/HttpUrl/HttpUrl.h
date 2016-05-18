@@ -1,6 +1,6 @@
 #pragma once
 
-enum Protocol
+enum class Protocol
 {
 	HTTP,
 	HTTPS
@@ -19,7 +19,7 @@ public:
 	CHttpUrl(
 		std::string const& domain,
 		std::string const& document,
-		Protocol = HTTP,
+		Protocol = Protocol::HTTP,
 		unsigned short port = 80);
 	std::string GetURL()const;
 	std::string GetDomain()const;
