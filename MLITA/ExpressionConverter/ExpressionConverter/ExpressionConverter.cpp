@@ -1,69 +1,71 @@
 #include "stdafx.h"
 #include "ExpressionConverter.h"
-using namespace std;
 
-std::vector<char> CExpressionConverter::operations = {'/', '+', '-', '*', '(', ')'};
+using namespace std;
+using namespace boost::algorithm;
 
 // ParseExprSum
-void CExpressionConverter::HandlePlusAndMinus(std::string & output, size_t & index)
+void CExpressionConverter::HandlePlusAndMinus(std::string & output)
 {
-	HandleMultAndDiv(output, index);
-	while (m_expression[index] == '+' || m_expression[index] == '-') {
-		char temp = m_expression[index];
-		index++;
-		HandleMultAndDiv(output, index);
+	HandleMultAndDiv(output);
+	while (m_expression.starts_with("+") || m_expression.starts_with("-")) {
+		char temp = m_expression.front();
+		m_expression.remove_prefix(1);
+		HandleMultAndDiv(output);
 		output += temp;
 		output += " ";
 	}
 }
 
 // ParseExprMul
-void CExpressionConverter::HandleMultAndDiv(std::string & output, size_t & index)
+void CExpressionConverter::HandleMultAndDiv(std::string & output)
 {
-	HandleVariables(output, index);
-	while (m_expression[index] == '*' || m_expression[index] == '/') {
-		char temp = m_expression[index];
-		index++;
-		HandleVariables(output, index);
+	HandleVariables(output);
+	while (m_expression.starts_with("*") || m_expression.starts_with("/")) {
+		char temp = m_expression.front();
+		m_expression.remove_prefix(1);
+		HandleVariables(output);
 		output += temp;
 		output += " ";
 	}
 }
 
 // ParseAtom
-void CExpressionConverter::HandleVariables(std::string & output, size_t & index)
+void CExpressionConverter::HandleVariables(std::string & output)
 {
-	if (m_expression[index] == '(') {
-		index++;
-		HandlePlusAndMinus(output, index);
-		if (m_expression[index] != ')') {
+	if (m_expression.starts_with("(")) {
+		m_expression.remove_prefix(1);
+		HandlePlusAndMinus(output);
+		if (!m_expression.starts_with(")")) {
 			throw std::invalid_argument("Error: wrong number of brackets");
 		}
 		else
 		{
-			index++;
+			m_expression.remove_prefix(1);
 		};
 	}
 	else 
 	{
-		// while isdigit() -> while in '0'..'9'
-		// boost::any_of("0123456789.,")
-		while (std::find(operations.begin(), operations.end(), m_expression[index]) == operations.end()
-			&& index < m_expression.size())
+		while (any_of("0123456789.,", bind2nd(std::equal_to<char>(), m_expression.front()))
+			&& m_expression.length() != 0)
 		{
-			output += m_expression[index];
-			index++;
+			output += m_expression.front();
+			m_expression.remove_prefix(1);
 		}
 		output += " ";
 	}	
 }
 
-std::string CExpressionConverter::ToSuffixNotation(const std::string &expression)
+std::string CExpressionConverter::ToSuffixNotation(boost::string_ref expression)
 {
-	m_expression = expression;
-	m_expIndex = 0;
+	auto str = expression.to_string();
+	str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
+	m_expression = str;
 	string output;
-	m_expression.erase(remove_if(m_expression.begin(), m_expression.end(), isspace), m_expression.end());
-	HandlePlusAndMinus(output, m_expIndex);
+	HandlePlusAndMinus(output);
+	if (!output.empty())
+	{
+		output.erase(--output.end());
+	}
 	return output;
 }

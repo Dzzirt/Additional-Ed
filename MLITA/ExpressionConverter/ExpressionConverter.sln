@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExpressionConverter", "ExpressionConverter\ExpressionConverter.vcxproj", "{DC99D941-8EE2-4713-A22A-69CB62761B46}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExpressionConverterTests", "ExpressionConverterTests\ExpressionConverterTests.vcxproj", "{550FD27F-B497-4B82-82E4-F59CAF06B0AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{DC99D941-8EE2-4713-A22A-69CB62761B46}.Release|x64.Build.0 = Release|x64
 		{DC99D941-8EE2-4713-A22A-69CB62761B46}.Release|x86.ActiveCfg = Release|Win32
 		{DC99D941-8EE2-4713-A22A-69CB62761B46}.Release|x86.Build.0 = Release|Win32
+		{550FD27F-B497-4B82-82E4-F59CAF06B0AD}.Debug|x64.ActiveCfg = Debug|x64
+		{550FD27F-B497-4B82-82E4-F59CAF06B0AD}.Debug|x64.Build.0 = Debug|x64
+		{550FD27F-B497-4B82-82E4-F59CAF06B0AD}.Debug|x86.ActiveCfg = Debug|Win32
+		{550FD27F-B497-4B82-82E4-F59CAF06B0AD}.Debug|x86.Build.0 = Debug|Win32
+		{550FD27F-B497-4B82-82E4-F59CAF06B0AD}.Release|x64.ActiveCfg = Release|x64
+		{550FD27F-B497-4B82-82E4-F59CAF06B0AD}.Release|x64.Build.0 = Release|x64
+		{550FD27F-B497-4B82-82E4-F59CAF06B0AD}.Release|x86.ActiveCfg = Release|Win32
+		{550FD27F-B497-4B82-82E4-F59CAF06B0AD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
