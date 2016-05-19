@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TriangleAndPoint", "TriangleAndPoint\TriangleAndPoint.vcxproj", "{3DD03EA1-14E7-4087-BEF7-40E0569C432E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TriangleAndPointTests", "TriangleAndPointTests\TriangleAndPointTests.vcxproj", "{436CA156-B973-4285-822F-4D21B1D038B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{3DD03EA1-14E7-4087-BEF7-40E0569C432E}.Release|x64.Build.0 = Release|x64
 		{3DD03EA1-14E7-4087-BEF7-40E0569C432E}.Release|x86.ActiveCfg = Release|Win32
 		{3DD03EA1-14E7-4087-BEF7-40E0569C432E}.Release|x86.Build.0 = Release|Win32
+		{436CA156-B973-4285-822F-4D21B1D038B0}.Debug|x64.ActiveCfg = Debug|x64
+		{436CA156-B973-4285-822F-4D21B1D038B0}.Debug|x64.Build.0 = Debug|x64
+		{436CA156-B973-4285-822F-4D21B1D038B0}.Debug|x86.ActiveCfg = Debug|Win32
+		{436CA156-B973-4285-822F-4D21B1D038B0}.Debug|x86.Build.0 = Debug|Win32
+		{436CA156-B973-4285-822F-4D21B1D038B0}.Release|x64.ActiveCfg = Release|x64
+		{436CA156-B973-4285-822F-4D21B1D038B0}.Release|x64.Build.0 = Release|x64
+		{436CA156-B973-4285-822F-4D21B1D038B0}.Release|x86.ActiveCfg = Release|Win32
+		{436CA156-B973-4285-822F-4D21B1D038B0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

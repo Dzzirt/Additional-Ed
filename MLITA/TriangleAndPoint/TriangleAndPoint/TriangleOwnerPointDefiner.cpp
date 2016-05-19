@@ -3,30 +3,9 @@
 
 using namespace std;
 
-CTriangleOwnerPointDefiner::CTriangleOwnerPointDefiner(std::string const& input)
+CTriangleOwnerPointDefiner::CTriangleOwnerPointDefiner(Triangle const& triangle, Point const& freePoint)
+	:m_triangle(triangle), m_freePoint(freePoint)
 {
-	ReadInput(input);
-}
-
-void CTriangleOwnerPointDefiner::WriteResult(std::string const& output)
-{
-	ofstream out(output);
-	IsTriangleBelongsToPoint() ? out << "In" << endl : out << "Out" << endl;
-	out.close();
-}
-
-void CTriangleOwnerPointDefiner::ReadInput(std::string const& input)
-{
-	ifstream in(input);
-	int x;
-	int y;
-	in >> x >> y;
-	m_freePoint = { x, y };
-	for (size_t i = 0; i < 3; i++)
-	{
-		in >> x >> y;
-		m_triangle[i] = { x, y };
-	}
 }
 
 bool CTriangleOwnerPointDefiner::IsTriangleBelongsToPoint()

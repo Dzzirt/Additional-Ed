@@ -2,20 +2,20 @@
 //
 
 #include "stdafx.h"
-#include "TriangleOwnerPointDefiner.h"
+#include "Application.h"
 
 
 int main(int argc, char * argv[])
 {
 	if (argc != 3)
 	{
-		CTriangleOwnerPointDefiner top("input.txt");
-		top.WriteResult("output.txt");
+		CApplication app("input.txt");
+		app.WriteResult("output.txt");
 	}
 	else
 	{
-		CTriangleOwnerPointDefiner top(argv[1]);
-		top.WriteResult(argv[2]);
+		CApplication app(argv[1]);
+		app.WriteResult(argv[2]);
 	}
 	return 0;
 }
