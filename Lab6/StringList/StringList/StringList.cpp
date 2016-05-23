@@ -5,22 +5,21 @@
 #include "StringList.h"
 #include "StringListIterator.h"
 #include <cassert>
+#include <bitset>
 
 using namespace std;
 
-CStringList::CStringList()
-    :m_size(0)
+CStringList::CStringList(std::initializer_list<std::string> const& another)
 {
-
-}
-
-CStringList::CStringList(std::initializer_list<std::string> const& l)
-    : m_size(0)
-{
-    for (auto const& str : l)
+    for (auto const& str : another)
     {
         Append(str);
     }
+}
+
+CStringList::CStringList(CStringList const &another)
+{
+    *this = another;
 }
 
 size_t CStringList::GetSize() const
@@ -80,38 +79,69 @@ std::string const &CStringList::GetFrontElement() const
     return m_firstNode->data;
 }
 
-void CStringList::operator=(std::initializer_list<std::string> const& l)
+void CStringList::operator=(std::initializer_list<std::string> const& another)
 {
-    Clear();
-    for (auto const& str : l)
+    Initialize<std::initializer_list<std::string>>(another);
+}
+
+void CStringList::operator=(CStringList const &another)
+{
+    Initialize<CStringList>(another);
+}
+
+bool CStringList::operator==(CStringList const &another) const
+{
+    if (m_size != another.m_size)
     {
-        Append(str);
+        return false;
     }
+    return std::equal(another.begin(), another.end(), begin());
+}
+
+
+bool CStringList::operator!=(CStringList const &another) const
+{
+    return !(*this == another);
+}
+
+const CStringListIterator CStringList::begin() const noexcept
+{
+    return CStringListIterator(m_firstNode.get(), this);
+}
+
+const CStringListIterator CStringList::end() const noexcept
+{
+    return CStringListIterator(nullptr, this);
+}
+
+const CStringListIterator CStringList::rbegin() const noexcept
+{
+    return CStringListIterator(m_lastNode, this, true);
+}
+
+const CStringListIterator CStringList::rend() const noexcept
+{
+    return CStringListIterator(nullptr, this, true);
 }
 
 CStringListIterator CStringList::begin() noexcept
 {
-    return CStringListIterator(m_firstNode.get());
+    return CStringListIterator(m_firstNode.get(), this);
 }
-
 
 CStringListIterator CStringList::end() noexcept
 {
-    return CStringListIterator();
-}
-
-CStringListIterator CStringList::rbegin() noexcept
-{
-    return CStringListIterator(m_lastNode, true);
+    return CStringListIterator(nullptr, this);
 }
 
 CStringListIterator CStringList::rend() noexcept
 {
-    if (!m_firstNode)
-    {
-        return CStringListIterator(nullptr, true);
-    }
-    return CStringListIterator(m_firstNode->prev, true);
+    return CStringListIterator(nullptr, this, true);
+}
+
+CStringListIterator CStringList::rbegin() noexcept
+{
+    return CStringListIterator(m_lastNode, this, true);
 }
 
 bool CStringList::IsEmpty() const
@@ -130,48 +160,96 @@ void CStringList::Clear()
     m_size = 0;
 }
 
-CStringListIterator CStringList::Insert(CStringListIterator const &posBefore, std::string const& data)
+CStringListIterator CStringList::Insert(CStringListIterator const& pos, std::string const& data)
 {
-    auto node = make_unique<Node>(data, posBefore->prev, move(posBefore->prev->next));
-    return CStringListIterator();
+    if (pos == end())
+    {
+        Append(data);
+        return CStringListIterator(--end());
+    }
+    else if (pos == begin())
+    {
+        PushFront(data);
+        return CStringListIterator(begin());
+    }
+    else
+    {
+        auto newNode = make_unique<Node>(data, pos->prev, move(pos->prev->next));
+        m_size++;
+        pos->prev = newNode.get();
+        newNode->prev->next = move(newNode);
+        return CStringListIterator(pos->prev, this);
+    }
+
 }
 
 CStringListIterator CStringList::Erase(CStringListIterator const& pos)
 {
-    CStringListIterator tmp;
-    if (!pos->prev && !pos->next)
+    m_size--;
+    if ((!pos->prev) && (!pos->next))
     {
         m_firstNode = nullptr;
         m_lastNode = nullptr;
+        return CStringListIterator(end());
     }
     else if (!pos->prev)
     {
         pos->next->prev = nullptr;
         m_firstNode = move(pos->next);
-        tmp = CStringListIterator(begin());
+        return CStringListIterator(begin());
     }
     else if (!pos->next)
     {
         pos->prev->next = nullptr;
         m_lastNode = pos->prev;
-        tmp = CStringListIterator(end());
+        return CStringListIterator(end());
     }
     else
     {
         pos->next->prev = pos->prev;
         pos->prev->next = move(pos->next);
-        tmp = CStringListIterator(pos->prev->next.get());
+        return CStringListIterator(pos->prev->next.get(), this);
     }
-    m_size--;
-
-
-    return tmp;
 }
 
 CStringList::~CStringList()
 {
-    //cout << "kek";
+    while (m_lastNode)
+    {
+        m_lastNode->next = nullptr;
+        m_lastNode = m_lastNode->prev;
+    }
 }
+
+template<typename T>
+void CStringList::Initialize(const T &iterableList)
+{
+    CStringList tmp;
+    for (auto it = iterableList.begin(); it != iterableList.end(); ++it)
+    {
+        tmp.Append(*it);
+    }
+    swap(m_firstNode, tmp.m_firstNode);
+    swap(m_lastNode, tmp.m_lastNode);
+    m_size = tmp.m_size;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

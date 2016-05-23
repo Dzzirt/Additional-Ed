@@ -6,22 +6,13 @@ using namespace std;
 
 int main()
 {
-    std::list<int> listInt = {};
-    auto end3 = listInt.end();
-    listInt.insert(listInt.begin(), 233);
-    auto end4 = listInt.end();
-    int i = *--end4;
-    int k = *--end3;
-    CStringList list;
-    auto end = list.end();
-    list.Append("3");
-    auto end2 = list.end();
-    cout << (addressof(end) == addressof(end2)) << endl;
+    std::list<string> strings;
+    strings.insert(strings.end(), "123");
+    strings.insert(strings.end(), "1234");
 
-    cout << (addressof(end3) == addressof(end4)) << endl;
-    listInt.insert(listInt.begin(), 1);
-    listInt.end();
-    cout << "Hello, World!" << endl;
+    const std::list<string> strings2 = strings;
+    strings2.begin()._M_node = nullptr;
 
+    cout << std::equal(strings2.begin(), strings2.end(), strings.begin());
     return 0;
 }
