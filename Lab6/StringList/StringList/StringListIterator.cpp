@@ -41,11 +41,11 @@ CStringListIterator &CStringListIterator::operator--()
 {
     if (!m_node)
     {
-        m_isReverse ? m_node = m_list->m_firstNode.get() : m_node = m_list->m_lastNode;
+        m_node =  m_isReverse ? m_list->m_firstNode.get() : m_list->m_lastNode;
     }
     else
     {
-        m_isReverse ? m_node = m_node->next.get() : m_node = m_node->prev;
+        m_node =  m_isReverse ? m_node->next.get() : m_node->prev;
     }
     return *this;
 }

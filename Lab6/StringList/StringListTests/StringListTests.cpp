@@ -23,14 +23,14 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 		CStringList list1 = {"1", "-3", "5"};
 		CStringList list2(list1);
 		BOOST_CHECK(list2 == list1);
-
-		auto empty = CStringList();
-		CStringList list6(empty);
-		BOOST_CHECK(list6 == empty);
+		list2.Append("2");
+		BOOST_CHECK(list1 == CStringList({"1", "-3", "5"}));
 
 		CStringList list3;
 		CStringList list4(list3);
 		BOOST_CHECK(list4 == list3);
+		list4.Append("3");
+		BOOST_CHECK(list3 == CStringList());
 		/////////////////////////////////////////
 	}
 
@@ -115,7 +115,7 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
             //Erasing from end
 
-            it = move(list.rbegin());
+            it = list.rbegin();
             it = list.Erase(it);
             BOOST_CHECK(it == list.end());
 

@@ -81,12 +81,12 @@ std::string const &CStringList::GetFrontElement() const
 
 void CStringList::operator=(std::initializer_list<std::string> const& another)
 {
-    Initialize<std::initializer_list<std::string>>(another);
+    Initialize(another);
 }
 
 void CStringList::operator=(CStringList const &another)
 {
-    Initialize<CStringList>(another);
+    Initialize(another);
 }
 
 bool CStringList::operator==(CStringList const &another) const
@@ -225,13 +225,13 @@ template<typename T>
 void CStringList::Initialize(const T &iterableList)
 {
     CStringList tmp;
-    for (auto it = iterableList.begin(); it != iterableList.end(); ++it)
+    for (auto const& elem : iterableList)
     {
-        tmp.Append(*it);
+        tmp.Append(elem);
     }
     swap(m_firstNode, tmp.m_firstNode);
     swap(m_lastNode, tmp.m_lastNode);
-    m_size = tmp.m_size;
+    swap(m_size, tmp.m_size);
 }
 
 

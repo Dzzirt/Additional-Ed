@@ -43,12 +43,13 @@ BOOST_AUTO_TEST_SUITE(Find_max_element_function)
 	}
 	BOOST_AUTO_TEST_CASE(uses_binary_predicate_as_search_strategy)
 	{
-		std::vector<Sportsman> sportsmen;
-		sportsmen.push_back(Sportsman("Милон из Кротона", 165, 71));
-		sportsmen.push_back(Sportsman("Астил из Кротона", 170, 90));
-		sportsmen.push_back(Sportsman("Ласфен из Тебеи ", 181, 60));
-		sportsmen.push_back(Sportsman("Эгей из Аргоса", 181, 79));
-		sportsmen.push_back(Sportsman("Леонид из Родоса", 179, 90));
+		std::vector<Sportsman> sportsmen = {
+			Sportsman("Милон из Кротона", 165, 71),
+			Sportsman("Астил из Кротона", 170, 90),
+			Sportsman("Ласфен из Тебеи ", 181, 60),
+			Sportsman("Эгей из Аргоса", 181, 79),
+			Sportsman("Леонид из Родоса", 179, 90)
+		};
 
 		Sportsman highest;
 		auto success = FindMax(sportsmen, highest, [&](auto const& s1, auto const& s2)
