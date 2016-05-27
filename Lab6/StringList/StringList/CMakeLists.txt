@@ -3,7 +3,7 @@ project(StringList)
 
 
 
-add_library(string_list StringList.cpp StringList.h StringListIterator.cpp StringListIterator.h)
+add_library(string_list StringList.cpp StringList.h StringListIterator.h)
 
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${${PROJECT_NAME}_SOURCE_DIR}/bin)

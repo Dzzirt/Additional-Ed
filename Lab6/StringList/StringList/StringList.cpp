@@ -104,44 +104,44 @@ bool CStringList::operator!=(CStringList const &another) const
     return !(*this == another);
 }
 
-const CStringListIterator CStringList::begin() const noexcept
+const_string_iterator CStringList::begin() const noexcept
 {
-    return CStringListIterator(m_firstNode.get(), this);
+    return const_string_iterator(m_firstNode.get(), this);
 }
 
-const CStringListIterator CStringList::end() const noexcept
+const_string_iterator CStringList::end() const noexcept
 {
-    return CStringListIterator(nullptr, this);
+    return const_string_iterator(nullptr, this);
 }
 
-const CStringListIterator CStringList::rbegin() const noexcept
+const_string_iterator CStringList::rbegin() const noexcept
 {
-    return CStringListIterator(m_lastNode, this, true);
+    return const_string_iterator(m_lastNode, this, true);
 }
 
-const CStringListIterator CStringList::rend() const noexcept
+const_string_iterator CStringList::rend() const noexcept
 {
-    return CStringListIterator(nullptr, this, true);
+    return const_string_iterator(nullptr, this, true);
 }
 
-CStringListIterator CStringList::begin() noexcept
+string_iterator CStringList::begin() noexcept
 {
-    return CStringListIterator(m_firstNode.get(), this);
+    return string_iterator(m_firstNode.get(), this);
 }
 
-CStringListIterator CStringList::end() noexcept
+string_iterator CStringList::end() noexcept
 {
-    return CStringListIterator(nullptr, this);
+    return string_iterator(nullptr, this);
 }
 
-CStringListIterator CStringList::rend() noexcept
+string_iterator CStringList::rend() noexcept
 {
-    return CStringListIterator(nullptr, this, true);
+    return string_iterator(nullptr, this, true);
 }
 
-CStringListIterator CStringList::rbegin() noexcept
+string_iterator CStringList::rbegin() noexcept
 {
-    return CStringListIterator(m_lastNode, this, true);
+    return string_iterator(m_lastNode, this, true);
 }
 
 bool CStringList::IsEmpty() const
@@ -160,55 +160,55 @@ void CStringList::Clear()
     m_size = 0;
 }
 
-CStringListIterator CStringList::Insert(CStringListIterator const& pos, std::string const& data)
+string_iterator CStringList::Insert(string_iterator const& pos, std::string const& data)
 {
     if (pos == end())
     {
         Append(data);
-        return CStringListIterator(--end());
+        return string_iterator(--end());
     }
     else if (pos == begin())
     {
         PushFront(data);
-        return CStringListIterator(begin());
+        return string_iterator(begin());
     }
     else
     {
-        auto newNode = make_unique<Node>(data, pos->prev, move(pos->prev->next));
+        auto newNode = make_unique<Node>(data, pos.m_node->prev, move(pos.m_node->prev->next));
         m_size++;
-        pos->prev = newNode.get();
+        pos.m_node->prev = newNode.get();
         newNode->prev->next = move(newNode);
-        return CStringListIterator(pos->prev, this);
+        return string_iterator(pos.m_node->prev, this);
     }
 
 }
 
-CStringListIterator CStringList::Erase(CStringListIterator const& pos)
+string_iterator CStringList::Erase(string_iterator const& pos)
 {
     m_size--;
-    if ((!pos->prev) && (!pos->next))
+    if ((!pos.m_node->prev) && (!pos.m_node->next))
     {
         m_firstNode = nullptr;
         m_lastNode = nullptr;
-        return CStringListIterator(end());
+        return string_iterator(end());
     }
-    else if (!pos->prev)
+    else if (!pos.m_node->prev)
     {
-        pos->next->prev = nullptr;
-        m_firstNode = move(pos->next);
-        return CStringListIterator(begin());
+        pos.m_node->next->prev = nullptr;
+        m_firstNode = move(pos.m_node->next);
+        return string_iterator(begin());
     }
-    else if (!pos->next)
+    else if (!pos.m_node->next)
     {
-        pos->prev->next = nullptr;
-        m_lastNode = pos->prev;
-        return CStringListIterator(end());
+        pos.m_node->prev->next = nullptr;
+        m_lastNode = pos.m_node->prev;
+        return string_iterator(end());
     }
     else
     {
-        pos->next->prev = pos->prev;
-        pos->prev->next = move(pos->next);
-        return CStringListIterator(pos->prev->next.get(), this);
+        pos.m_node->next->prev = pos.m_node->prev;
+        pos.m_node->prev->next = move(pos.m_node->next);
+        return string_iterator(pos.m_node->prev->next.get(), this);
     }
 }
 

@@ -6,7 +6,6 @@ using namespace std;
 struct EmptyStringList
 {
 	CStringList list;
-
 };
 
 BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
@@ -243,16 +242,16 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
             BOOST_AUTO_TEST_CASE(compare_operators)
             {
                 list = {"1", "3"};
-				CStringListIterator it1 = CStringListIterator(list.begin());
-				CStringListIterator it2 = CStringListIterator(list.begin());
+				string_iterator it1 = string_iterator(list.begin());
+				string_iterator it2 = string_iterator(list.begin());
                 BOOST_CHECK(it1 == it2);
-                it2 = CStringListIterator(list.rbegin());
+                it2 = string_iterator(list.rbegin());
                 BOOST_CHECK(it1 != it2);
             }
             BOOST_AUTO_TEST_CASE(substract_with_assignment_operators)
             {
                 list = {"1", "3"};
-				CStringListIterator it1 = CStringListIterator(list.rbegin());
+				string_iterator it1 = string_iterator(list.rbegin());
                 BOOST_CHECK(*(++it1) == "1");
                 it1--;
                 BOOST_CHECK(*(it1++) == "3");

@@ -5,11 +5,16 @@
 #include <memory>
 #include <iostream>
 
+template <typename T>
 class CStringListIterator;
+
+
+typedef CStringListIterator<std::string> string_iterator;
+typedef CStringListIterator<const std::string> const_string_iterator;
 
 class CStringList
 {
-    friend class CStringListIterator;
+
     struct Node
     {
         Node(const std::string &data, Node *prev, std::unique_ptr<Node> &&next)
@@ -27,6 +32,9 @@ class CStringList
     };
 
 public:
+    template <typename T>
+    friend class CStringListIterator;
+
     CStringList() = default;
     CStringList(std::initializer_list<std::string> const &another);
     CStringList(CStringList const &another);
@@ -45,18 +53,18 @@ public:
     std::string &GetFrontElement();
     std::string const &GetFrontElement() const;
 
-    CStringListIterator Insert(CStringListIterator const &pos, std::string const &data);
-    CStringListIterator Erase(CStringListIterator const &pos);
+    string_iterator Insert(string_iterator const &pos, std::string const &data);
+    string_iterator Erase(string_iterator const &pos);
 
-    CStringListIterator begin() noexcept;
-    CStringListIterator end() noexcept;
-    CStringListIterator rbegin() noexcept;
-    CStringListIterator rend() noexcept;
+    string_iterator begin() noexcept;
+    string_iterator end() noexcept;
+    string_iterator rbegin() noexcept;
+    string_iterator rend() noexcept;
 
-    const CStringListIterator begin() const noexcept;
-    const CStringListIterator end() const noexcept;
-    const CStringListIterator rbegin() const noexcept;
-    const CStringListIterator rend() const noexcept;
+    const_string_iterator begin() const noexcept;
+    const_string_iterator end() const noexcept;
+    const_string_iterator rbegin() const noexcept;
+    const_string_iterator rend() const noexcept;
 
     ~CStringList();
 private:
