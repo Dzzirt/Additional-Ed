@@ -4,74 +4,301 @@
 #pragma once
 #include <memory>
 #include <iostream>
+#include <cassert>
+#include "StringListIterator.h"
+
 
 template <typename T>
-class CStringListIterator;
-
-
-typedef CStringListIterator<std::string> string_iterator;
-typedef CStringListIterator<const std::string> const_string_iterator;
-
 class CStringList
 {
 
     struct Node
     {
-        Node(const std::string &data, Node *prev, std::unique_ptr<Node> &&next)
+        Node(const T &data, Node *prev, std::unique_ptr<Node> &&next)
             : data(data), prev(prev), next(std::move(next))
         {
         }
-        std::string data;
+        T data;
         Node *prev;
         std::unique_ptr<Node> next;
-
-        ~Node()
-        {
-            // std::cout << "kek" << std::endl;
-        }
     };
 
 public:
-    template <typename T>
-    friend class CStringListIterator;
+
+    typedef CStringListIterator<T> list_iterator;
+
+    typedef CStringListIterator<const T> const_list_iterator;
+
+    friend class CStringListIterator<T>;
 
     CStringList() = default;
-    CStringList(std::initializer_list<std::string> const &another);
+    CStringList(std::initializer_list<T> const &another);
     CStringList(CStringList const &another);
-    void operator=(std::initializer_list<std::string> const &another);
+    void operator=(std::initializer_list<T> const &another);
     void operator=(CStringList const &another);
     bool operator==(CStringList const &another) const;
     bool operator!=(CStringList const &another) const;
     size_t GetSize() const;
     bool IsEmpty() const;
-    void Append(const std::string &data);
-    void PushFront(const std::string &data);
+    void Append(const T &data);
+    void PushFront(const T &data);
     void Clear();
 
-    std::string &GetBackElement();
-    std::string const &GetBackElement() const;
-    std::string &GetFrontElement();
-    std::string const &GetFrontElement() const;
+    T &GetBackElement();
+    T const &GetBackElement() const;
+    T &GetFrontElement();
+    T const &GetFrontElement() const;
 
-    string_iterator Insert(string_iterator const &pos, std::string const &data);
-    string_iterator Erase(string_iterator const &pos);
+    list_iterator Insert(list_iterator const &pos, T const &data);
+    list_iterator Erase(list_iterator const &pos);
 
-    string_iterator begin() noexcept;
-    string_iterator end() noexcept;
-    string_iterator rbegin() noexcept;
-    string_iterator rend() noexcept;
+    list_iterator begin() const noexcept;
+    list_iterator end() const noexcept;
+    list_iterator rbegin() const noexcept;
+    list_iterator rend() const noexcept;
 
-    const_string_iterator begin() const noexcept;
-    const_string_iterator end() const noexcept;
-    const_string_iterator rbegin() const noexcept;
-    const_string_iterator rend() const noexcept;
+    /*CStringListIterator<const T> begin() const noexcept;
+    const_list_iterator end() const noexcept;
+    const_list_iterator rbegin() const noexcept;
+    const_list_iterator rend() const noexcept;*/
 
-    ~CStringList();
+    ~CStringList<T>();
 private:
-    template <typename T>
-    void Initialize(T const & iterableList);
+    template <typename ListType>
+    void Initialize(ListType const & iterableList);
     size_t  m_size = 0;
     std::unique_ptr<Node> m_firstNode = nullptr;
     Node *m_lastNode = nullptr;
 };
+
+template <typename T>
+CStringList<T>::CStringList(std::initializer_list<T> const& another)
+{
+    for (auto const& str : another)
+    {
+        Append(str);
+    }
+}
+template <typename T>
+CStringList<T>::CStringList(CStringList<T> const &another)
+{
+    *this = another;
+}
+template <typename T>
+size_t CStringList<T>::GetSize() const
+{
+    return m_size;
+}
+template <typename T>
+void CStringList<T>::Append(const T & data)
+{
+    auto newNode = std::make_unique<Node>(data, m_lastNode, nullptr);
+    Node *newLastNode = newNode.get();
+    if (m_lastNode)
+    {
+        m_lastNode->next = std::move(newNode);
+    }
+    else // empty list
+    {
+        m_firstNode = std::move(newNode);
+    }
+    m_lastNode = newLastNode;
+    ++m_size;
+}
+template <typename T>
+T & CStringList<T>::GetBackElement()
+{
+    assert(m_lastNode);
+    return m_lastNode->data;
+}
+template <typename T>
+T const & CStringList<T>::GetBackElement() const
+{
+    assert(m_lastNode);
+    return m_lastNode->data;
+}
+template <typename T>
+void CStringList<T>::PushFront(const T &data)
+{
+    auto newNode = std::make_unique<Node>(data, nullptr, std::move(m_firstNode));
+    if (newNode->next)
+    {
+        newNode->next->prev = newNode.get();
+    }
+    else
+    {
+        m_lastNode = newNode.get();
+    }
+    m_firstNode = std::move(newNode);
+    m_size++;
+}
+template <typename T>
+T &CStringList<T>::GetFrontElement()
+{
+    assert(m_firstNode);
+    return m_firstNode->data;
+}
+template <typename T>
+T const &CStringList<T>::GetFrontElement() const
+{
+    assert(m_firstNode);
+    return m_firstNode->data;
+}
+template <typename T>
+void CStringList<T>::operator=(std::initializer_list<T> const& another)
+{
+    Initialize(another);
+}
+template <typename T>
+void CStringList<T>::operator=(CStringList<T> const &another)
+{
+    Initialize(another);
+}
+template <typename T>
+bool CStringList<T>::operator==(CStringList<T> const &another) const
+{
+    if (m_size != another.m_size)
+    {
+        return false;
+    }
+    return std::equal(another.begin(), another.end(), begin());
+}
+
+template <typename T>
+bool CStringList<T>::operator!=(CStringList<T> const &another) const
+{
+    return !(*this == another);
+}
+/*
+template <typename T>
+CStringListIterator<const T> CStringList<T>::begin() const noexcept
+{
+    return CStringListIterator<const T>(m_firstNode.get(), this);
+}
+
+template <typename T>
+typename CStringList<T>::const_list_iterator CStringList<T>::end() const noexcept
+{
+    return typename CStringList<T>::const_list_iterator(nullptr, this);
+}
+template <typename T>
+typename CStringList<T>::const_list_iterator CStringList<T>::rbegin() const noexcept
+{
+    return typename CStringList<T>::const_list_iterator(m_lastNode, this, true);
+}
+template <typename T>
+typename CStringList<T>::const_list_iterator CStringList<T>::rend() const noexcept
+{
+    return typename CStringList<T>::const_list_iterator(nullptr, this, true);
+}*/
+template <typename T>
+typename CStringList<T>::list_iterator CStringList<T>::begin() const noexcept
+{
+    return typename CStringList<T>::list_iterator(m_firstNode.get(), this);
+}
+template <typename T>
+typename CStringList<T>::list_iterator CStringList<T>::end() const noexcept
+{
+    return typename CStringList<T>::list_iterator(nullptr, this);
+}
+template <typename T>
+typename CStringList<T>::list_iterator CStringList<T>::rend() const noexcept
+{
+    return typename CStringList<T>::list_iterator(nullptr, this, true);
+}
+template <typename T>
+typename CStringList<T>::list_iterator CStringList<T>::rbegin() const noexcept
+{
+    return typename CStringList<T>::list_iterator(m_lastNode, this, true);
+}
+template <typename T>
+bool CStringList<T>::IsEmpty() const
+{
+    return m_size == 0;
+}
+template <typename T>
+void CStringList<T>::Clear()
+{
+    while (m_lastNode)
+    {
+        m_lastNode->next = nullptr;
+        m_lastNode = m_lastNode->prev;
+    }
+    m_firstNode = nullptr;
+    m_size = 0;
+}
+template <typename T>
+typename CStringList<T>::list_iterator CStringList<T>::Insert(typename CStringList<T>::list_iterator const& pos, T const& data)
+{
+    if (pos == end())
+    {
+        Append(data);
+        return typename CStringList<T>::list_iterator(--end());
+    }
+    else if (pos == begin())
+    {
+        PushFront(data);
+        return typename CStringList<T>::list_iterator(begin());
+    }
+    else
+    {
+        auto newNode = std::make_unique<Node>(data, pos.m_node->prev, move(pos.m_node->prev->next));
+        m_size++;
+        pos.m_node->prev = newNode.get();
+        newNode->prev->next = std::move(newNode);
+        return typename CStringList<T>::list_iterator(pos.m_node->prev, this);
+    }
+
+}
+template <typename T>
+typename CStringList<T>::list_iterator CStringList<T>::Erase(typename CStringList<T>::list_iterator const& pos)
+{
+    m_size--;
+    if ((!pos.m_node->prev) && (!pos.m_node->next))
+    {
+        m_firstNode = nullptr;
+        m_lastNode = nullptr;
+        return list_iterator(end());
+    }
+    else if (!pos.m_node->prev)
+    {
+        pos.m_node->next->prev = nullptr;
+        m_firstNode = std::move(pos.m_node->next);
+        return list_iterator(begin());
+    }
+    else if (!pos.m_node->next)
+    {
+        pos.m_node->prev->next = nullptr;
+        m_lastNode = pos.m_node->prev;
+        return list_iterator(end());
+    }
+    else
+    {
+        pos.m_node->next->prev = pos.m_node->prev;
+        pos.m_node->prev->next = std::move(pos.m_node->next);
+        return list_iterator(pos.m_node->prev->next.get(), this);
+    }
+}
+template <typename T>
+CStringList<T>::~CStringList<T>()
+{
+    while (m_lastNode)
+    {
+        m_lastNode->next = nullptr;
+        m_lastNode = m_lastNode->prev;
+    }
+}
+template <typename T>
+template<typename ListType>
+void CStringList<T>::Initialize(const ListType &iterableList)
+{
+    CStringList<T> tmp;
+    for (auto & elem : iterableList)
+    {
+        tmp.Append(elem);
+    }
+    std::swap(m_firstNode, tmp.m_firstNode);
+    std::swap(m_lastNode, tmp.m_lastNode);
+    std::swap(m_size, tmp.m_size);
+}
 

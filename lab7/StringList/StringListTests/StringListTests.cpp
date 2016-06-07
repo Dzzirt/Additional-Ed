@@ -1,51 +1,51 @@
 #include "stdafx.h"
-#include "../StringList/StringListIterator.h"
+#include "../StringList/StringList.h"
 
 using namespace std;
 
 struct EmptyStringList
 {
-	CStringList list;
+	CStringList<string> list;
 };
 
 BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 	BOOST_AUTO_TEST_CASE(can_be_constructed_from_initializer_list)
 	{
-		CStringList list2{"3", "236", "11"};
+		CStringList<string> list2{"3", "236", "11"};
 		BOOST_CHECK(*list2.begin() == "3");
 		BOOST_CHECK(*list2.rbegin() == "11");
 		BOOST_CHECK(*++list2.begin() == "236");
 	}
 	BOOST_AUTO_TEST_CASE(can_be_constructed_from_another_list)
 	{
-		CStringList list1 = {"1", "-3", "5"};
-		CStringList list2(list1);
+		CStringList<string> list1 = {"1", "-3", "5"};
+		CStringList<string> list2(list1);
 		BOOST_CHECK(list2 == list1);
 		list2.Append("2");
-		BOOST_CHECK(list1 == CStringList({"1", "-3", "5"}));
+		BOOST_CHECK(list1 == CStringList<string>({"1", "-3", "5"}));
 
-		CStringList list3;
-		CStringList list4(list3);
+		CStringList<string> list3;
+		CStringList<string> list4(list3);
 		BOOST_CHECK(list4 == list3);
 		list4.Append("3");
-		BOOST_CHECK(list3 == CStringList());
+		BOOST_CHECK(list3 == CStringList<string>());
 		/////////////////////////////////////////
 	}
 
     BOOST_AUTO_TEST_SUITE(has)
 		BOOST_AUTO_TEST_CASE(copy_assignment_operator)
 		{
-			CStringList list1 = {"1", "-3", "5"};
-			CStringList list2 = list1;
+			CStringList<string> list1 = {"1", "-3", "5"};
+			CStringList<string> list2 = list1;
 			BOOST_CHECK(list2 == list1);
 		}
 		BOOST_AUTO_TEST_CASE(comparison_operators)
 		{
 			list = {"1", "4", "3"};
-			CStringList another1({"1", "3", "3"});
-			CStringList another2({"1", "4", "3"});
-			CStringList another3;
+			CStringList<string> another1({"1", "3", "3"});
+			CStringList<string> another2({"1", "4", "3"});
+			CStringList<string> another3;
 			BOOST_CHECK(list != another1);
 			BOOST_CHECK(list == another2);
 			BOOST_CHECK(list != another3);
@@ -88,7 +88,7 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 	BOOST_AUTO_TEST_SUITE(when_created)
 		BOOST_AUTO_TEST_CASE(is_empty)
 		{
-			CStringList list;
+			CStringList<string> list;
 			BOOST_CHECK_EQUAL(list.GetSize(), 0u);
 			BOOST_CHECK_EQUAL(list.IsEmpty(), true);
 		}
@@ -242,16 +242,16 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
             BOOST_AUTO_TEST_CASE(compare_operators)
             {
                 list = {"1", "3"};
-				string_iterator it1 = string_iterator(list.begin());
-				string_iterator it2 = string_iterator(list.begin());
+				auto it1 = typename CStringList<string>::list_iterator(list.begin());
+				auto it2 = typename CStringList<string>::list_iterator(list.begin());
                 BOOST_CHECK(it1 == it2);
-                it2 = string_iterator(list.rbegin());
+                it2 = typename CStringList<string>::list_iterator(list.rbegin());
                 BOOST_CHECK(it1 != it2);
             }
             BOOST_AUTO_TEST_CASE(substract_with_assignment_operators)
             {
                 list = {"1", "3"};
-				string_iterator it1 = string_iterator(list.rbegin());
+				auto it1 = typename CStringList<string>::list_iterator(list.rbegin());
                 BOOST_CHECK(*(++it1) == "1");
                 it1--;
                 BOOST_CHECK(*(it1++) == "3");

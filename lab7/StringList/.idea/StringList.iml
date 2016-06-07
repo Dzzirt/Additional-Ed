@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/Debug/StringList/cotire/StringList_CXX_unity.cxx">
-      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/Debug/StringList/cotire/StringList_CXX_unity.cxx" isTestSource="false" />
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/Debug/StringList/cotire/StringList_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/Debug/StringList/cotire/StringList_CXX_unity.cxx" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/Debug/StringListTests/cotire/StringListTests_CXX_unity.cxx">
-      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/Debug/StringListTests/cotire/StringListTests_CXX_unity.cxx" isTestSource="false" />
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/Debug/StringListTests/cotire/StringListTests_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/Debug/StringListTests/cotire/StringListTests_CXX_unity.cxx" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/MinSizeRel/StringList/cotire/StringList_CXX_unity.cxx">
-      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/MinSizeRel/StringList/cotire/StringList_CXX_unity.cxx" isTestSource="false" />
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/MinSizeRel/StringList/cotire/StringList_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/MinSizeRel/StringList/cotire/StringList_CXX_unity.cxx" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/MinSizeRel/StringListTests/cotire/StringListTests_CXX_unity.cxx">
-      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/MinSizeRel/StringListTests/cotire/StringListTests_CXX_unity.cxx" isTestSource="false" />
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/MinSizeRel/StringListTests/cotire/StringListTests_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/MinSizeRel/StringListTests/cotire/StringListTests_CXX_unity.cxx" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/RelWithDebInfo/StringList/cotire/StringList_CXX_unity.cxx">
-      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/RelWithDebInfo/StringList/cotire/StringList_CXX_unity.cxx" isTestSource="false" />
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/RelWithDebInfo/StringList/cotire/StringList_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/RelWithDebInfo/StringList/cotire/StringList_CXX_unity.cxx" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/RelWithDebInfo/StringListTests/cotire/StringListTests_CXX_unity.cxx">
-      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/RelWithDebInfo/StringListTests/cotire/StringListTests_CXX_unity.cxx" isTestSource="false" />
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/RelWithDebInfo/StringListTests/cotire/StringListTests_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/RelWithDebInfo/StringListTests/cotire/StringListTests_CXX_unity.cxx" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/Release/StringList/cotire/StringList_CXX_unity.cxx">
-      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/Release/StringList/cotire/StringList_CXX_unity.cxx" isTestSource="false" />
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/Release/StringList/cotire/StringList_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/Release/StringList/cotire/StringList_CXX_unity.cxx" isTestSource="false" />
     </content>
-    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/Release/StringListTests/cotire/StringListTests_CXX_unity.cxx">
-      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-5747290c/5747290c/Release/StringListTests/cotire/StringListTests_CXX_unity.cxx" isTestSource="false" />
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/Release/StringListTests/cotire/StringListTests_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/StringList-9a66168b/9a66168b/Release/StringListTests/cotire/StringListTests_CXX_unity.cxx" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/CMake/cotire.cmake" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/StringList/StringList.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/StringList/StringList.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/StringList/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/StringList/StringListIterator.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/StringList/CMakeLists.txt" isTestSource="false" />

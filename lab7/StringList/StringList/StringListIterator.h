@@ -2,14 +2,16 @@
 // Created by nikita on 19.05.16.
 //
 #pragma once
-#include "StringList.h"
+//#include "StringList.h"
 
+template <typename D>
+class CStringList;
 
 template <typename T>
 class CStringListIterator : public std::iterator<std::bidirectional_iterator_tag, T>
 {
-    friend class CStringList;
-    CStringListIterator(CStringList::Node *node, const CStringList * list, bool isReverse = false);
+    friend class CStringList<T>;
+    CStringListIterator(typename CStringList<T>::Node *node, const CStringList<T> * list, bool isReverse = false);
 public:
     typename CStringListIterator<T>::reference operator*()const;
     typename CStringListIterator<T>::pointer operator->()const;
@@ -20,12 +22,12 @@ public:
     bool operator==(CStringListIterator const &other) const;
     bool operator!=(CStringListIterator const &other) const;
 private:
-    CStringList::Node * m_node = nullptr;
-    const CStringList * m_list;
+    typename CStringList<T>::Node * m_node = nullptr;
+    const CStringList<T> * m_list;
     bool m_isReverse;
 };
 template <typename T>
-CStringListIterator<T>::CStringListIterator(CStringList::Node * node, const CStringList * list, bool isReverse)
+CStringListIterator<T>::CStringListIterator(typename CStringList<T>::Node * node, const CStringList<T> * list, bool isReverse)
     :m_node(node), m_isReverse(isReverse), m_list(list)
 {
     if (!m_list)
