@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CPP_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/Debug/Calculator/cotire/Calculator_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/Debug/Calculator/cotire/Calculator_CXX_unity.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/Debug/CalculatorTests/cotire/CalculatorTests_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/Debug/CalculatorTests/cotire/CalculatorTests_CXX_unity.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/MinSizeRel/Calculator/cotire/Calculator_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/MinSizeRel/Calculator/cotire/Calculator_CXX_unity.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/MinSizeRel/CalculatorTests/cotire/CalculatorTests_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/MinSizeRel/CalculatorTests/cotire/CalculatorTests_CXX_unity.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/RelWithDebInfo/Calculator/cotire/Calculator_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/RelWithDebInfo/Calculator/cotire/Calculator_CXX_unity.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/RelWithDebInfo/CalculatorTests/cotire/CalculatorTests_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/RelWithDebInfo/CalculatorTests/cotire/CalculatorTests_CXX_unity.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/Release/Calculator/cotire/Calculator_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/Release/Calculator/cotire/Calculator_CXX_unity.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/Release/CalculatorTests/cotire/CalculatorTests_CXX_unity.cxx">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/Calc-468796f5/468796f5/Release/CalculatorTests/cotire/CalculatorTests_CXX_unity.cxx" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/CalculatorUI.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/Calculator.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/CFunction.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/Calculator.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/Value.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/CalculatorUI.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/CFunction.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Calculator/Value.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMake/cotire.cmake" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CalculatorTests/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CalculatorTests/CalculatorTests.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CalculatorTests/TestsMain.cpp" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Header Search Paths">
+        <CLASSES>
+          <root url="file:///usr/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include" />
+          <root url="file:///usr/local/include" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file:///usr/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include" />
+          <root url="file:///usr/local/include" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

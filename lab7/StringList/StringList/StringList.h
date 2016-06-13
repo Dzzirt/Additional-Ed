@@ -7,29 +7,32 @@
 #include <cassert>
 #include "StringListIterator.h"
 
+template <typename D>
+struct Node
+{
+    Node(const D &data, Node *prev, std::unique_ptr<Node> &&next)
+        : data(data), prev(prev), next(std::move(next))
+    {
+    }
+    D data;
+    Node *prev;
+    std::unique_ptr<Node> next;
+};
 
 template <typename T>
 class CStringList
 {
 
-    struct Node
-    {
-        Node(const T &data, Node *prev, std::unique_ptr<Node> &&next)
-            : data(data), prev(prev), next(std::move(next))
-        {
-        }
-        T data;
-        Node *prev;
-        std::unique_ptr<Node> next;
-    };
+    using MyNode = Node<T>;
 
 public:
 
-    typedef CStringListIterator<T> list_iterator;
+    typedef CStringListIterator<T, T> list_iterator;
 
-    typedef CStringListIterator<const T> const_list_iterator;
+    typedef CStringListIterator<const T, T> const_list_iterator;
 
-    friend class CStringListIterator<T>;
+    friend class CStringListIterator<T, T>;
+    friend class CStringListIterator<const T, T>;
 
     CStringList() = default;
     CStringList(std::initializer_list<T> const &another);
@@ -52,23 +55,23 @@ public:
     list_iterator Insert(list_iterator const &pos, T const &data);
     list_iterator Erase(list_iterator const &pos);
 
-    list_iterator begin() const noexcept;
-    list_iterator end() const noexcept;
-    list_iterator rbegin() const noexcept;
-    list_iterator rend() const noexcept;
+    list_iterator begin() noexcept;
+    list_iterator end() noexcept;
+    list_iterator rbegin() noexcept;
+    list_iterator rend() noexcept;
 
-    /*CStringListIterator<const T> begin() const noexcept;
+    const_list_iterator begin() const noexcept;
     const_list_iterator end() const noexcept;
     const_list_iterator rbegin() const noexcept;
-    const_list_iterator rend() const noexcept;*/
+    const_list_iterator rend() const noexcept;
 
     ~CStringList<T>();
 private:
     template <typename ListType>
     void Initialize(ListType const & iterableList);
     size_t  m_size = 0;
-    std::unique_ptr<Node> m_firstNode = nullptr;
-    Node *m_lastNode = nullptr;
+    std::unique_ptr<MyNode> m_firstNode = nullptr;
+    MyNode *m_lastNode = nullptr;
 };
 
 template <typename T>
@@ -92,8 +95,8 @@ size_t CStringList<T>::GetSize() const
 template <typename T>
 void CStringList<T>::Append(const T & data)
 {
-    auto newNode = std::make_unique<Node>(data, m_lastNode, nullptr);
-    Node *newLastNode = newNode.get();
+    auto newNode = std::make_unique<MyNode>(data, m_lastNode, nullptr);
+    MyNode *newLastNode = newNode.get();
     if (m_lastNode)
     {
         m_lastNode->next = std::move(newNode);
@@ -120,7 +123,7 @@ T const & CStringList<T>::GetBackElement() const
 template <typename T>
 void CStringList<T>::PushFront(const T &data)
 {
-    auto newNode = std::make_unique<Node>(data, nullptr, std::move(m_firstNode));
+    auto newNode = std::make_unique<MyNode>(data, nullptr, std::move(m_firstNode));
     if (newNode->next)
     {
         newNode->next->prev = newNode.get();
@@ -169,11 +172,10 @@ bool CStringList<T>::operator!=(CStringList<T> const &another) const
 {
     return !(*this == another);
 }
-/*
 template <typename T>
-CStringListIterator<const T> CStringList<T>::begin() const noexcept
+typename CStringList<T>::const_list_iterator CStringList<T>::begin() const noexcept
 {
-    return CStringListIterator<const T>(m_firstNode.get(), this);
+    return CStringList<T>::const_list_iterator(m_firstNode.get(), this);
 }
 
 template <typename T>
@@ -190,24 +192,24 @@ template <typename T>
 typename CStringList<T>::const_list_iterator CStringList<T>::rend() const noexcept
 {
     return typename CStringList<T>::const_list_iterator(nullptr, this, true);
-}*/
+}
 template <typename T>
-typename CStringList<T>::list_iterator CStringList<T>::begin() const noexcept
+typename CStringList<T>::list_iterator CStringList<T>::begin() noexcept
 {
     return typename CStringList<T>::list_iterator(m_firstNode.get(), this);
 }
 template <typename T>
-typename CStringList<T>::list_iterator CStringList<T>::end() const noexcept
+typename CStringList<T>::list_iterator CStringList<T>::end() noexcept
 {
     return typename CStringList<T>::list_iterator(nullptr, this);
 }
 template <typename T>
-typename CStringList<T>::list_iterator CStringList<T>::rend() const noexcept
+typename CStringList<T>::list_iterator CStringList<T>::rend() noexcept
 {
     return typename CStringList<T>::list_iterator(nullptr, this, true);
 }
 template <typename T>
-typename CStringList<T>::list_iterator CStringList<T>::rbegin() const noexcept
+typename CStringList<T>::list_iterator CStringList<T>::rbegin() noexcept
 {
     return typename CStringList<T>::list_iterator(m_lastNode, this, true);
 }
@@ -242,7 +244,7 @@ typename CStringList<T>::list_iterator CStringList<T>::Insert(typename CStringLi
     }
     else
     {
-        auto newNode = std::make_unique<Node>(data, pos.m_node->prev, move(pos.m_node->prev->next));
+        auto newNode = std::make_unique<MyNode>(data, pos.m_node->prev, move(pos.m_node->prev->next));
         m_size++;
         pos.m_node->prev = newNode.get();
         newNode->prev->next = std::move(newNode);

@@ -7,14 +7,14 @@
 template <typename D>
 class CStringList;
 
-template <typename T>
+template <typename T, typename M>
 class CStringListIterator : public std::iterator<std::bidirectional_iterator_tag, T>
 {
-    friend class CStringList<T>;
-    CStringListIterator(typename CStringList<T>::Node *node, const CStringList<T> * list, bool isReverse = false);
+    friend class CStringList<M>;
+    CStringListIterator(typename CStringList<M>::MyNode *node, const CStringList<M> * list, bool isReverse = false);
 public:
-    typename CStringListIterator<T>::reference operator*()const;
-    typename CStringListIterator<T>::pointer operator->()const;
+    typename CStringListIterator<T, M>::reference operator*()const;
+    typename CStringListIterator<T, M>::pointer operator->()const;
     CStringListIterator & operator++();
     CStringListIterator operator++(int);
     CStringListIterator & operator--();
@@ -22,12 +22,12 @@ public:
     bool operator==(CStringListIterator const &other) const;
     bool operator!=(CStringListIterator const &other) const;
 private:
-    typename CStringList<T>::Node * m_node = nullptr;
-    const CStringList<T> * m_list;
+    typename CStringList<M>::MyNode * m_node = nullptr;
+    const CStringList<M> * m_list;
     bool m_isReverse;
 };
-template <typename T>
-CStringListIterator<T>::CStringListIterator(typename CStringList<T>::Node * node, const CStringList<T> * list, bool isReverse)
+template <typename T, typename M>
+CStringListIterator<T, M>::CStringListIterator(typename CStringList<M>::MyNode * node, const CStringList<M> * list, bool isReverse)
     :m_node(node), m_isReverse(isReverse), m_list(list)
 {
     if (!m_list)
@@ -35,32 +35,32 @@ CStringListIterator<T>::CStringListIterator(typename CStringList<T>::Node * node
         throw std::invalid_argument("Pointer to list is nullptr");
     }
 }
-template <typename T>
-typename CStringListIterator<T>::reference CStringListIterator<T>::operator*() const
+template <typename T, typename M>
+typename CStringListIterator<T, M>::reference CStringListIterator<T, M>::operator*() const
 {
 
     return m_node->data;
 }
-template <typename T>
-typename CStringListIterator<T>::pointer CStringListIterator<T>::operator->() const
+template <typename T, typename M>
+typename CStringListIterator<T, M>::pointer CStringListIterator<T, M>::operator->() const
 {
     return &m_node->data;
 }
-template <typename T>
-CStringListIterator<T> CStringListIterator<T>::operator++(int)
+template <typename T, typename M>
+CStringListIterator<T, M> CStringListIterator<T, M>::operator++(int)
 {
     CStringListIterator tmp = *this;
     m_isReverse ? m_node = m_node->prev : m_node = m_node->next.get();
     return tmp;
 }
-template <typename T>
-CStringListIterator<T> &CStringListIterator<T>::operator++()
+template <typename T, typename M>
+CStringListIterator<T, M> &CStringListIterator<T, M>::operator++()
 {
     m_isReverse ? m_node = m_node->prev : m_node = m_node->next.get();
     return *this;
 }
-template <typename T>
-CStringListIterator<T> &CStringListIterator<T>::operator--()
+template <typename T, typename M>
+CStringListIterator<T, M> &CStringListIterator<T, M>::operator--()
 {
     if (!m_node)
     {
@@ -72,8 +72,8 @@ CStringListIterator<T> &CStringListIterator<T>::operator--()
     }
     return *this;
 }
-template <typename T>
-CStringListIterator<T> CStringListIterator<T>::operator--(int)
+template <typename T, typename M>
+CStringListIterator<T, M> CStringListIterator<T, M>::operator--(int)
 {
     auto tmp = *this;
     if (!m_node)
@@ -86,13 +86,13 @@ CStringListIterator<T> CStringListIterator<T>::operator--(int)
     }
     return tmp;
 }
-template <typename T>
-bool CStringListIterator<T>::operator==(const CStringListIterator<T> &other) const
+template <typename T, typename M>
+bool CStringListIterator<T, M>::operator==(const CStringListIterator<T, M> &other) const
 {
     return m_node == other.m_node;
 }
-template <typename T>
-bool CStringListIterator<T>::operator!=(const CStringListIterator<T> &other) const
+template <typename T, typename M>
+bool CStringListIterator<T, M>::operator!=(const CStringListIterator<T, M> &other) const
 {
     return m_node != other.m_node;
 }
